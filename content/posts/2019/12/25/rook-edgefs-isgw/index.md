@@ -18,7 +18,7 @@ series:
 - 2019-advent-calendar
 categories:
 -
-featured_image: "2019/12/25/rook-edgefs-isgw/images/10.png" 
+featured_image: 
 images:
  - "./images/1.png"
  - "./images/2.png"

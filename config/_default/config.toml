@@ -1,4 +1,4 @@
-baseURL = "http://blog.makotow.org"
+baseURL = "http://blog.makotow.net"
 title = "makotow's blog"
 theme = "zzo"
 
@@ -18,7 +18,6 @@ rssLimit = 100
 enableGitInfo = true
 googleAnalytics = ""
 
-# TODO
 paygmentsStyle = "dracula"
 pygmentsCodeFences = true
 pygmentsUseClasses = true

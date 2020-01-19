@@ -19,7 +19,7 @@ series:
 - 2019-advent-calendar
 categories:
 -
-featured_image: "./images/1.png" 
+featured_image: 
 images:
  - "./images/1.png"
 

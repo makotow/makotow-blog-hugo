@@ -1,7 +1,15 @@
 logoText = "makotow's blog"
+logoType = "short" # long, short
 description = "makotow's blog, knowledge site, some insights"
 custom_css = ["css/custom.css", "css/font.css", "css/syntax.css", "scss/custom.scss"]
 custom_js = ["js/custom.js"]
+useFaviconGenerator = true # https://www.favicon-generator.org/
+
+themeOptions = ["dark", "light", "hacker", "solarized", "kimbie"]
+notAllowedTypesInHome = ["contact", "talks", "about"]
+notAllowedTypesInHomeSidebar = ["about", "archive"]
+
+#AuthorEmoji = true
 
 # header
 homeHeaderType = "img" # text, img, slide
@@ -13,7 +21,7 @@ enableSearch = true
 enableSearchHighlight = true
 enableGoToTop = true
 enableWhoami = true
-summaryShape = "card" # card, classic, compact
+summaryShape = "classic" # card, classic, compact
 archiveGroupByDate = "2006-01" # "2006-01": group by month, "2006": group by year
 archivePaginate = 13
 paginateWindow = 1
@@ -34,7 +42,9 @@ enableBio = true
 enableSidebar = true
 enableSidebarTags = true
 enableSidebarSeries = true
-enableSidebarCategories = false
+enableSidebarCategories = true
+enableHomeSidebarTitles = true
+enableListSidebarTitles = true
 enableToc = true
 hideToc = false
 enableTocSwitch = true
@@ -46,7 +56,6 @@ showFeedLinks = true
 showSocialLinks = true
 enableLangChange = true
 enableThemeChange = true
-themeOptions = ["dark", "light", "hacker", "solarized", "custom"]
 
 # service
 # baiduAnalytics = ""
