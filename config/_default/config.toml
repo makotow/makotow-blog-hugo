@@ -1,0 +1,63 @@
+baseURL = "http://blog.makotow.org"
+title = "makotow's blog"
+theme = "zzo"
+
+defaultContentLanguage = "en"
+defaultContentLanguageInSubdir = false
+hasCJKLanguage = true
+
+summaryLength = 70
+buildFuture = true
+
+copyright = "&copy;{year}, All Rights Reserved"
+timeout = 10000
+enableEmoji = true
+paginate = 13
+rssLimit = 100
+
+enableGitInfo = true
+googleAnalytics = ""
+
+# TODO
+paygmentsStyle = "dracula"
+pygmentsCodeFences = true
+pygmentsUseClasses = true
+useHLJS = true
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      hardWraps = true
+      unsafe = true
+      xHTML = true
+    [markup.goldmark.parser]
+      attribute = true
+      autoHeadingID = true
+    [markup.goldmark.extensions]
+      definitionList = true
+      footnote = true
+      linkify = true
+      strikethrough = true
+      table = true
+      taskList = true
+      typographer = true      
+  [markup.highlight]
+    codeFences = true
+    lineNos = true
+    lineNumbersInTable = true
+    noClasses = false
+  [markup.tableOfContents]
+    endLevel = 3
+    ordered = false
+    startLevel = 2
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+  series = "series"
+
+[permalinks]
+  posts = "/:year/:month/:day/:slug/"

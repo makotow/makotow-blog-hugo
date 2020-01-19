@@ -1,0 +1,15 @@
+/* Japanese fonts */
+
+@font-face {
+    font-family: 'Noto Sans JP';
+    src: url('https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,700,900&display=swap&subset=japanese');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Noto Sans JP';
+    src: url('https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,700,900&display=swap&subset=japanese');
+    font-weight: 400;
+    font-style: normal;
+}
