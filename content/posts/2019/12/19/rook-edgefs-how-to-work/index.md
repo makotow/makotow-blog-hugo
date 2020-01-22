@@ -4,10 +4,9 @@ author: "makotow"
 date: 2019-12-19T18:14:58.189Z
 lastmod: 2020-01-05T03:12:35+09:00
 
-description: ""
-
-subtitle: "Rookだらけの Advent Calendar 2019/12/19: Rook EdgeFS 今までの回で疑問に思ったこと調べていく"
-slug: 
+description: "Rookだらけの Advent Calendar 2019/12/19: Rook EdgeFS 今までの回で疑問に思ったこと調べていく"
+subtitle:    "Rookだらけの Advent Calendar 2019/12/19: Rook EdgeFS 今までの回で疑問に思ったこと調べていく"
+slug: rook-edgefs-how-to-work
 tags:
  - Kubernetes
  - Edgefs
@@ -15,12 +14,12 @@ tags:
  - Storage
 
 series:
--
+- 2019-advent-calendar
 categories:
 -
-image: "/posts/2019/12/19/rook-edgefs-仕組みを理解する編/images/1.png" 
+featured_image: "/20191219/1.png"
 images:
- - "/posts/2019/12/19/rook-edgefs-仕組みを理解する編/images/1.png"
+ - "/posts/2019/12/19/rook-edgefs-how-to-work/images/1.png"
 
 
 aliases:
@@ -28,11 +27,12 @@ aliases:
 
 ---
 
-#### Rookだらけの Advent Calendar 2019/12/19: Rook EdgeFS 今までの回で疑問に思ったこと調べていく
 
 この記事は「[Rookだらけの Advent Calendar](https://qiita.com/advent-calendar/2019/rook)」 2019/12/19分です。Rook EdgeFSについて記事を投稿します。
 
-**TL;DR**
+Rookだらけの Advent Calendar 2019/12/19: Rook EdgeFS 今までの回で疑問に思ったこと調べていきます。
+
+## TL;DR
 
 *   まとまった情報はMediumにあります
 *   一通りMediumの記事を読むと「EdgeFS完全に理解した」になります。
@@ -45,7 +45,7 @@ aliases:
 
 ということで、本日は急遽予定を変更して今まで気になってきたことを調べてみた結果をアドベントカレンダーとします。
 
-### 情報源
+## 情報源
 
 なお、調べていくと公式ドキュメント類ではなく、Mediumの投稿が一番思想や仕組みがまとまっているということがわかりました。
 
@@ -55,20 +55,20 @@ aliases:
 
 一通り目を通していいただくとなんとなく背景が見えてくると思います。
 
-[Securing and Deduplicating the Edge with EdgeFS](https://medium.com/edgefs/securing-and-deduplicating-the-edge-with-edgefs-bd93e7f786de)
+* [Securing and Deduplicating the Edge with EdgeFS](https://medium.com/edgefs/securing-and-deduplicating-the-edge-with-edgefs-bd93e7f786de)
 
-[A Data Layer for Edge/IoT and Fog Computing](https://medium.com/edgefs/a-data-layer-for-edge-iot-and-fog-computing-4e04df4f761a)
+* [A Data Layer for Edge/IoT and Fog Computing](https://medium.com/edgefs/a-data-layer-for-edge-iot-and-fog-computing-4e04df4f761a)
 
-[EdgeFS cluster with Rook in Google Cloud](https://medium.com/edgefs/edgefs-cluster-with-rook-in-google-cloud-2dabe954cda6)
+* [EdgeFS cluster with Rook in Google Cloud](https://medium.com/edgefs/edgefs-cluster-with-rook-in-google-cloud-2dabe954cda6)
 
 
 また、リリース時期やQAなどはSlack上で行われています。
 
 [rook-io.slack.com](https://slack.rook.io/)
 
-### 技術的に気になっていたこと
+## 技術的に気になっていたこと
 
-#### GWノードとかデータノードとかあるのか？
+### GWノードとかデータノードとかあるのか？
 
 存在してます、ポッド一覧からは見分けがつかないという状況のようです。
 
@@ -78,21 +78,22 @@ target- XX podはデータおよびGWノードです。target data podとgateway
 gateway pod はまったく同じ構造で、同じソフトウェアを実行していますが、ディスクを提供していません。
 
 mgr podはgRPCプロキシであり管理用のツールの提供とCSIからの通信も管理します。
-`❯ kubectl get pod -n rook-edgefs          
+
+```
+❯ kubectl get pod -n rook-edgefs          
 NAME                                    READY   STATUS  RESTARTS AGE  
 rook-edgefs-mgr-795c59c456-pgdrm           3/3     Running   0 5d8h  
 rook-edgefs-nfs-nfs-osaka-54b5c8f756-zkvkb 1/1     Running   2 4d23h  
 rook-edgefs-nfs-nfs-tokyo-849b579fc4-k8h2d 1/1     Running   1 4d23h  
 rook-edgefs-target-0                       3/3     Running   0 5d8h  
 rook-edgefs-target-1                       3/3     Running   3 5d8h  
-rook-edgefs-target-2                       3/3     Running   0 5d8h`
+rook-edgefs-target-2                       3/3     Running   0 5d8h
+```
 
 参照した記事であったこの記事がイメージが湧きやすいです。
 
 
-
-
-![image](/posts/2019/12/19/rook-edgefs-仕組みを理解する編/images/1.png#layoutTextWidth)
+![image](./images/1.png)
 
 [https://miro.medium.com/max/440/1*PH-sN1qujkNug-N7C56jyw.png](https://miro.medium.com/max/440/1*PH-sN1qujkNug-N7C56jyw.png)
 
@@ -114,12 +115,12 @@ EdgeFS FlexHashテーブルはローカルサイトの構造を管理するも�
 
 FlexHashはI/Oルーティングを担当し、動的負荷分散ロジックで重要な役割を果たします。 検出されたサイトトポロジに基づいて、通常形成8〜24で形成されるゾーンストレージデバイスにネゴシエーションターゲットグループを定義し、障害ドメインの適切な分散を確保します。
 
-#### どこでdedupeしているか？
+### どこでdedupeしているか？
 
 この回答も上記のEdgeFSの構成がわかれば自明になります。  
 CCOW gateway library API を使った時点で実施されていることになります。
 
-#### Erasure Codingっていつ有効にするの？
+### Erasure Codingっていつ有効にするの？
 
 EdgeFS起動後にefscliでクラスタ作成時の引数で設定します。
 
@@ -154,7 +155,7 @@ ec-datamodeについては以下の通り。
 
 *   Multi-Homed networking: 見てみたところストレージネットワークやサービス通信（アプリケーション通信）を分けることができるCNIプラグインのように見える。
 
-### まとめ
+## まとめ
 
 一旦ここでEdgeFS 前半パートは終わりますが２日ほど間を開けて、S3編,CSI編,IGW編を投稿します。（テーマは適宜変更するのですべて（仮）です、CSIはやってみたいので確度は高い）
 

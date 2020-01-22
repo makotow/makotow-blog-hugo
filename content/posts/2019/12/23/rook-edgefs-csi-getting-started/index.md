@@ -19,7 +19,8 @@ series:
 - 2019-advent-calendar
 categories:
 -
-featured_image: 
+featured_image: "/20191223/1.png"
+ 
 images:
  - "./images/1.png"
 
@@ -29,7 +30,7 @@ aliases:
 
 ---
 
-### Rookだらけの Advent Calendar 2019/12/23: Rook EdgeFS CSIを試す（CSIって聞くとホッとする）
+## Rookだらけの Advent Calendar 2019/12/23: Rook EdgeFS CSIを試す（CSIって聞くとホッとする）
 
 この記事は「[Rookだらけの Advent Calendar](https://qiita.com/advent-calendar/2019/rook)」 2019/12/23分です。Rook EdgeFSについて記事を投稿します。
 

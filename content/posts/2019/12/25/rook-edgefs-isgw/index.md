@@ -18,7 +18,7 @@ series:
 - 2019-advent-calendar
 categories:
 -
-featured_image: 
+featured_image: "./20191225/1.png"
 images:
  - "./images/1.png"
  - "./images/2.png"
@@ -41,7 +41,7 @@ aliases:
     - "/rook-edgefs-isgw-walkthrough-6dee382fa6fe"
 ---
 
-Rookだらけの Advent Calendar 2019/12/24: EdgeFSの真髄
+## Rookだらけの Advent Calendar 2019/12/24: EdgeFSの真髄
 
 この記事は「[Rookだらけの Advent Calendar](https://qiita.com/advent-calendar/2019/rook)」 2019/12/24分です。Rook EdgeFSについて記事を投稿します。
 

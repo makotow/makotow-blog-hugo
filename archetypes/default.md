@@ -13,6 +13,11 @@ series:
 -
 categories:
 -
+featured_image: 
+images:
+ - "./images/1.png"
+ - "./images/2.png"
+ - "./images/3.jpg"
 ---
 
 

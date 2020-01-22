@@ -16,7 +16,7 @@ paginate = 13
 rssLimit = 100
 
 enableGitInfo = true
-googleAnalytics = ""
+googleAnalytics = "UA-31690675-2"
 
 paygmentsStyle = "dracula"
 pygmentsCodeFences = true

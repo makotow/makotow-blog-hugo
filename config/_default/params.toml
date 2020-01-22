@@ -35,7 +35,7 @@ whoami = "Architect"
 useGravatar = false
 location = "Tokyo, Japan"
 organization = ""
-link = "https://"
+link = "https://blog.makotow.net"
 
 # sidebar
 enableBio = true

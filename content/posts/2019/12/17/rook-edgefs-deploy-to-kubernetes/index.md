@@ -4,10 +4,10 @@ author: "makotow"
 date: 2019-12-16T16:42:40.764Z
 lastmod: 2020-01-05T03:12:32+09:00
 
-description: ""
+description: "Rookだらけの Advent Calendar 2019/12/17: Rook EdgeFS Operator の力を実感する"
 
 subtitle: "Rookだらけの Advent Calendar 2019/12/17: Rook EdgeFS Operator の力を実感する"
-slug: 
+slug: rook-edgefs-deploy-to-kubernates
 tags:
  - Kubernetes
  - Rook
@@ -18,23 +18,22 @@ series:
 -
 categories:
 -
-image: "/posts/2019/12/16/rook-edgefs-をkubernetesへデプロイする/images/1.png" 
+featured_image: "./20191217/2.png" 
 images:
- - "/posts/2019/12/16/rook-edgefs-をkubernetesへデプロイする/images/1.png"
- - "/posts/2019/12/16/rook-edgefs-をkubernetesへデプロイする/images/2.png"
- - "/posts/2019/12/16/rook-edgefs-をkubernetesへデプロイする/images/3.png"
+ - "./images/1.png"
+ - "./images/2.png"
+ - "./images/3.png"
 
 
 aliases:
     - "/rook-edgefs-operator-6b3c379519c8"
-
 ---
 
-#### Rookだらけの Advent Calendar 2019/12/17: Rook EdgeFS Operator の力を実感する
+Rookだらけの Advent Calendar 2019/12/17: Rook EdgeFS Operator の力を実感する
 
 この記事は「[Rookだらけの Advent Calendar](https://qiita.com/advent-calendar/2019/rook)」 2019/12/17分です。Rook EdgeFSについて記事を投稿します。
 
-**TL;DR**
+## TL;DR
 
 *   **事前準備が終わっていれば3分でデプロイ可能**
 *   事前要件はしっかりみておく
@@ -44,19 +43,22 @@ aliases:
 
 端的に言うと以下のコマンドで終了です。  
 しかし、EdgeFSではクラスタ作成時の事前準備が必要となるためその部分を重点的に今日は書きたいと思います。
-`$ git clone [https://github.com/rook/rook.git](https://github.com/rook/rook.git)  
-$ cd cluster/examples/kubernetes/edgefs  
-$ kubectl create -f operator.yaml  
-$ kubectl create -f cluster.yaml`
 
-#### **事前準備・**今回の環境
+```
+$ git clone https://github.com/rook/rook.git
+$ cd cluster/examples/kubernetes/edgefs
+$ kubectl create -f operator.yaml
+$ kubectl create -f cluster.yaml
+```
+
+## 事前準備・今回の環境
 
 *   Rook masterブランチを使用 (1fd1938234fd896d63150fb4fdd3a27204256d90)
 *   Kubernetes v1.16.4: 1 master(2vCPU 4GiB memory), 3 worker(2vCPU, 8GiB memory)、KVMで準備
 *   ホストマシン: AMD Ryzen 5 3600 6-Core Processor, 64GB memory, Ubuntu18.04
 *   stern version 1.11.0
 
-#### デプロイの流れ
+## デプロイの流れ
 
 大まかな流れとしては
 
@@ -71,27 +73,29 @@ $ kubectl create -f cluster.yaml`
 
 正式な手順についてはこちらをご参照ください。[https://rook.io/docs/rook/master/edgefs-cluster-crd.html](https://rook.io/docs/rook/master/edgefs-cluster-crd.html)
 
-#### デバイスの設定
+## デバイスの設定
 
-まずはじめにはまったのがデバイスを付与しておくというところです。なのでディスクをVMにつけておきましょう。今回はKVMで実施したので以下のようにVirtIOディスク２をEdgeFSように付与しました。
-
-
+まずはじめにはまったのがデバイスを付与しておくというところです。なのでディスクをVMにつけておきましょう。今回はKVMで実施したので以下のようにVirtIOディスク２をEdgeFS用に付与しました。
 
 
-![image](/posts/2019/12/16/rook-edgefs-をkubernetesへデプロイする/images/1.png#layoutTextWidth)
+
+![image](./images/1.png#layoutTextWidth)
 
 KVM の仮想マシンのディスク
 
 
 
 以下のような結果になればOKです。今回はvdbが対象のディスクになります。
-`$ sudo lsblk -l | grep vd``vda  252:0    0   30G  0 disk   
+```
+$ sudo lsblk -l | grep vd``vda  252:0    0   30G  0 disk   
 vda1 252:1    0    1M  0 part   
 vda2 252:2    0    1G  0 part /boot  
 vda3 252:3    0   29G  0 part   
-vdb  252:16   0   10G  0 disk`
+vdb  252:16   0   10G  0 disk
+```
 
 ちなみにドキュメントにはカーネルパラメータを自動調整する旨記載があります。
+
 > IMPORTANT EdgeFS will automatically adjust deployment nodes to use larger then 128KB data chunks, with the following addition to /etc/sysctl.conf:
 
 もし嫌ならCRDで無効化しておきましょう。
@@ -99,21 +103,29 @@ vdb  252:16   0   10G  0 disk`
 [Rook Docs](https://rook.io/docs/rook/master/edgefs-cluster-crd.html)
 
 
-#### マニフェストの変更
+## マニフェストの変更
 
 基本的にはリポジトリのマニフェストをkubectl create -f で流していくだけで大丈夫です。
 
 はじめにEdgeFS Operatorを導入します
-`$ cd cluster/examples/kubernetes/edgefs  
-$ kubectl create -f operator.yaml``namespace/rook-edgefs-system created customresourcedefinition.apiextensions.k8s.io/clusters.edgefs.rook.io created customresourcedefinition.apiextensions.k8s.io/nfss.edgefs.rook.io created customresourcedefinition.apiextensions.k8s.io/swifts.edgefs.rook.io created customresourcedefinition.apiextensions.k8s.io/s3s.edgefs.rook.io created customresourcedefinition.apiextensions.k8s.io/s3xs.edgefs.rook.io created customresourcedefinition.apiextensions.k8s.io/iscsis.edgefs.rook.io created customresourcedefinition.apiextensions.k8s.io/isgws.edgefs.rook.io created clusterrole.rbac.authorization.k8s.io/rook-edgefs-cluster-mgmt created role.rbac.authorization.k8s.io/rook-edgefs-system created clusterrole.rbac.authorization.k8s.io/rook-edgefs-global created serviceaccount/rook-edgefs-system created rolebinding.rbac.authorization.k8s.io/rook-edgefs-system created clusterrolebinding.rbac.authorization.k8s.io/rook-edgefs-global created deployment.apps/rook-edgefs-operator created`
+```
+$ cd cluster/examples/kubernetes/edgefs
+$ kubectl create -f operator.yaml
+namespace/rook-edgefs-system created customresourcedefinition.apiextensions.k8s.io/clusters.edgefs.rook.io created customresourcedefinition.apiextensions.k8s.io/nfss.edgefs.rook.io created customresourcedefinition.apiextensions.k8s.io/swifts.edgefs.rook.io created customresourcedefinition.apiextensions.k8s.io/s3s.edgefs.rook.io created customresourcedefinition.apiextensions.k8s.io/s3xs.edgefs.rook.io created customresourcedefinition.apiextensions.k8s.io/iscsis.edgefs.rook.io created customresourcedefinition.apiextensions.k8s.io/isgws.edgefs.rook.io created clusterrole.rbac.authorization.k8s.io/rook-edgefs-cluster-mgmt created role.rbac.authorization.k8s.io/rook-edgefs-system created clusterrole.rbac.authorization.k8s.io/rook-edgefs-global created serviceaccount/rook-edgefs-system created rolebinding.rbac.authorization.k8s.io/rook-edgefs-system created clusterrolebinding.rbac.authorization.k8s.io/rook-edgefs-global created deployment.apps/rook-edgefs-operator created
+```
 
 Operatorが導入されたことを確認します。
-`❯ kubectl -n rook-edgefs-system get pod -o wide NAME                                    READY   STATUS    RESTARTS   AGE   IP            NODE      NOMINATED NODE   READINESS GATES rook-discover-7jvfk                     1/1     Running   0          76s   10.244.2.9    worker3   &lt;none&gt;           &lt;none&gt; rook-discover-h95k6                     1/1     Running   0          76s   10.244.1.10   worker2   &lt;none&gt;           &lt;none&gt; rook-discover-nmksm                     1/1     Running   0          76s   10.244.3.10   worker1   &lt;none&gt;           &lt;none&gt; rook-edgefs-operator-5c94848c48-dd84f   1/1     Running   0          84s   10.244.1.9    worker2   &lt;none&gt;           &lt;none&gt;`
 
+```
+❯ kubectl -n rook-edgefs-system get pod -o wide NAME                                    READY   STATUS    RESTARTS   AGE   IP            NODE      NOMINATED NODE   READINESS GATES rook-discover-7jvfk                     1/1     Running   0          76s   10.244.2.9    worker3   <none>           <none> rook-discover-h95k6                     1/1     Running   0          76s   10.244.1.10   worker2   <none>           <none> rook-discover-nmksm                     1/1     Running   0          76s   10.244.3.10   worker1   <none>           <none> rook-edgefs-operator-5c94848c48-dd84f   1/1     Running   0          84s   10.244.1.9    worker2   <none>           <none>
+```
 最初はサンプルのマニフェストで実行していたところエラーが発生し、うまく行っておりませんでした。（エラーのログ失念…）
 
 stern を使ってPodの状態を関しすることで気づけました。
-`stern . -n rook-edgefs-system`
+
+```
+stern . -n rook-edgefs-system
+```
 
 デバイスの使用部分のところで存在するものをすべて使おうとしていてエラーとなっていました。（**この記事だと３秒ぐらいで気づいたような記載ですが、ここに気づくのにすごい時間がかかった**）
 
@@ -123,10 +135,12 @@ stern を使ってPodの状態を関しすることで気づけました。
 
 ということであれば、cluster.yaml を以下のように修正し対応しました。
 
-#### Before
+## Before
+
 `useAllDevices: true`
 
-#### After
+## After
+
 `useAllDevices: true`
 
 シングルノードの場合はyamlの#sysRepCount: 1 のコメントを外してください。
@@ -135,21 +149,28 @@ stern を使ってPodの状態を関しすることで気づけました。
 
 今回はマルチノードで実施したため変更はしませんでした。
 
-#### デプロイ後の確認
+## デプロイ後の確認
 
 再度デプロイすると以下のように無事完了しました。
-`❯ kubectl get pod -n rook-edgefs -o wide   
-NAME                               READY   STATUS    RESTARTS   AGE     IP            NODE      NOMINATED NODE   READINESS GATES rook-edgefs-mgr-795c59c456-pgdrm   3/3     Running   0          3m30s   10.244.1.15   worker2   &lt;none&gt;           &lt;none&gt; rook-edgefs-target-0               3/3     Running   0          3m30s   10.244.2.12   worker3   &lt;none&gt;           &lt;none&gt; rook-edgefs-target-1               3/3     Running   0          3m30s   10.244.3.13   worker1   &lt;none&gt;           &lt;none&gt; rook-edgefs-target-2               3/3     Running   0          3m30s   10.244.1.16   worker2   &lt;none&gt;           &lt;none&gt;`
+
+```
+❯ kubectl get pod -n rook-edgefs -o wide 
+NAME                               READY   STATUS    RESTARTS   AGE     IP            NODE      NOMINATED NODE   READINESS GATES rook-edgefs-mgr-795c59c456-pgdrm   3/3     Running   0          3m30s   10.244.1.15   worker2   <none>           <none> rook-edgefs-target-0               3/3     Running   0          3m30s   10.244.2.12   worker3   <none>           <none> rook-edgefs-target-1               3/3     Running   0          3m30s   10.244.3.13   worker1   <none>           <none> rook-edgefs-target-2               3/3     Running   0          3m30s   10.244.1.16   worker2   <none>           <none>
+```
+
 
 サービスも確認してみましょう。
-`❯ kubectl get svc --all-namespaces NAMESPACE     NAME                  TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                      AGE default       kubernetes            ClusterIP   10.96.0.1        &lt;none&gt;        443/TCP                      45h kube-system   kube-dns              ClusterIP   10.96.0.10       &lt;none&gt;        53/UDP,53/TCP,9153/TCP       45h rook-edgefs   rook-edgefs-mgr       ClusterIP   10.97.189.186    &lt;none&gt;        6789/TCP                     6h52m rook-edgefs   rook-edgefs-restapi   ClusterIP   10.107.169.160   &lt;none&gt;        8881/TCP,8080/TCP,4443/TCP   6h52m rook-edgefs   rook-edgefs-target    ClusterIP   None             &lt;none&gt;        &lt;none&gt;                       6h52m rook-edgefs   rook-edgefs-ui        ClusterIP   10.108.180.155   &lt;none&gt;        3000/TCP,3443/TCP            6h52m`
+
+```
+❯ kubectl get svc --all-namespaces NAMESPACE     NAME                  TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                      AGE default       kubernetes            ClusterIP   10.96.0.1        <none>        443/TCP                      45h kube-system   kube-dns              ClusterIP   10.96.0.10       <none>        53/UDP,53/TCP,9153/TCP       45h rook-edgefs   rook-edgefs-mgr       ClusterIP   10.97.189.186    <none>        6789/TCP                     6h52m rook-edgefs   rook-edgefs-restapi   ClusterIP   10.107.169.160   <none>        8881/TCP,8080/TCP,4443/TCP   6h52m rook-edgefs   rook-edgefs-target    ClusterIP   None             <none>        <none>                       6h52m rook-edgefs   rook-edgefs-ui        ClusterIP   10.108.180.155   <none>        3000/TCP,3443/TCP            6h52m
+```
 
 サービスの中のrook-edgefs-ui が管理画面になっています。forwardして画面を確認しました。無事３ノード分のクラスタができていました。
 
 
 
 
-![image](/posts/2019/12/16/rook-edgefs-をkubernetesへデプロイする/images/2.png#layoutTextWidth)
+![image](./images/2.png#layoutTextWidth)
 
 ダッシュボード
 
@@ -160,7 +181,7 @@ NAME                               READY   STATUS    RESTARTS   AGE     IP      
 
 
 
-![image](/posts/2019/12/16/rook-edgefs-をkubernetesへデプロイする/images/3.png#layoutTextWidth)
+![image](./images/3.png#layoutTextWidth)
 
 
 

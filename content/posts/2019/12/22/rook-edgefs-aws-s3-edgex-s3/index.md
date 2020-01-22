@@ -15,10 +15,10 @@ tags:
  - Storage
 
 series:
--
+- 2019-advent-calendar
 categories:
 -
-image: "./images/1.png" 
+featured_image: 
 images:
  - "./images/1.png"
  - "./images/2.png"
@@ -30,11 +30,11 @@ aliases:
 
 ---
 
-#### Rookだらけの Advent Calendar 2019/12/22: Rook EdgeFS S3 S3X
+## Rookだらけの Advent Calendar 2019/12/22: Rook EdgeFS S3 S3X
 
 この記事は「[Rookだらけの Advent Calendar](https://qiita.com/advent-calendar/2019/rook)」 2019/12/22分です。Rook EdgeFSについて記事を投稿します。
 
-### **TL;DR**
+# TL;DR
 
 *   AWSS 3/EdgeX S3 は efscli でサービス作成 →Kubernetes Object 作成ですぐ使用可能に
 *   基本的にはEdgeFSの抽象化のおかげで様々なストレージプロトコルを均一的に扱える
@@ -55,8 +55,6 @@ EdgeFSの構造はトップにクラスタ、クラスタ配下にテナント�
 ![image](./images/1.png)
 
 EdgeFSの基本構成
-
-
 
 *   Hawaii クラスタを作成
 *   Cola， Pepsi テナントをHawaiiクラスタ内に作成
@@ -160,7 +158,7 @@ S3サービスを公開しました。ここまででEdgeFS側のオペレーシ
 
 サービスを作成しバケットを外部に公開するイメージ図
 
-### Kubernets上でアクセスできるようにする
+## Kubernetes上でアクセスできるようにする
 
 ２つのサービスを公開するようにCRDを作成します。今回はやってみたの性質上最小限のマニフェストで実施します。yamlのパラメータは[https://rook.io/docs/rook/master/edgefs-s3-crd.html](https://rook.io/docs/rook/master/edgefs-s3-crd.html) を参照ください。
 
@@ -174,7 +172,8 @@ S3 pepsi 用テナント
 
 
 上記の名前のみを変更したCRDを使いマニフェストを適応していきます。
-`❯ kubectl create -f s3-cola.yaml  
+```
+❯ kubectl create -f s3-cola.yaml  
 s3.edgefs.rook.io/s3-cola created  
 
 ❯ kubectl create -f s3-pepsi.yaml  
@@ -189,55 +188,72 @@ rook-edgefs-s3-s3-cola-5f88bfd97f-dk2zc      1/1     Running   0          25s
 rook-edgefs-s3-s3-pepsi-7bfbf6ffd7-bsbjn     1/1     Running   0          21s  
 rook-edgefs-target-0                         3/3     Running   0          7d  
 rook-edgefs-target-1                         3/3     Running   3          7d  
-rook-edgefs-target-2                         3/3     Running   0          7d`
+rook-edgefs-target-2                         3/3     Running   0          7d
+```
 
 ポッドが上記のCRDで指定したインスタンス分動起していることがわかりします。(以下のイメージです。）
-`rook-edgefs-s3-s3-cola-5f88bfd97f-dk2zc      1/1     Running   0          25s  
-rook-edgefs-s3-s3-pepsi-7bfbf6ffd7-bsbjn     1/1     Running   0          21s`
+
+```
+rook-edgefs-s3-s3-cola-5f88bfd97f-dk2zc      1/1     Running   0          25s  
+rook-edgefs-s3-s3-pepsi-7bfbf6ffd7-bsbjn     1/1     Running   0          21s
+```
 
 外部公開するためのサービス（KubernetesのService)を確認します。
-`❯ kubectl get svc -n rook-edgefs``NAME                        TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                                                                                                               AGE  
-rook-edgefs-mgr             ClusterIP   10.97.189.186    &lt;none&gt;        6789/TCP                                                                                                              7d  
-rook-edgefs-nfs-nfs-osaka   ClusterIP   10.108.69.77     &lt;none&gt;        49000/TCP,2049/TCP,2049/UDP,32803/TCP,32803/UDP,20048/TCP,20048/UDP,111/TCP,111/UDP,662/TCP,662/UDP,875/TCP,875/UDP   6d15h  
-rook-edgefs-nfs-nfs-tokyo   ClusterIP   10.99.230.182    &lt;none&gt;        49000/TCP,2049/TCP,2049/UDP,32803/TCP,32803/UDP,20048/TCP,20048/UDP,111/TCP,111/UDP,662/TCP,662/UDP,875/TCP,875/UDP   6d15h  
-rook-edgefs-restapi         ClusterIP   10.107.169.160   &lt;none&gt;        8881/TCP,8080/TCP,4443/TCP                                                                                            7d  
-rook-edgefs-s3-s3-cola      ClusterIP   10.107.177.146   &lt;none&gt;        49000/TCP,9982/TCP,9443/TCP                                                                                           72s  
-rook-edgefs-s3-s3-pepsi     ClusterIP   10.96.119.236    &lt;none&gt;        49000/TCP,9982/TCP,9443/TCP                                                                                           68s  
-rook-edgefs-target          ClusterIP   None             &lt;none&gt;        &lt;none&gt;                                                                                                                7d  
-rook-edgefs-ui              ClusterIP   10.108.180.155   &lt;none&gt;        3000/TCP,3443/TCP`
+
+```
+❯ kubectl get svc -n rook-edgefs
+NAME                        TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                                                                                                               AGE
+rook-edgefs-mgr             ClusterIP   10.97.189.186    <none>        6789/TCP                                                                                                              7d
+rook-edgefs-nfs-nfs-osaka   ClusterIP   10.108.69.77     <none>        49000/TCP,2049/TCP,2049/UDP,32803/TCP,32803/UDP,20048/TCP,20048/UDP,111/TCP,111/UDP,662/TCP,662/UDP,875/TCP,875/UDP   6d15h
+rook-edgefs-nfs-nfs-tokyo   ClusterIP   10.99.230.182    <none>        49000/TCP,2049/TCP,2049/UDP,32803/TCP,32803/UDP,20048/TCP,20048/UDP,111/TCP,111/UDP,662/TCP,662/UDP,875/TCP,875/UDP   6d15h
+rook-edgefs-restapi         ClusterIP   10.107.169.160   <none>        8881/TCP,8080/TCP,4443/TCP                                                                                            7d
+rook-edgefs-s3-s3-cola      ClusterIP   10.107.177.146   <none>        49000/TCP,9982/TCP,9443/TCP                                                                                           72s
+rook-edgefs-s3-s3-pepsi     ClusterIP   10.96.119.236    <none>        49000/TCP,9982/TCP,9443/TCP                                                                                           68s
+rook-edgefs-target          ClusterIP   None             <none>        <none>                                                                                                                7d
+rook-edgefs-ui              ClusterIP   10.108.180.155   <none>        3000/TCP,3443/TCP
+```
 
 こちらもテナントごとにサービスが作成されました。ClusterIPで作られているので外部に公開するにはNodePortかLoadBalancerに変更するかIngressを使うのがいいでしょう。今回はMetalLBを導入しているのでLoadBalancerで実施しアクセスしています。
-`rook-edgefs-s3-s3-cola      ClusterIP   10.107.177.146   &lt;none&gt;        49000/TCP,9982/TCP,9443/TCP                                                                                           72s  
-rook-edgefs-s3-s3-pepsi     ClusterIP   10.96.119.236    &lt;none&gt;        49000/TCP,9982/TCP,9443/TCP                                                                                           68s`
+
+```
+rook-edgefs-s3-s3-cola      ClusterIP   10.107.177.146   <none>        49000/TCP,9982/TCP,9443/TCP                                                                                           72s
+rook-edgefs-s3-s3-pepsi     ClusterIP   10.96.119.236    <none>        49000/TCP,9982/TCP,9443/TCP                                                                                           68s
+```
 
 Service.Type を LoadBalancer に変更
-`rook-edgefs-s3-s3-cola      LoadBalancer   10.107.177.146   192.168.122.11   49000:30852/TCP,9982:31066/TCP,9443:32070/TCP`
+
+```
+rook-edgefs-s3-s3-cola      LoadBalancer   10.107.177.146   192.168.122.11   49000:30852/TCP,9982:31066/TCP,9443:32070/TCP
+```
 
 curl でLoadBalancerの外部IP向けにアクセスし、確認しました。
-`❯ curl [http://192.168.122.11:9982/](http://192.168.122.11:9982/) -v  
-*   Trying 192.168.122.11...  
-* TCP_NODELAY set  
-* Connected to 192.168.122.11 (192.168.122.11) port 9982 (#0)  
-&gt; GET / HTTP/1.1  
-&gt; Host: 192.168.122.11:9982  
-&gt; User-Agent: curl/7.58.0  
-&gt; Accept: */*  
-&gt;  
-&lt; HTTP/1.1 200 OK  
-&lt; X-Powered-By: Express  
-&lt; x-amz-id-2: cb2bb1edd5628c9b  
-&lt; x-amz-request-id: 883db10ba9866c33  
-&lt; Date: Sun, 22 Dec 2019 08:28:00 GMT  
-&lt; Connection: keep-alive  
-&lt; Transfer-Encoding: chunked  
-&lt;  
-&lt;?xml version=&#34;1.0&#34;?&gt;  
-* Connection #0 to host 192.168.122.11 left intact  
-&lt;ListAllMyBucketsResult xmlns=&#34;[http://s3.amazonaws.com/doc/2006-03-01/](http://s3.amazonaws.com/doc/2006-03-01/)&#34;&gt;&lt;Owner&gt;&lt;ID&gt;Hawaii_Cola&lt;/ID&gt;&lt;DisplayName&gt;Hawaii_Cola&lt;/DisplayName&gt;&lt;/Owner&gt;&lt;Buckets&gt;&lt;Bucket&gt;&lt;Name&gt;bk1&lt;/Name&gt;&lt;CreationDate&gt;2019-12-22T08:28:00.066Z&lt;/CreationDate&gt;&lt;/Bucket&gt;&lt;/Buckets&gt;&lt;/ListAllMyBucketsResult&gt;%`
+
+```
+❯ curl http://192.168.122.11:9982/ -v
+*   Trying 192.168.122.11...
+* TCP_NODELAY set
+* Connected to 192.168.122.11 (192.168.122.11) port 9982 (#0)
+> GET / HTTP/1.1
+> Host: 192.168.122.11:9982
+> User-Agent: curl/7.58.0
+> Accept: */*
+>
+< HTTP/1.1 200 OK
+< X-Powered-By: Express
+< x-amz-id-2: cb2bb1edd5628c9b
+< x-amz-request-id: 883db10ba9866c33
+< Date: Sun, 22 Dec 2019 08:28:00 GMT
+< Connection: keep-alive
+< Transfer-Encoding: chunked
+<
+<?xml version="1.0"?>
+* Connection #0 to host 192.168.122.11 left intact
+<ListAllMyBucketsResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><Owner><ID>Hawaii_Cola</ID><DisplayName>Hawaii_Cola</DisplayName></Owner><Buckets><Bucket><Name>bk1</Name><CreationDate>2019-12-22T08:28:00.066Z</CreationDate></Bucket></Buckets></ListAllMyBucketsResult>%
+```
 
 少し見づらいですが、HTTP 200 status code となり、テナント名、バケットが見えているのが確認できました。
 
-### Edge-X S3 のデプロイ
+## Edge-X S3 のデプロイ
 
 EdgeFS にはオブジェクトストレージとしてもう1つEdge-X S3 というものがあります。
 
@@ -284,7 +300,31 @@ root@rook-edgefs-mgr-795c59c456-pgdrm:~#`
 Kubernetesへ戻り、以下２つのマニフェストを作成し適応します。
 
 * s3x-cola.yaml
+
+```yaml
+apiVersion: edgefs.rook.io/v1
+kind: S3X
+metadata:
+  name: s3x-cola
+  namespace: rook-edgefs
+spec:
+  instances: 1
+```
+
+
 * s3x-pepsi.yaml
+
+```yaml
+
+apiVersion: edgefs.rook.io/v1
+kind: S3X
+metadata:
+  name: s3x-pepsi
+  namespace: rook-edgefs
+spec:
+  instances: 1
+```
+
 
 上記マニフェストを適応すると以下のような状態になります。Edge-X S3 の場合はAWS S3 と比べProxyコンテナが付与された形で立ち上がります。
 
@@ -301,108 +341,109 @@ rook-edgefs-s3x-s3x-cola-68b69db694-fdlxp    2/2     Running   0          89s
 rook-edgefs-s3x-s3x-pepsi-69c6d466d4-4cnc8   2/2     Running   0          86s  
 rook-edgefs-target-0                         3/3     Running   4          7d6h  
 rook-edgefs-target-1                         3/3     Running   7          7d6h  
-rook-edgefs-target-2                         3/3     Running   3          7d6h`
+rook-edgefs-target-2                         3/3     Running   3          7d6h
 ```
 
 中身を見てみます。Proxyが立ち上がっているのがわかります。
+
 ```
-❯ kubectl describe pod rook-edgefs-s3x-s3x-cola-68b69db694-fdlxp  
-Name:           rook-edgefs-s3x-s3x-cola-68b69db694-fdlxp  
-Namespace:      rook-edgefs  
-Priority:       0  
-Node:           worker2/192.168.122.217  
-Start Time:     Sun, 22 Dec 2019 00:52:45 +0900  
-Labels:         app=rook-edgefs-s3x  
-                edgefs_svcname=s3x-cola  
-                edgefs_svctype=s3x  
-                pod-template-hash=68b69db694  
-                rook_cluster=rook-edgefs  
-Annotations:    &lt;none&gt;  
-Status:         Running  
-IP:             10.244.1.21  
-Controlled By:  ReplicaSet/rook-edgefs-s3x-s3x-cola-68b69db694  
-Containers:  
-  rook-edgefs-s3x-s3x-cola:  
-    Container ID:  docker://cc96bbe29ea92c02510f46325ae0898ff654ddf054c91b29742a0218841f2cf4  
-    Image:         edgefs/edgefs:latest  
-    Image ID:      docker-pullable://edgefs/edgefs@sha256:65c0390e929e530ea9a5f2a57ae3ef4be938df0d786afc8a20e358d9b1335564  
-    Ports:         49000/TCP, 4000/TCP, 4443/TCP  
-    Host Ports:    0/TCP, 0/TCP, 0/TCP  
-    Args:  
-      s3x  
-    State:          Running  
-      Started:      Sun, 22 Dec 2019 00:52:49 +0900  
-    Ready:          True  
-    Restart Count:  0  
-    Environment:  
-      CCOW_LOG_LEVEL:     5  
-      CCOW_SVCNAME:       s3x-cola  
-      HOST_HOSTNAME:       (v1:spec.nodeName)  
-      K8S_NAMESPACE:      rook-edgefs (v1:metadata.namespace)  
-      EFSS3X_HTTP_PORT:   4000  
-      EFSS3X_HTTPS_PORT:  4443  
-    Mounts:  
-      /opt/nedge/etc.target from edgefs-datadir (rw,path=&#34;.etc&#34;)  
-      /opt/nedge/var/run from edgefs-datadir (rw,path=&#34;.state&#34;)  
-      /var/run/secrets/kubernetes.io/serviceaccount from rook-edgefs-cluster-token-tgfz8 (ro)  
-  s3-proxy:  
-    Container ID:  docker://1c9a5ac5d9723ca7064cba563eace0b002f1f46a87b27801d5384064c975ac3d  
-    Image:         edgefs/edgefs-restapi:latest  
-    Image ID:      docker-pullable://edgefs/edgefs-restapi@sha256:6ae7bdaa662171a1e6859303aa713f62f2858919b59c95a234e131d8f1e855a8  
-    Port:          9982/TCP  
-    Host Port:     0/TCP  
-    Args:  
-      s3  
-    State:          Running  
-      Started:      Sun, 22 Dec 2019 00:52:52 +0900  
-    Ready:          True  
-    Restart Count:  0  
-    Environment:  
-      CCOW_LOG_LEVEL:  5  
-      CCOW_SVCNAME:    s3x-cola  
-      DEBUG:           alert,error,info  
-      HOST_HOSTNAME:    (v1:spec.nodeName)  
-      K8S_NAMESPACE:   rook-edgefs (v1:metadata.namespace)  
-      GW_PORT:         9982  
-      GW_PORT_SSL:     9443  
-    Mounts:  
-      /opt/nedge/etc.target from edgefs-datadir (rw,path=&#34;.etc&#34;)  
-      /opt/nedge/var/run from edgefs-datadir (rw,path=&#34;.state&#34;)  
-      /var/run/secrets/kubernetes.io/serviceaccount from rook-edgefs-cluster-token-tgfz8 (ro)  
-Conditions:  
-  Type              Status  
-  Initialized       True   
-  Ready             True   
-  ContainersReady   True   
-  PodScheduled      True   
-Volumes:  
-  edgefs-datadir:  
-    Type:          HostPath (bare host directory volume)  
-    Path:          /var/lib/edgefs  
-    HostPathType:    
-  rook-edgefs-cluster-token-tgfz8:  
-    Type:        Secret (a volume populated by a Secret)  
-    SecretName:  rook-edgefs-cluster-token-tgfz8  
-    Optional:    false  
-QoS Class:       BestEffort  
-Node-Selectors:  rook-edgefs=cluster  
-Tolerations:     node.kubernetes.io/not-ready:NoExecute for 300s  
-                 node.kubernetes.io/unreachable:NoExecute for 300s  
-Events:  
-  Type    Reason     Age   From               Message  
-  ----    ------     ----  ----               -------  
-  Normal  Scheduled  105s  default-scheduler  Successfully assigned rook-edgefs/rook-edgefs-s3x-s3x-cola-68b69db694-fdlxp to worker2  
-  Normal  Pulling    104s  kubelet, worker2   Pulling image &#34;edgefs/edgefs:latest&#34;  
-  Normal  Pulled     101s  kubelet, worker2   Successfully pulled image &#34;edgefs/edgefs:latest&#34;  
-  Normal  Created    101s  kubelet, worker2   Created container rook-edgefs-s3x-s3x-cola  
-  Normal  Started    101s  kubelet, worker2   Started container rook-edgefs-s3x-s3x-cola  
-  Normal  Pulling    101s  kubelet, worker2   Pulling image &#34;edgefs/edgefs-restapi:latest&#34;  
-  Normal  Pulled     98s   kubelet, worker2   Successfully pulled image &#34;edgefs/edgefs-restapi:latest&#34;  
-  Normal  Created    98s   kubelet, worker2   Created container s3-proxy  
-  Normal  Started    98s   kubelet, worker2   Started container s3-proxy`
+❯ kubectl describe pod rook-edgefs-s3x-s3x-cola-68b69db694-fdlxp
+Name:           rook-edgefs-s3x-s3x-cola-68b69db694-fdlxp
+Namespace:      rook-edgefs
+Priority:       0
+Node:           worker2/192.168.122.217
+Start Time:     Sun, 22 Dec 2019 00:52:45 +0900
+Labels:         app=rook-edgefs-s3x
+                edgefs_svcname=s3x-cola
+                edgefs_svctype=s3x
+                pod-template-hash=68b69db694
+                rook_cluster=rook-edgefs
+Annotations:    <none>
+Status:         Running
+IP:             10.244.1.21
+Controlled By:  ReplicaSet/rook-edgefs-s3x-s3x-cola-68b69db694
+Containers:
+  rook-edgefs-s3x-s3x-cola:
+    Container ID:  docker://cc96bbe29ea92c02510f46325ae0898ff654ddf054c91b29742a0218841f2cf4
+    Image:         edgefs/edgefs:latest
+    Image ID:      docker-pullable://edgefs/edgefs@sha256:65c0390e929e530ea9a5f2a57ae3ef4be938df0d786afc8a20e358d9b1335564
+    Ports:         49000/TCP, 4000/TCP, 4443/TCP
+    Host Ports:    0/TCP, 0/TCP, 0/TCP
+    Args:
+      s3x
+    State:          Running
+      Started:      Sun, 22 Dec 2019 00:52:49 +0900
+    Ready:          True
+    Restart Count:  0
+    Environment:
+      CCOW_LOG_LEVEL:     5
+      CCOW_SVCNAME:       s3x-cola
+      HOST_HOSTNAME:       (v1:spec.nodeName)
+      K8S_NAMESPACE:      rook-edgefs (v1:metadata.namespace)
+      EFSS3X_HTTP_PORT:   4000
+      EFSS3X_HTTPS_PORT:  4443
+    Mounts:
+      /opt/nedge/etc.target from edgefs-datadir (rw,path=".etc")
+      /opt/nedge/var/run from edgefs-datadir (rw,path=".state")
+      /var/run/secrets/kubernetes.io/serviceaccount from rook-edgefs-cluster-token-tgfz8 (ro)
+  s3-proxy:
+    Container ID:  docker://1c9a5ac5d9723ca7064cba563eace0b002f1f46a87b27801d5384064c975ac3d
+    Image:         edgefs/edgefs-restapi:latest
+    Image ID:      docker-pullable://edgefs/edgefs-restapi@sha256:6ae7bdaa662171a1e6859303aa713f62f2858919b59c95a234e131d8f1e855a8
+    Port:          9982/TCP
+    Host Port:     0/TCP
+    Args:
+      s3
+    State:          Running
+      Started:      Sun, 22 Dec 2019 00:52:52 +0900
+    Ready:          True
+    Restart Count:  0
+    Environment:
+      CCOW_LOG_LEVEL:  5
+      CCOW_SVCNAME:    s3x-cola
+      DEBUG:           alert,error,info
+      HOST_HOSTNAME:    (v1:spec.nodeName)
+      K8S_NAMESPACE:   rook-edgefs (v1:metadata.namespace)
+      GW_PORT:         9982
+      GW_PORT_SSL:     9443
+    Mounts:
+      /opt/nedge/etc.target from edgefs-datadir (rw,path=".etc")
+      /opt/nedge/var/run from edgefs-datadir (rw,path=".state")
+      /var/run/secrets/kubernetes.io/serviceaccount from rook-edgefs-cluster-token-tgfz8 (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  edgefs-datadir:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/lib/edgefs
+    HostPathType:  
+  rook-edgefs-cluster-token-tgfz8:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  rook-edgefs-cluster-token-tgfz8
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  rook-edgefs=cluster
+Tolerations:     node.kubernetes.io/not-ready:NoExecute for 300s
+                 node.kubernetes.io/unreachable:NoExecute for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  105s  default-scheduler  Successfully assigned rook-edgefs/rook-edgefs-s3x-s3x-cola-68b69db694-fdlxp to worker2
+  Normal  Pulling    104s  kubelet, worker2   Pulling image "edgefs/edgefs:latest"
+  Normal  Pulled     101s  kubelet, worker2   Successfully pulled image "edgefs/edgefs:latest"
+  Normal  Created    101s  kubelet, worker2   Created container rook-edgefs-s3x-s3x-cola
+  Normal  Started    101s  kubelet, worker2   Started container rook-edgefs-s3x-s3x-cola
+  Normal  Pulling    101s  kubelet, worker2   Pulling image "edgefs/edgefs-restapi:latest"
+  Normal  Pulled     98s   kubelet, worker2   Successfully pulled image "edgefs/edgefs-restapi:latest"
+  Normal  Created    98s   kubelet, worker2   Created container s3-proxy
+  Normal  Started    98s   kubelet, worker2   Started container s3-proxy
 ```
 
-### Edge-X S3 オペレーションを試す
+## Edge-X S3 オペレーションを試す
 
 AWS S3 との差異の部分について実施します。
 
@@ -414,20 +455,24 @@ rook-edgefs-s3x-s3x-cola    LoadBalancer   10.105.230.5     192.168.122.12   490
 ```
 
 
-ここからは以下の通りデータをjsonに追加して、NoSQLライクに取得できるところを確認使用としましたがうまく行きませんでした。（もう少し調査して追記できたらします。）リクエストを投げると以下のエラーとなってしまいました。
-```
-# create JSON Key-Value database mydb.json in bucket bk1  
-$ curl -X POST -H &#34;Content-Type: application/json&#34; \  
-    --data &#39;{&#34;key1&#34;:&#34;value1&#34;}&#39; \  
-    &#34;http://192.168.122.12:4000/bk1/mydb.json?comp=kv&amp;finalize&#34;  
+ここからは以下の通りデータをjsonに追加して、NoSQLライクに取得できるところを確認しようとしましたがうまく行きませんでした。（もう少し調査して追記できたらします。）リクエストを投げると以下のエラーとなってしまいました。
 
-$ curl &#34;http://192.168.122.12:4000/bk1/mydb.json?comp=kv&amp;key=key1&amp;maxresults=3&amp;values=1&#34;`
+```
+# create JSON Key-Value database mydb.json in bucket bk1
+$ curl -X POST -H "Content-Type: application/json" \
+    --data '{"key1":"value1"}' \
+    "http://192.168.122.12:4000/bk1/mydb.json?comp=kv&finalize"
+ 
+$ curl "http://192.168.122.12:4000/bk1/mydb.json?comp=kv&key=key1&maxresults=3&values=1"
 ```
 
 エラー内容(Podのログ）がセグっているのでもしかしたらMasterブランチを使っているのが理由かもしれません。
-`rook-edgefs-s3x-s3x-cola-68b69db694-fdlxp rook-edgefs-s3x-s3x-cola 2019-12-22T15:28:52.348Z cmd.Wait() failed with &#39;signal: segmentation fault (core dumped)&#39;`
 
-### **まとめ**
+```
+rook-edgefs-s3x-s3x-cola-68b69db694-fdlxp rook-edgefs-s3x-s3x-cola 2019-12-22T15:28:52.348Z cmd.Wait() failed with 'signal: segmentation fault (core dumped)'
+```
+
+## まとめ
 
 今回はS3・Edge-X S3を試してみました。今まで通りefscliでクラスタ、テナント、バケットを作成し、サービスを有効にすることでストレージが使えるようになるというEdgeFS自体の抽象化されたオペレーションはなれると素晴らしくわかりやすいと思うようにもなりました。
 
