@@ -30,7 +30,7 @@ aliases:
 
 ---
 
-## Rookだらけの Advent Calendar 2019/12/22: Rook EdgeFS S3 S3X
+ Rookだらけの Advent Calendar 2019/12/22: Rook EdgeFS S3 S3X
 
 この記事は「[Rookだらけの Advent Calendar](https://qiita.com/advent-calendar/2019/rook)」 2019/12/22分です。Rook EdgeFSについて記事を投稿します。
 

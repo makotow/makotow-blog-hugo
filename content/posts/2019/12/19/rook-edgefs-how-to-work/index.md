@@ -21,7 +21,6 @@ featured_image: "./20191219/1.png"
 images:
  - "/posts/2019/12/19/rook-edgefs-how-to-work/images/1.png"
 
-
 aliases:
     - "/rook-edgefs-components-98285e7a7d12"
 

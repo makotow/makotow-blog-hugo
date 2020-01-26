@@ -3,11 +3,9 @@ title: "Rook: EdgeFS 概要"
 author: "makotow"
 date: 2019-12-16T01:22:08.119Z
 lastmod: 2020-01-05T03:12:30+09:00
-
 description: "EdgeFSの概要を理解する"
-
 subtitle: "Rookだらけの Advent Calendar 2019/12/16"
-slug: 
+slug:  rook-edgefs-overview
 tags:
  - Rook
  - Kubernetes
@@ -15,7 +13,7 @@ tags:
  - Storage
 
 series:
--
+- 2019-advent-calendar
 categories:
 -
 image: "/posts/2019/12/16/rook-edgefs-概要/images/1.png" 
@@ -29,8 +27,8 @@ aliases:
 
 ---
 
-#### Rookだらけの Advent Calendar 2019/12/16:はじめの一歩
-
+ Rookだらけの Advent Calendar 2019/12/16:はじめの一歩
+ 
 この記事は「[Rookだらけの Advent Calendar](https://qiita.com/advent-calendar/2019/rook)」 2019/12/16分です。Rook EdgeFSについて記事を投稿します。
 
 コンテンツとしては以下の7本を予定しています。
@@ -47,28 +45,25 @@ aliases:
 
 **TL；DR**を読んでいただき、興味がわけば気になるところを読んでいただき、技術的にどうやるかを知りたい方は2日目からを読んでいただければと思います
 
-### TL;DR
+## TL;DR
 
 *   全部入りストレージのようなもの(S3, NFS, iSCSI, NoSQL)の接続を提供
 *   地理的に分散しているストレージサイトを１つのデータサービスとして仮想的にアクセス可能、マルチクラウドやハイブリッドクラウド、エッジIoTを実現するもの
 *   master ブランチではEdgeFS DataFabricという名前になっている
 
-### EdgeFS Status
+## EdgeFS Status
 
 まずはじめにEdgeFSとRookの現状について確認します。
 
 Rook のストレージプロバイダーとしてEdgeFSは、Stableという状態です。
 
-
-
-
-![image](/posts/2019/12/16/rook-edgefs-概要/images/1.png#layoutTextWidth)
+![image](./images/1.png)
 
 Project status([https://github.com/rook/rook#project-status](https://github.com/rook/rook#project-status))
 
 
 
-### EdgeFS とは？
+## EdgeFS とは？
 
 本家のドキュメントの最初の一文がよく表しているものだと思います。
 > EdgeFS is high-performance and fault-tolerant decentralized data fabric with virtualized access to S3 object, NFS file, NoSQL and iSCSI block.
@@ -79,23 +74,23 @@ EdgeFSは、Kubernetes上で実行される1つのグローバルネームスペ
 
 EdgeFSノードは各サイトのKubernetesノードにコンテナ（StatefulSet）としてデプロイされ、利用可能なストレージ容量をプールし、同じノードで実行されるクラウドネイティブアプリケーションへS3 / NFS / iSCSI などのストレージプロトコルを介してデータを提供します。
 
-### EdgeFSの特徴
+## EdgeFSの特徴
 
-#### High performance
+### High performance
 
 標準的なストレージプロトコル（NFS,iSCSI,S3）で高いスループット、低レイテンシをステートフルアプリケーションに提供します。
 
 さまざまなユースケースのパフォーマンス特性に対応：デバイスがHDDのみ、SSD / HDDハイブリッド、SSD / NVMeのみのようなパフォーマンス特性が違うものも扱えます。
 
-#### Geo-Scalable
+### Geo-Scalable
 
 EdgeFSは、1つのグローバルネームスペースとして接続された、地理的に分散した無制限のサイトにまたがっています。 ローカルサイト内のオブジェクト、ブロック、またはファイルアクセスに対して同様に適切にスケーリングし、リモートサイトのデータへの効率的なアクセスを可能にします。
 
-#### Kubernetes integrated
+### Kubernetes integrated
 
 どのクラウドのKubernetes上にもEdgeFSをデプロイすることができます。CSI、Rookオーケストレーションにより、管理の容易性、制限のないファイル、オブジェクト、バケットまたはディレクトリ単位の粒度のスナップショットを提供します。
 
-### どのような動作か
+## どのような動作か
 
 すべての変更が完全にバージョン管理され、グローバルで不変です。「git」に精通している場合、そのコアでの動作は似たものとなります。  
 グローバルスコープでのコピーオンライト技術と考えると理解が進みます。
@@ -106,25 +101,18 @@ EdgeFSは、1つのグローバルネームスペースとして接続された�
 *   ストレージプロトコルにはオブジェクト（S3/S3X）、ファイル（NFS）、ブロック（iSCSI）が使えます。
 *   完全にバージョン管理された変更、完全に不変のメタデータおよびデータにより、ユーザーデータを透過的に複製、分散し、多くのジオサイト間で動的にプリフェッチできます。
 
-### EdgeFSのデザイン
+## EdgeFSのデザイン
 
 ここではRookとの関係を確認していきます。
 
-
-
-
-![image](/posts/2019/12/16/rook-edgefs-概要/images/2.png#layoutTextWidth)
+![image](./images/2.png)
 
 Rook Operator Architecture
-
-
-
 本家を参照したアーキテクチャを最初に示しました。
-
 Rookを使用すると、Kubernetesの機能を使いEdgeFS サイトを簡単に展開できます。  
 RookがKubernetesで実行されている場合、Pod または外部アプリケーションは、Rookが管理するブロックデバイスとファイルシステムをマウントしたり、オブジェクトストレージにS3 / S3X APIでアクセスできます。
 
-#### Rook EdgeFS Operatorがやること
+### Rook EdgeFS Operatorがやること
 
 *   ストレージコンポーネントの構成を自動化し、クラスターを監視して、ストレージが使用可能で正常な状態を保つようにします。
 *   ストレージクラスタのブートストラップと監視に必要なすべてを備えたシンプルなコンテナです。StatefulSet storage Targets, gRPC Manager、およびPrometheus Multi-Tenantダッシュボードを開始および監視します。接続されたすべてのデバイス（またはディレクトリ）は、プールされたストレージサイトを提供します。ストレージサイトは、1つのグローバルネームスペースデータファブリックとして簡単に相互接続できます。
@@ -145,41 +133,41 @@ RookがKubernetesで実行されている場合、Pod または外部アプリ�
 *   SPOFがない
 *   Highly-Available
 
-#### File, Block and Objectを提供
+### File, Block and Objectを提供
 
 さまざまなストレージプロトコルを地域分散したネームスペースで提供します。対応しているプロトコルはS3, S3X(Range Writes, Snapshot, など),NFS,iSCSIのプロトコルです。
 
-#### Fast &amp; easy deployment
+### Fast &amp; easy deployment
 
 RookとCSIとの連携をしています。それにより、さまざまな環境下でデプロイが数分で完了します。
 
-#### Data protection
+### Data protection
 
 データはレプリカをとり、オフラインイレイジャエンコードします。セルフヒーリングとスナップショットで耐障害性を実現します。
 
-#### Data Reduction
+### Data Reduction
 
 地理を考慮した重複排除、オンライン圧縮があります。クロスサイトのネットワーク使用率を低減したり、リモートデータへのアクセススピードをアップさせます。
 
-#### At rest encryption
+### At rest encryption
 
 オブジェクト、バケット、LUN、ファイルをサーバサイドにてソフトウェアの強力な暗号化をしています。
 
 すべてのデータとメタデータは普遍でSHA-3 256-bit か 512bit で暗号化されています 。
 
-#### Multi-Tenancy with QoS controls
+### Multi-Tenancy with QoS controls
 
 地理を考慮したマルチテナントをファイル、LUN、オブエジェクトで細かい粒度でQoSを設定可能です。
 
-#### No SPoF
+### No SPoF
 
 すべてが分散され、メタデータが不変なデザインとなっているため専用メタデータサーバは必要ありません。
 
-#### Highly-Available
+### Highly-Available
 
 マイクロ秒の解決できるI/Oフェールオーバーで設計されているため、場所に依存しないデータの配置と取得の手法を利用できます。
 
-### 所感
+## 所感
 
 概要を見るととてもいいものと感じましがエンジニアとしてはいくつか気になる点がありました。
 
