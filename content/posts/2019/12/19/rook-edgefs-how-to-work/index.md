@@ -15,8 +15,10 @@ tags:
 
 series:
 - 2019-advent-calendar
+
 categories:
 -
+
 featured_image: "20191219/1.png"
 images:
  - "/posts/2019/12/19/rook-edgefs-how-to-work/images/1.png"

@@ -19,6 +19,7 @@ series:
 - 2019-advent-calendar
 categories:
 -
+
 featured_image: "20191223/1.png"
  
 images:
