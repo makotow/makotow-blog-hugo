@@ -4,10 +4,10 @@ author: "makotow"
 date: 2019-11-06T22:52:17.217Z
 lastmod: 2020-01-05T03:12:26+09:00
 
-description: ""
+description: "PrivateRegistryからImagePullをする場合のマニフェストの書き方"
 
 subtitle: "プライベートレジストリへのログイン方法"
-slug: 
+slug:  how-to-pull-image-from-private-registry-on-kubernetes
 tags:
  - Kubernetes
  - Containers
@@ -21,7 +21,7 @@ aliases:
     - "/kubernetes-private-registry-tips-image-pullsecretse-20dfb808dfc-e20dfb808dfc"
 ---
 
-## プライベートレジストリへのログイン方法
+結果的にプライベートレジストリへのログイン方法をKubernetesのマニフェストから実施する方法。
 
 ## なにに困って、どのように解決したか
 
@@ -61,10 +61,15 @@ Secretの作成を実施します。
 プライベートレジストリなら方法は同じです。 `--docker-server ` に指定しているURLを適宜変更してください
 
 コマンドラインからSecret作成時にユーザ名、パスワードを設定します。
-`$ kubectl create secret docker-registry regcred --docker-server=asia.gcr.io --docker-username=_json_key --docker-password=$(cat key.json)&#34; --docker-email=email-address@address -n namespace`
+
+```
+$ kubectl create secret docker-registry regcred --docker-server=asia.gcr.io --docker-username=_json_key --docker-password=$(cat key.json)" --docker-email=email-address@address -n namespace
+```
 
 default service account に `imagePullSecrets` を追加します。上記で作成したSecret名をnameに設定します。
-`$ kubectl patch serviceaccount default -p &#39;{\&#34;imagePullSecrets\&#34;: [{\&#34;name\&#34;: \&#34;regcred\&#34;}]}&#39; -n namespace`
+```
+$ kubectl patch serviceaccount default -p '{\"imagePullSecrets\": [{\"name\": \"regcred\"}]}' -n namespace
+```
 
 以下のURLで公開されているマニフェストを例に説明します。
 
@@ -72,28 +77,33 @@ default service account に `imagePullSecrets` を追加します。上記で作
 
 サンプルでは `imagePullSecrets`が記載されており、`name: regcred` が指定されています。  
 この場合、Secretオブジェクトの regcred をイメージPull時に使用します。
-`apiVersion: v1  
-kind: Pod  
-metadata:  
-  name: private-reg  
-spec:  
-  containers:  
-  - name: private-reg-container  
-    image: &lt;your-private-image&gt;  
-  imagePullSecrets:  
-  - name: regcred`
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: private-reg
+spec:
+  containers:
+  - name: private-reg-container
+    image: <your-private-image>
+  imagePullSecrets:
+  - name: regcred
+```
 
 default service account の imagePullSecretを変更した場合は次のようにマニフェストを定義しても（imagePullSecrets がない）、実際は上記のマニフェストと同じようになります。
-`apiVersion: v1  
-kind: Pod  
-metadata:  
-  name: private-reg  
-spec:  
-  containers:  
-  - name: private-reg-container  
-    image: &lt;your-private-image&gt;`
 
-### 所感
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: private-reg
+spec:
+  containers:
+  - name: private-reg-container
+    image: <your-private-image>
+```
+
+## 所感
 
 個人的には今回の用途としては、ImagePullSecretをサービスアカウントに設定し問題を解決しました。
 
@@ -104,7 +114,7 @@ spec:
 セキュリティ上、本来はトークンを都度生成したほうがいいのかなとも今回考えました。  
 最適な姿についてはもう少し検討したいと思います。
 
-### 参考
+## 参考
 
 *   [Pull an Image from a Private Registry](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/)
 *   [Add ImagePullSecrets to a service account](https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)

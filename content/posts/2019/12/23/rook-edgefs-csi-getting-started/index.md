@@ -19,11 +19,10 @@ series:
 - 2019-advent-calendar
 categories:
 -
-featured_image: "/20191223/1.png"
+featured_image: "20191223/1.png"
  
 images:
  - "./images/1.png"
-
 
 aliases:
     - "/rook-edgefs-csi%E3%82%92%E8%A9%A6%E3%81%99-927368a119f8"

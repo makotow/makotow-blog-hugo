@@ -4,10 +4,10 @@ author: "makotow"
 date: 2019-06-26T16:52:19.063Z
 lastmod: 2020-01-05T03:12:19+09:00
 
-description: ""
+description: "RealForce + PFU"
 
 subtitle: "RealForce + PFU"
-slug: 
+slug:  keyboard-consideration
 tags:
  - Tech
  - Gadgets
@@ -17,28 +17,22 @@ series:
 -
 categories:
 -
-
-
-
 aliases:
     - "/realforce-pfu-a7c3137ffe40"
 
 ---
 
-#### RealForce + PFU
-
-#### キーボード沼
+## キーボード沼
 
 いつもはMacbook Proを使っていて、キーボードには人並みの知識しかなかったのですが、とあることから外部キーボードを使うことでキーボードの深みに沈みそうであったが一瞬で浮上した話。
 
-#### はじめに買ったキーボード
+## はじめに買ったキーボード
 
 コスパがよくそこそこ使いやすかった。キーキャップを取り寄せて無刻印化したが、一部キーキャップのサイズが84キーのキーボードであるため合わずに微妙にフラストレーションが溜まっていた、そのためキーボードの検討を始めた。
 
 [Plum 84/87/108 Keys 35g Electro-Capacitive Keyboard Non RGB backlighting](https://www.nizkeyboard.com/product/plum-8487108-keys-35g-electro-capacitive-keyboard-non-rgb-backlighting/)
 
-
-### 要件
+## 要件
 
 Windowsが前提なのでMac用のキーバインドをどうするか？など様々件があった。
 
@@ -55,7 +49,7 @@ Windowsが前提なのでMac用のキーバインドをどうするか？など�
 *   無静電
 *   高級感のあるキーボード
 
-#### 検討したキーボード・諦めた理由
+## 検討したキーボード・諦めた理由
 
 1.  Happy Hacking （変態キー配列（褒めてる）ゆえ諦めるがこれが一番理想）
 2.  Niz 87 (同じNizを買っても…）
@@ -64,7 +58,7 @@ Windowsが前提なのでMac用のキーバインドをどうするか？など�
 5.  Keymouse（コストが合わない、高い）
 6.  各種自作（ここまで行くと戻れないと思ったので諦めた。）
 
-### 買ったもの
+## 買ったもの
 
 REALFORCE R2 PFU Limited、簡単に言うとREALFORCEとHappyHackingのいいとこ取りをしたもの。
 

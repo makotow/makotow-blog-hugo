@@ -4,10 +4,10 @@ author: "makotow"
 date: 2019-05-05T01:23:09.429Z
 lastmod: 2020-01-05T03:12:18+09:00
 
-description: ""
+description: "Trident 19.04 & 19.04.1 Update"
 
 subtitle: "k8s dynamic storage povisioner: Volume Import機能が目玉か"
-slug: 
+slug:  trident-19.04-19.04.1-update
 tags:
  - Kubernetes
  - Trident
@@ -18,16 +18,12 @@ series:
 -
 categories:
 -
-
-
-
 aliases:
     - "/trident-1904-release-overview-12f1ceb5ae5b"
 
 ---
 
-#### k8s dynamic storage povisioner: Volume Import機能が目玉か
-
+k8s dynamic storage povisioner: Volume Import機能が目玉か
 Trident 19.04がリリースされました。
 
 [NetApp/trident 19.04](https://github.com/NetApp/trident/releases/tag/v19.04.0)
@@ -40,6 +36,7 @@ Trident 19.04がリリースされました。
 また、アップグレードに伴う問題がありGitHubのリリースページでは以下の文言が出ています。
 
 これから導入する場合、アップグレードする場合はv19.04.01を使いましょう。
+
 > Attention> An issue with **upgrades** to 19.04.0 has been identified that may cause existing backends to get set to an `unknown` state. That issue is resolved in 19.04.1.
 
 ### リリース内容
@@ -64,7 +61,7 @@ External Snapshotterが入ると思っていましたが入っていない状況
 
 １つ１つ内容を見ていきます。
 
-### Fixes
+## Fixes
 
 *   **Fixed panic if no aggregates are assigned to an ONTAP SVM.**
 通常SVMへ編集可能なaggregate(aggr-list)を割り当てるが、割当されていない場合にパニックになっていたのを直した。
@@ -75,7 +72,7 @@ CSI 1.0 kubernetes 1.13 に対応、これはCSI 0.3 → 1.0 への対応の模�
 *   **Kubernetes: Fixed Trident to install on Kubectl 1.14. (Issue** [**#241**](https://github.com/NetApp/trident/issues/241)**) 
 **kubectl v1.14 でTrident Installer が失敗していたのものを修正。
 
-### Enhancements
+## Enhancements
 
 *   **Trident driver for NetApp Cloud Volumes Service in AWS.**
 Cloud Volumes Service for AWS (a.k.a. CVS) をバックエンドに追加可能に。 *CVS: AWS上でManaged Volume を提供するサービス、データ管理や、性能のSLAを提供
@@ -85,7 +82,7 @@ Cloud Volumes Service for AWS (a.k.a. CVS) をバックエンドに追加可能�
 *   **Kubernetes:** Updated etcd to v3.3.12. 
 そのまま etcd v3.3.12へアップデート。(Tridentは独自にPod内にetcdを持っている。）
 
-### Import pre-existing volumes
+## Import pre-existing volumes
 
 一番待っていたこの機能。
 
@@ -97,7 +94,7 @@ Cloud Volumes Service for AWS (a.k.a. CVS) をバックエンドに追加可能�
 
 [https://netapp-trident.readthedocs.io/en/stable-v19.04/kubernetes/operations/tasks/volumes.html#behavior-of-drivers-for-volume-import](https://netapp-trident.readthedocs.io/en/stable-v19.04/kubernetes/operations/tasks/volumes.html#behavior-of-drivers-for-volume-import)
 
-### Trident 19.04.1 が 5/4 にリリース
+## Trident 19.04.1 が 5/4 にリリース
 
 [NetApp/trident](https://github.com/NetApp/trident/releases/tag/v19.04.1)
 

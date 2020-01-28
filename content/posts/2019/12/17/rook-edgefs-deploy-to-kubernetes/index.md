@@ -15,15 +15,14 @@ tags:
  - Storage
 
 series:
--
+-  2019-advent-calendar
 categories:
 -
-featured_image: "./20191217/2.png" 
+featured_image: "20191217/2.png" 
 images:
  - "./images/1.png"
  - "./images/2.png"
  - "./images/3.png"
-
 
 aliases:
     - "/rook-edgefs-operator-6b3c379519c8"

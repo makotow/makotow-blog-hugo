@@ -16,7 +16,7 @@ series:
 - 2019-advent-calendar
 categories:
 -
-image: "/posts/2019/12/16/rook-edgefs-概要/images/1.png" 
+featured_image:: "20191216/1.png" 
 images:
  - "/posts/2019/12/16/rook-edgefs-概要/images/1.png"
  - "/posts/2019/12/16/rook-edgefs-概要/images/2.png"

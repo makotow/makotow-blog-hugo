@@ -7,7 +7,7 @@ lastmod: 2020-01-05T03:12:15+09:00
 description: "CSI current status/CSI の現状を調べてみた"
 
 subtitle: "CSI (Container Storage Interface)の仕様などの調査"
-slug: 
+slug: as-of-2019-Apr-kubernetes-csi
 tags:
  - Kubernetes
  - Storage
@@ -18,19 +18,14 @@ series:
 -
 categories:
 -
-
-
-
 aliases:
     - "/as-of-april-2019-kubernetes-csi-875afa9feac"
-
 ---
 
-#### CSI (Container Storage Interface)の仕様などの調査
-
+ CSI (Container Storage Interface)の仕様などの調査
 このドキュメントは2019/4時点でCSIの現状を個人的にまとめた資料です。個人の興味の範囲で書いているため一部分抜けていたり、足りていない記述がある可能性があるため、正確な情報を得たい場合は文中で参照している一次情報源を参照いただくほうが確実です。ざっくり、こんな感じらしいを知りたい方はSummaryをご覧ください。
 
-### Summary
+## Summary
 
 CSI 1.0 がGAしており、各種コンテナオーケストレーションが共通したAPIで外部ストレージを使用できる共通仕様が策定されました。
 
@@ -58,7 +53,7 @@ CSIは、任意のブロックおよびファイルストレージシステム�
 
 ココらへんまでは本家ブログを翻訳・意訳したもので特に補足するところはないというかこのまま今も変わっていないと考えています。
 
-### CSIがGAしたことでなにができるようになったのか？
+## CSIがGAしたことでなにができるようになったのか？
 
 **Kubernetes1.13はCSI spec v1.0 と v0.3 の互換性に対応**
 
@@ -76,11 +71,11 @@ CSIドライバはすべてのkubernetesバージョンで互換性があるわ�
 [Volumes](https://kubernetes.io/docs/concepts/storage/volumes/#csi)
 
 
-### Deploy の方法は？
+## Deploy の方法は？
 
 CSI対応ドライバを作成している著者のドキュメントを参照。
 
-### どのようにしてCSIボリュームを使用するのか？
+## どのようにしてCSIボリュームを使用するのか？
 
 CSIだからといって特別なことはなく、これまでと同様にPersistentVolumeClaims,PersistentVolumes,StorageClassというKubernetesストレージAPIオブジェクトから操作します。
 
@@ -89,7 +84,7 @@ Kubernetes1.13ではKubernetesのAPIサーバーで以下のフラグを設定�
 *   --allow-privileged=true
 *   ほとんどのCSIプラグインは **bidirectional mout propagation**を必要とします。bidirectional mount propagationはPriviledge Pod が有効になっているポッドのみ有効にできます。Priviledge podは、上記のフラグ（ — allow-privileged）がtrueに設定されているクラスタでのみ許可されます（これはGCE、GKE、およびkubeadmのようないくつかの環境でのデフォルトです）。
 
-### Dynamic Provisioning
+## Dynamic Provisioning
 
 DynamicProvisioningを使用する際にはStorageClass のProvisionerにCSIに対応したCSI Volume Pluginを指定することでボリュームの作成・削除の自動化を実現できます。
 
@@ -98,7 +93,9 @@ DynamicProvisioningを使用する際にはStorageClass のProvisionerにCSIに�
 ポイントは **provisioner** の箇所にCSIプラグインの名前を入れるところです。
 
 parameters配下のcsi.storage.k8s.ioはCSI external-provisionerで予約されているキープレフィックスです。（external-provisionerについては後ほど説明します。）
-``kind: StorageClass  
+
+```yaml
+kind: StorageClass  
 apiVersion: storage.k8s.io/v1  
 metadata:  
   name: fast-storage  
@@ -106,12 +103,14 @@ provisioner: csi-driver.example.com &lt;- ここにCSIプラグイン名を記�
 parameters:  
   type: pd-ssd  
   csi.storage.k8s.io/provisioner-secret-name: mysecret   
-  csi.storage.k8s.io/provisioner-secret-namespace: mynamespace``
-
+  csi.storage.k8s.io/provisioner-secret-namespace: mynamespace
+```
 今まで通りPVCを作成することでCSIプラグインを介してボリュームを動的に作成・削除することができます。
 
 storageClassNameの箇所を上記で作成したStorageClassのmetadata.nameと同一にします。
-``apiVersion: v1  
+
+```yaml
+apiVersion: v1  
 kind: PersistentVolumeClaim  
 metadata:  
   name: my-request-for-storage  
@@ -121,14 +120,16 @@ spec:
   resources:  
     requests:  
       storage: 5Gi  
-  storageClassName: fast-storage``
+  storageClassName: fast-storage
+```
 
-### Pre-Provisioned Volumes
+## Pre-Provisioned Volumes
 
 すでに存在しているボリュームについて手動でPersistentVolumeを作成することでKubernetesへ見せることができるようになります。
 
 ここではspec.csi配下のdriverにCSIプラグイン名を記載し、volumeHandleに既存のボリューム名称を記載します。
-``apiVersion: v1  
+```yaml
+apiVersion: v1  
 kind: PersistentVolume  
 metadata:  
   name: my-manually-created-pv  
@@ -153,15 +154,16 @@ spec:
       namespace: mynamespace  
     nodePublishSecretRef  
       name: mysecret3  
-      namespace: mynamespace``
+      namespace: mynamespace
+```
 
-### Attaching and mounting
+## Attaching and mounting
 
 PersistentVolumeClaimを使う場合と同じ。
 
 CSIを使う・使わないはPVCのマニフェストで吸収されるのでPodやDeploymentからはPVCの名前しか意識しない作りになっています。
 
-### どういう実装をするとCSI対応と言えるのか？
+## どういう実装をするとCSI対応と言えるのか？
 
 本家へのリンクはこちらです。
 
@@ -208,7 +210,7 @@ The Container Storage Interface (CSI) will
 *   Describe a process by which a Supervisor configures a Plugin.
 *   Container deployment considerations (`CAP_SYS_ADMIN`, mount namespace, etc.).
 
-### これからのCSIについて
+## これからのCSIについて
 
 トピックとしては以下のようなものが検討されています。基本的な機能を拡充し、より実践的な機能が挙げられ検討されています。VolumeSnapshotに対してはCSI1.0でAlpha Statusとして定義されています。
 
@@ -234,7 +236,7 @@ The Container Storage Interface (CSI) will
 *   ローカルエフェメラルストレージ対応
 *   以前より実装されていたIn-tree volume pluginのCSIへのマイグレーション
 
-### In-Tree Volume Pluginはどうするの？
+## In-Tree Volume Pluginはどうするの？
 
 CSIのへのマイグレーションガイドを参考にマイグレーションしていくという方針です。
 
@@ -243,7 +245,7 @@ CSIのへのマイグレーションガイドを参考にマイグレーショ�
 [kubernetes/community](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/csi-migration.md)
 
 
-### References
+## References
 
 ここまで参照したすべてのリンク集です。
 

@@ -18,17 +18,10 @@ series:
 -
 categories:
 -
-
-
-
 aliases:
     - "/%E3%82%BC%E3%83%AD%E3%81%8B%E3%82%89%E5%A7%8B%E3%82%81%E3%82%8B%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9%E3%83%A1%E3%83%83%E3%82%B7%E3%83%A5%E5%85%A5%E9%96%80-part2-5a5252f6d8d1"
-
 ---
-
-#### Istio インストールと簡単な使い方
-
-### 概要
+## 概要
 
 前回はIstio、サービスメッシュの超概要を調べました。
 
@@ -41,7 +34,7 @@ aliases:
 
 注: 2018/12末の情報です。一部バージョン等は古い可能性があるので正式な手順等は本家マニュアルを参照ください。
 
-### 事前準備
+## 事前準備
 
 *   Kubernetesクラスタの準備
 *   Istio関係のインストール
@@ -58,11 +51,23 @@ NodePortを使う場合は以下の通り設定可能と記載があるので備
 [https://istio.io/docs/setup/kubernetes/helm-install/](https://istio.io/docs/setup/kubernetes/helm-install/)
 > _Istio by default uses LoadBalancer service object types. Some platforms do not support LoadBalancer service objects. For platforms lacking LoadBalancer support, install Istio with NodePort support instead with the flags — set gateways.istio-ingressgateway.type=NodePort — set gateways.istio-egressgateway.type=NodePort appended to the end of the Helm operation._
 
-### クラスタの状況確認
+## クラスタの状況確認
 
 今回試している環境の確認。
-``$ kubectl version --short````Client Version: v1.13.1  
-Server Version: v1.12.3````$ kubectl get all --all-namespaces````NAMESPACE     NAME                                                                          READY   STATUS    RESTARTS   AGE  
+```
+$ kubectl version --short
+```
+
+```
+Client Version: v1.13.1  
+Server Version: v1.12.3
+```
+
+```
+$ kubectl get all --all-namespaces
+```
+```
+NAMESPACE     NAME                                                                          READY   STATUS    RESTARTS   AGE  
 kube-system   pod/coredns-576cbf47c7-8x2bg                                                  1/1     Running   0          8m38s  
 kube-system   pod/coredns-576cbf47c7-cr9gc                                                  1/1     Running   0          8m38s  
 kube-system   pod/dashboard-proxy-79787b76d4-pqkhj                                          1/1     Running   0          6m44s  
@@ -94,13 +99,21 @@ kube-system   replicaset.apps/coredns-576cbf47c7                2         2     
 kube-system   replicaset.apps/dashboard-proxy-79787b76d4        1         1         1       6m44s  
 kube-system   replicaset.apps/heapster-5459947ccc               1         1         1       6m45s  
 kube-system   replicaset.apps/kubernetes-dashboard-778d4ccc65   1         1         1       6m44s  
-kube-system   replicaset.apps/tiller-deploy-6fb6d4777d          1         1         1       7m16s``
+kube-system   replicaset.apps/tiller-deploy-6fb6d4777d          1         1         1       7m16s
+```
 
 Helmのバージョンを確認
-``$ helm version````Client: &amp;version.Version{SemVer:&#34;v2.12.1&#34;, GitCommit:&#34;02a47c7249b1fc6d8fd3b94e6b4babf9d818144e&#34;, GitTreeState:&#34;clean&#34;}  
-Server: &amp;version.Version{SemVer:&#34;v2.12.1&#34;, GitCommit:&#34;02a47c7249b1fc6d8fd3b94e6b4babf9d818144e&#34;, GitTreeState:&#34;clean&#34;}``
 
-[Installation with Helm](https://istio.io/docs/setup/kubernetes/helm-install/#installation-steps)
+```
+$ helm version
+```
+
+```
+Client: &amp;version.Version{SemVer:&#34;v2.12.1&#34;, GitCommit:&#34;02a47c7249b1fc6d8fd3b94e6b4babf9d818144e&#34;, GitTreeState:&#34;clean&#34;}  
+Server: &amp;version.Version{SemVer:&#34;v2.12.1&#34;, GitCommit:&#34;02a47c7249b1fc6d8fd3b94e6b4babf9d818144e&#34;, GitTreeState:&#34;clean&#34;}``
+```
+
+* [Installation with Helm](https://istio.io/docs/setup/kubernetes/helm-install/#installation-steps)
 
 IstioのInstallは上記のページをみて実施します、インストールしたHelmは 2.10.0 以降なので Option1を実施します。
 
