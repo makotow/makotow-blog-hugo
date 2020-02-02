@@ -12,7 +12,7 @@ series:
 -
 categories:
 -
-featured_image: images/1.png
+featured_image: 20200202/1.png
 images: 
 - images/anf.png
 - images/1.png 
