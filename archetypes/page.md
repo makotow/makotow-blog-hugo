@@ -1,23 +1,17 @@
 ---
 title: "{{ replace .TranslationBaseName "-" " " | title }}"
-subtitle: ""
-description: 
-author: "makotow"
 date: {{ .Date }}
-slug: "{{.File.BaseFileName}}"
-tags:
--
 categories:
--
+- category
+- subcategory
+tags:
+- tag1
+- tag2
 keywords:
 - tech
-#thumbnailImagePosition: left
+comments:       false
+showMeta:       false
+showActions:    false
 #thumbnailImage: //example.com/image.jpg
 ---
 
-
-<!--more-->
-
-<!-- toc -->
-
----

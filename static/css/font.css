@@ -1,0 +1,31 @@
+@font-face {
+    font-family: 'Noto Sans JP';
+    src: url('https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,700,900&display=swap&subset=japanese');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Noto Sans JP';
+    src: url('https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,700,900&display=swap&subset=japanese');
+    font-weight: 400;
+    font-style: normal;
+}
+
+#sidebar .sidebar-profile .sidebar-profile-name
+{
+    color: #252525;
+}
+#sidebar ul.sidebar-buttons li.sidebar-button .sidebar-button-link
+{
+    color: #252525;
+}
+@media only screen and (min-width: 1280px)
+{
+  #sidebar[data-behavior="1"] .sidebar-profile .sidebar-profile-bio,
+  #sidebar[data-behavior="1"] .sidebar-profile .sidebar-profile-job,
+  #sidebar[data-behavior="1"] .sidebar-profile .sidebar-profile-location 
+  {
+    color: #252525;
+  }
+}
