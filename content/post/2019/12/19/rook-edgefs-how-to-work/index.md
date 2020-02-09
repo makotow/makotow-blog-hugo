@@ -19,8 +19,8 @@ series:
 categories:
 -
 
-thumbnailImagePosition: left
-thumbnailImage: "20191219/1.png"
+thumbnailImagePosition: top
+thumbnailImage: "/images/20191219/1.png"
 images:
  - "/posts/2019/12/19/rook-edgefs-how-to-work/images/1.png"
 
@@ -46,6 +46,11 @@ Rookだらけの Advent Calendar 2019/12/19: Rook EdgeFS 今までの回で疑�
 ただ、仕組みとしてはいまいち理解が追いつかない部分があったのも事実です。仕組みを知らなくてもクラスタが構成できて各種ストレージサービスができることは大変素晴らしいのですが、エンジニアとしては納得いきません。
 
 ということで、本日は急遽予定を変更して今まで気になってきたことを調べてみた結果をアドベントカレンダーとします。
+
+<!--more-->
+
+<!-- toc -->
+
 
 ## 情報源
 

@@ -17,14 +17,10 @@ series:
 -
 categories:
 -
-image: "./images/1.png" 
-images:
- - "./images/1.png"
- - "./images/2.png"
-
 aliases:
     - "/netapp-trident-19-07-new-features-64fe649a0a77"
-
+thumbnailImagePosition: top
+thumbnailImage: "/images/20190813/1.png" 
 ---
 
 ## CSI: Volume Snapshot, Volume Clone
@@ -40,6 +36,12 @@ Trident 19.07 &amp; CSI 1.1 対応したためCSI対応周りとTrident 19.07 �
 本記事で言及するCSI 1.1 のSnapshotやCloneは現時点でアルファステータスなため、どのような機能かを試すぐらいの目的でご使用ください。
 
 本番環境での利用は強くおすすめしません。
+
+<!--more-->
+
+<!--toc-->
+
+---
 
 ## Tridentとは
 

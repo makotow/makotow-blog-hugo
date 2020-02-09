@@ -3,9 +3,7 @@ title: "Rook: EdgeFS AWS S3/ Edge-X S3 やってみた"
 author: "makotow"
 date: 2019-12-22T15:40:15.237Z
 lastmod: 2020-01-05T03:12:38+09:00
-
-description: ""
-
+description: "EdgeFS S3/S3X"
 subtitle: "Rookだらけの Advent Calendar 2019/12/22: Rook EdgeFS S3/S3X"
 slug: rook-edgefs-aws-s3-edgex-s3
 tags:
@@ -13,19 +11,10 @@ tags:
  - Edgefs
  - Kubernetes
  - Storage
-
-series:
-- 2019-advent-calendar
 categories:
--
-thumbnailImagePosition: left
-thumbnailImage: 
-images:
- - "./images/1.png"
- - "./images/2.png"
- - "./images/3.jpg"
-
-
+ - 2019-advent-calendar
+thumbnailImagePosition: top
+thumbnailImage:
 aliases:
     - "/rook-edgefs-aws-s3-edge-x-s3-%E3%82%84%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%9F-64f3735ce411"
 
@@ -46,6 +35,10 @@ aliases:
 
 1.  EdgeFS 上でefscliを使い、クラスタ作成、テナント作成、バケット作成、サービス有効化を実施
 2.  Kubernetes側でCRDを作成しKubernetes上で使えるようにする
+
+<!--more-->
+<!-- toc -->
+---
 
 では、早速コマンドを見ていきましょう。
 
@@ -166,13 +159,32 @@ S3サービスを公開しました。ここまででEdgeFS側のオペレーシ
 
 S3 cola テナント用CRD
 
+```yaml
+apiVersion: edgefs.rook.io/v1
+kind: S3
+metadata:
+  name: s3-cola
+  namespace: rook-edgefs
+spec:
+  instances: 1
+```
 
 
 S3 pepsi 用テナント
 
+```yaml
+apiVersion: edgefs.rook.io/v1
+kind: S3
+metadata:
+  name: s3-pepsi
+  namespace: rook-edgefs
+spec:
+  instances: 1
+```
 
 
 上記の名前のみを変更したCRDを使いマニフェストを適応していきます。
+
 ```
 ❯ kubectl create -f s3-cola.yaml  
 s3.edgefs.rook.io/s3-cola created  

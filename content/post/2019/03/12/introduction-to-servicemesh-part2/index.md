@@ -3,7 +3,6 @@ title: "ゼロから始めるサービスメッシュ入門 Part2"
 author: "makotow"
 date: 2019-03-12T16:24:08.988Z
 lastmod: 2020-01-05T03:12:13+09:00
-
 description: ""
 
 subtitle: "Istio インストールと簡単な使い方"
@@ -14,8 +13,6 @@ tags:
  - Service Mesh
  - Tech
 
-series:
--
 categories:
 -
 aliases:
@@ -33,6 +30,10 @@ aliases:
 今回は実際にインストールするところとIstioがサイドカーコンテナとして動作するところまでを確認します。
 
 注: 2018/12末の情報です。一部バージョン等は古い可能性があるので正式な手順等は本家マニュアルを参照ください。
+
+<!--more-->
+<!--toc-->
+
 
 ## 事前準備
 

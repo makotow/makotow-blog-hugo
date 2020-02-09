@@ -3,9 +3,7 @@ title: "ここ数年のKubernetesのステートフルワークロードを振�
 author: "makotow"
 date: 2019-12-08T15:36:01.366Z
 lastmod: 2020-01-05T03:12:28+09:00
-
 description: "ここ数年のKubernetesストレージ周りを振り返り"
-
 subtitle: "ステートフルワークロードの振り返りと今後"
 slug: looking-back-on-the-last-couple-of-years-regarding-kubernetes-stateful-workload
 tags:
@@ -13,14 +11,10 @@ tags:
  - Storage
  - Poem
  - Cloud
-
-series:
-- 2019-advent-calendar
 categories:
--
-image: "./images/1.jpg" 
-images:
- - "./images/1.jpg"
+- 2019-advent-calendar
+thumbnailImagePosition: top
+thumbnailImage: "/images/20191208/1.png" 
 aliases:
     - "/kubernetes3-day9-statefulworkload-on-k8s-retrospective-and-next-challenges-18251c8b8cd3"
 ---
@@ -42,6 +36,12 @@ aliases:
 *   Kubernetes Storage が難しいのではなく、ストレージが難しい
 *   いつの時代もステートフルワークロードは少し遅れて課題が出てくる、2019年はステートフルワークロード元年
 *   様々な環境下でのステートフルワークロード対応としてグローバル分散DB/ファイルに注目
+
+<!--more-->
+
+<!-- toc -->
+
+---
 
 ## 過去 2015–2017くらいの話: これまで
 

@@ -3,9 +3,7 @@ title: "Rook: EdgeFS NFSサービスをデプロイする"
 author: "makotow"
 date: 2019-12-18T14:45:23.688Z
 lastmod: 2020-01-05T03:12:34+09:00
-
 description: "Rookだらけの Advent Calendar 2019/12/18: Rook EdgeFS NFSをつかう"
-
 subtitle: "Rookだらけの Advent Calendar 2019/12/18: Rook EdgeFS NFSをつかう"
 slug: rook-edgefs-deploy-nfsservice
 tags:
@@ -14,10 +12,8 @@ tags:
  - Rook
  - Storage
 
-series:
-- 2019-advent-calendar
 categories:
--
+- 2019-advent-calendar
 aliases:
     - "/rook-edgefs-nfs-service-65365863aa7e"
 ---
@@ -28,6 +24,11 @@ Rook EdgeFS NFSを使ってみたです。
 ## TL;DR
  
 * efscliとNFS CRDで数分でNFSサービスを利用可能に
+
+
+<!--more-->
+
+<!-- toc -->
 
 ## やること
 

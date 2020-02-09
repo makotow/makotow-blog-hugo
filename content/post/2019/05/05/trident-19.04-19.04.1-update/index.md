@@ -3,9 +3,7 @@ title: "Trident 19.04 & 19.04.1 Update"
 author: "makotow"
 date: 2019-05-05T01:23:09.429Z
 lastmod: 2020-01-05T03:12:18+09:00
-
 description: "Trident 19.04 & 19.04.1 Update"
-
 subtitle: "k8s dynamic storage povisioner: Volume Import機能が目玉か"
 slug:  trident-19.04-19.04.1-update
 tags:
@@ -14,8 +12,6 @@ tags:
  - Netapp
  - Technology
 
-series:
--
 categories:
 -
 aliases:
@@ -38,6 +34,9 @@ Trident 19.04がリリースされました。
 これから導入する場合、アップグレードする場合はv19.04.01を使いましょう。
 
 > Attention> An issue with **upgrades** to 19.04.0 has been identified that may cause existing backends to get set to an `unknown` state. That issue is resolved in 19.04.1.
+
+<!--more-->
+<!--toc-->
 
 ### リリース内容
 

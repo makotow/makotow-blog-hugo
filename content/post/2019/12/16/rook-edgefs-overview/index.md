@@ -12,20 +12,12 @@ tags:
  - Edgefs
  - Storage
 
-series:
-- 2019-advent-calendar
 categories:
--
-thumbnailImagePosition: left
-thumbnailImage::: "20191216/1.png" 
-images:
- - "/posts/2019/12/16/rook-edgefs-概要/images/1.png"
- - "/posts/2019/12/16/rook-edgefs-概要/images/2.png"
-
-
+- 2019-advent-calendar
+thumbnailImagePosition: top
+thumbnailImage: "/images/20191216/1.png" 
 aliases:
     - "/rook-edgefs-overview-bb2e19ea0e0e"
-
 ---
 
  Rookだらけの Advent Calendar 2019/12/16:はじめの一歩
@@ -51,6 +43,12 @@ aliases:
 *   全部入りストレージのようなもの(S3, NFS, iSCSI, NoSQL)の接続を提供
 *   地理的に分散しているストレージサイトを１つのデータサービスとして仮想的にアクセス可能、マルチクラウドやハイブリッドクラウド、エッジIoTを実現するもの
 *   master ブランチではEdgeFS DataFabricという名前になっている
+
+<!--more-->
+
+<!-- toc -->
+
+---
 
 ## EdgeFS Status
 

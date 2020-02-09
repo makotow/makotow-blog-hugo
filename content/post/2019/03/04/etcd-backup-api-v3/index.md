@@ -3,9 +3,7 @@ title: "etcd のバックアップをする API v3"
 author: "makotow"
 date: 2019-03-04T16:20:34.770Z
 lastmod: 2020-01-05T03:12:10+09:00
-
 description: ""
-
 subtitle: "主にKubernetes環境におけるバックアップ"
 slug: 
 tags:
@@ -14,13 +12,8 @@ tags:
  - Tech
  - Backup
 
-series:
--
 categories:
 -
-
-
-
 aliases:
     - "/etcd-backup-apiv3-828158cb06e0"
 
@@ -37,6 +30,8 @@ aliases:
 
 [Operating etcd clusters for Kubernetes](https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/#backing-up-an-etcd-cluster)
 
+<!--more-->
+<!--toc-->
 
 #### 結論から
 

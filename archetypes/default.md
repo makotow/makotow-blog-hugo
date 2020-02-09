@@ -11,7 +11,7 @@ categories:
 -
 keywords:
 - tech
-#thumbnailImagePosition: left
+#thumbnailImagePosition: top
 #thumbnailImage: //example.com/image.jpg
 ---
 

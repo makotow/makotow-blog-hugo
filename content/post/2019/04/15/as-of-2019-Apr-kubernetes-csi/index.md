@@ -3,9 +3,7 @@ title: "As of 2019/4 Kubernetes CSI について"
 author: "makotow"
 date: 2019-04-15T16:42:52.708Z
 lastmod: 2020-01-05T03:12:15+09:00
-
 description: "CSI current status/CSI の現状を調べてみた"
-
 subtitle: "CSI (Container Storage Interface)の仕様などの調査"
 slug: as-of-2019-Apr-kubernetes-csi
 tags:
@@ -13,9 +11,6 @@ tags:
  - Storage
  - Containers
  - Technology
-
-series:
--
 categories:
 -
 aliases:
@@ -52,6 +47,9 @@ CSIは、任意のブロックおよびファイルストレージシステム�
 これによりKubernetesユーザーはより多くのストレージオプションを利用でき、システムの安全性と信頼性が高まります。
 
 ココらへんまでは本家ブログを翻訳・意訳したもので特に補足するところはないというかこのまま今も変わっていないと考えています。
+<!--more-->
+<!--toc-->
+
 
 ## CSIがGAしたことでなにができるようになったのか？
 

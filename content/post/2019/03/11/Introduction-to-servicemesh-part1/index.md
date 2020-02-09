@@ -18,11 +18,8 @@ series:
 -
 categories:
 -
-image: "/posts/2019/03/11/ゼロから始めるサービスメッシュ入門-part1/images/1.png" 
-images:
- - "/posts/2019/03/11/ゼロから始めるサービスメッシュ入門-part1/images/1.png"
-
-
+thumbnailImagePosition: top
+thumbnailImage: "/images/20190311/1.png" 
 aliases:
     - "/learning-istio-from-zero-part1-23792f11ddb3"
 
@@ -34,6 +31,8 @@ aliases:
 
 Istioの学習記録、今回は本家のマニュアルに書いてあることの理解を深める回であり、  
 人に伝えるためにはどのように考えて伝えればよいかを洗い出す目的で記述する記事です。
+<!--more-->
+<!--toc-->
 
 ### 今回の範囲・目標
 

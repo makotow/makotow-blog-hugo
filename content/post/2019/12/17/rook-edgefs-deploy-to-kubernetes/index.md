@@ -3,9 +3,7 @@ title: "Rook: EdgeFS をKubernetesへデプロイする"
 author: "makotow"
 date: 2019-12-16T16:42:40.764Z
 lastmod: 2020-01-05T03:12:32+09:00
-
 description: "Rookだらけの Advent Calendar 2019/12/17: Rook EdgeFS Operator の力を実感する"
-
 subtitle: "Rookだらけの Advent Calendar 2019/12/17: Rook EdgeFS Operator の力を実感する"
 slug: rook-edgefs-deploy-to-kubernates
 tags:
@@ -14,20 +12,11 @@ tags:
  - Edgefs
  - Storage
 
-series:
--  2019-advent-calendar
-
 categories:
--
+- 2019-advent-calendar
 
-thumbnailImagePosition: left
-thumbnailImage: "20191217/2.png" 
-
-images:
- - "./images/1.png"
- - "./images/2.png"
- - "./images/3.png"
-
+thumbnailImagePosition: top
+thumbnailImage: "/images/20191217/2.png" 
 aliases:
     - "/rook-edgefs-operator-6b3c379519c8"
 ---
@@ -43,6 +32,12 @@ Rookだらけの Advent Calendar 2019/12/17: Rook EdgeFS Operator の力を実�
 *   Operatorは偉大
 
 この記事では実際にプロビジョニングするところまでやってみたいと思います。
+
+<!--more-->
+
+<!--toc-->
+
+---
 
 端的に言うと以下のコマンドで終了です。  
 しかし、EdgeFSではクラスタ作成時の事前準備が必要となるためその部分を重点的に今日は書きたいと思います。

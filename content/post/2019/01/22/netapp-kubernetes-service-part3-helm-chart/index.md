@@ -18,21 +18,8 @@ series:
 -
 categories:
 -
-image: "/posts/2019/01/22/netapp-kubernetes-service-part3-はじめての-helm-chart/images/2.jpeg" 
-images:
- - "/posts/2019/01/22/netapp-kubernetes-service-part3-はじめての-helm-chart/images/1.jpeg"
- - "/posts/2019/01/22/netapp-kubernetes-service-part3-はじめての-helm-chart/images/2.jpeg"
- - "/posts/2019/01/22/netapp-kubernetes-service-part3-はじめての-helm-chart/images/3.jpeg"
- - "/posts/2019/01/22/netapp-kubernetes-service-part3-はじめての-helm-chart/images/4.jpeg"
- - "/posts/2019/01/22/netapp-kubernetes-service-part3-はじめての-helm-chart/images/5.jpeg"
- - "/posts/2019/01/22/netapp-kubernetes-service-part3-はじめての-helm-chart/images/6.jpeg"
- - "/posts/2019/01/22/netapp-kubernetes-service-part3-はじめての-helm-chart/images/7.jpeg"
- - "/posts/2019/01/22/netapp-kubernetes-service-part3-はじめての-helm-chart/images/8.jpeg"
-
-
 aliases:
     - "/netapp-kubernetes-service-part3-helmchart-c50be5fe42ea"
-
 ---
 
 #### 自分で創るHelm Chart編
@@ -46,7 +33,8 @@ NetApp Kubernetes Service (NKS)の使い所を見ながら、ポイントとな�
 *   **今回** 自作Helm Chartを登録する
 *   Federationを試す！
 *   ServiceMeshを試す！
-
+<!--more-->
+<!--toc-->
 #### 概要
 
 NKSのSolutionsにはいくつかのカテゴリがあり、以下の３つが提供されています。
