@@ -14,8 +14,6 @@ tags:
  - Tech
  - Kubernetes
 
-series:
--
 categories:
 -
 thumbnailImagePosition: top
