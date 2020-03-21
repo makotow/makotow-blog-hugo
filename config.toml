@@ -34,8 +34,8 @@ canonifyurls = true
 
 [author]
   name = "Makoto Watanabe"
-  bio = ""
-  job = "Engineer"
+  bio = "Kubernetes enthusiast<br>CSI Watcher<br>Keyboard enthusiast<br>"
+  job = "Solutions Architect"
   location = "Japan"
   # Your Gravatar email. Overwrite `author.picture` everywhere in the blog
   #gravatarEmail = "thibaud.lepretre@gmail.com"
@@ -77,7 +77,7 @@ canonifyurls = true
   identifier = "about"
   name = "About"
   pre = "<i class=\"sidebar-button-icon fa fa-lg fa-question\"></i>"
-  url = "/about/"
+  url = "/#about"
 
 [[menu.links]]
   weight = 1
@@ -92,13 +92,6 @@ canonifyurls = true
   name = "twitter"
   pre = "<i class=\"sidebar-button-icon fa fab fa-twitter\"></i>"
   url = "https://twitter.com/makotow"
-
-# [[menu.links]]
-#   weight = 2
-#   identifier = "stackoverflow"
-#   name = "Stack Overflow"
-#   pre = "<i class=\"sidebar-button-icon fa fa-lg fa-stack-overflow\"></i>"
-#   url = "https://stackoverflow.com/users/636472/kakawait"
 
 [[menu.misc]]
   weight = 1
