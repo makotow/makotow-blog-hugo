@@ -1,69 +1,13 @@
-/* 
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Lato:400,900|Noto+Sans+JP:400,900&display=swap&subset=japanese,latin-ext');
 
-@font-face {
-  font-family: 'Noto Sans JP';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  font-feature-settings : "palt";
-  src: local("Noto Sans CJK JP"),
-    local("Noto Sans JP"),
-    url(//fonts.gstatic.com/ea/notosansjp/v5/NotoSansJP-Regular.woff2) format('woff2'),
-    url(//fonts.gstatic.com/ea/notosansjp/v5/NotoSansJP-Regular.woff) format('woff'),
-    url(//fonts.gstatic.com/ea/notosansjp/v5/NotoSansJP-Regular.otf) format('opentype');
-}
-
-html {
-  font-family: 'Noto Sans', sans-serif;
-  font-size: 10px;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  text-size-adjust: 100%;
-  -webkit-tap-highlight-color: transparent;
-  tap-highlight-color: transparent
-}
-
-body {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  background: #fff;
-  font-family: 'Noto Sans', sans-serif;
-  font-size: 1.6rem;
-  line-height: 1.9em;
-  letter-spacing: .01em;
-  -webkit-font-smoothing: subpixel-antialiased;
-  font-smoothing: subpixel-antialiased
-}
-
-body.pushed {
-  overflow-x: hidden
+*{
+  font-family: 'Lato', 'Noto Sans JP', 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
 }
 
 h1,h2,h3,h4,h5,h6 {
   letter-spacing: -.04em;
-  font-family: 'Noto Sans', sans-serif;
-  font-weight: 700;
+  font-family: 'Lato', 'Noto Sans JP', 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
+  font-weight: 900;
   line-height: 1.45em;
   color: #4a4a4a
 }
-
-#sidebar .sidebar-profile .sidebar-profile-name
-{
-    color: #252525;
-}
-#sidebar ul.sidebar-buttons li.sidebar-button .sidebar-button-link
-{
-    color: #252525;
-}
-@media only screen and (min-width: 1280px)
-{
-  #sidebar[data-behavior="1"] .sidebar-profile .sidebar-profile-bio,
-  #sidebar[data-behavior="1"] .sidebar-profile .sidebar-profile-job,
-  #sidebar[data-behavior="1"] .sidebar-profile .sidebar-profile-location 
-  {
-    color: #252525;
-  }
-} */
