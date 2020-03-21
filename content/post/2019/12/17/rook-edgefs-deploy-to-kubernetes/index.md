@@ -135,7 +135,7 @@ stern . -n rook-edgefs-system
 
 ## Before
 
-`useAllDevices: true`
+`useAllDevices: false`
 
 ## After
 

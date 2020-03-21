@@ -41,7 +41,7 @@ canonifyurls = true
   #gravatarEmail = "thibaud.lepretre@gmail.com"
   # Your profile picture
   # Overwritten by your gravatar image if `author.gravatarEmail` is filled
-  picture = "https://cdn1.iconfinder.com/data/icons/ninja-things-1/1772/ninja-simple-512.png"
+  picture = "https://lh3.googleusercontent.com/2NYvGUnWkVnzvO9_L62bMQJVwrEZTxLbjSuzVha1UlkxjVFDXpqaldS176w711ypa4GTxl-y5LuJ92Ey4zOqGSRSyBF5DaFOjhG4Ze4PEBiTH4fqeCnJo9gWROXWXhh6bpQltvEhFX1iFRY7jCHblqUvJoNVISdJwbJUzjxrrUYtKe-jd_twRTc9lhxJJIlgMDb1Gvc5eztgquVGidRXJiykuPhyEV459JCiBzUZrfW_wgOGs7SyMsFetOJUmHiopOnMX4VhIUGjl4IPiCBrpQnRSGGK5s7QzbG3pJrX3RELbEgEe132cjebNeOPXBzLDOGfg_1zkKnWCLL0saqMdDQwz6gH7rRs26jgKmvYQfF6ybmU1RgizGMD-MIisKGTTFHTMjSImPFcexRrVgZL1q3wudGTQLVk-SobpfUR83dmJenpgcIwyV5no_nkvUoD48zjXEjLy-24kCHxS_xJ6Wi8Az7HFe5qLbC9j665C-w7FVtifYjbWuMFEigr-HMLEVv0uXYSapArNKbzSI5ds9D9fH9c_W2xhE4AJcZvdwzWgHmOBy_iAfpNb_IKNb8vhzIM9pNjy5Jfr0mzzD5XUkB9kWiyztduUgINm87PYT03hiHvTY5PQfm2wQuSb9YYLGQFhGnup_TbQwYgA6nl0l7ClQxKZQZK4HGyoyd3xT1g63wpfgknbFhYmr43nQlWGdVtJJCz_gizhrCL2tM34akf3Pz9fRumJaE-yrHonFx5eLojbqX5w8Y=s256-no"
   # Your Twitter username without the @. E.g : thibaudlepretre
   twitter = "makotow"
   # Your google plus profile id. E.g : +ThibaudLepretre or 114625208755123718311
@@ -77,7 +77,7 @@ canonifyurls = true
   identifier = "about"
   name = "About"
   pre = "<i class=\"sidebar-button-icon fa fa-lg fa-question\"></i>"
-  url = "/#about"
+  url = "/about/"
 
 [[menu.links]]
   weight = 1
@@ -85,6 +85,14 @@ canonifyurls = true
   name = "GitHub"
   pre = "<i class=\"sidebar-button-icon fa fa-lg fa-github\"></i>"
   url = "https://github.com/makotow"
+
+[[menu.links]]
+  weight = 2
+  identifier = "twitter"
+  name = "twitter"
+  pre = "<i class=\"sidebar-button-icon fa fab fa-twitter\"></i>"
+  url = "https://twitter.com/makotow"
+
 # [[menu.links]]
 #   weight = 2
 #   identifier = "stackoverflow"
@@ -135,7 +143,7 @@ canonifyurls = true
   #    large sidebar is swiped on all lower screens
   # 5: Display header bar on all screens and large sidebar is swiped on large screen
   # 6: Display header bar on all screens and medium sidebar is swiped
-  sidebarBehavior = 1
+  sidebarBehavior = 2
 
   # Your blog cover picture. I STRONGLY recommend you to use a CDN to speed up loading of pages.
   # There is many free CDN like Cloudinary or you can also use indirectly
@@ -143,13 +151,14 @@ canonifyurls = true
   # Current image is on AWS S3 and delivered by AWS CloudFront.
   # Otherwise put your image, for example `cover.jpg` in folder `static/images/`,
   # and use relative url : `images/cover.jpg`
-  coverImage = "images/cover.jpg"
-
+  # coverImage = "images/cover.jpg"
+  coverImage ="https://lh3.googleusercontent.com/T42JIGajka5NiGWmnSwnlzpxj9bKvK3iiN-LhZ71k3yBJDDA8mmlimf69IxHCkUf_q_ehFdVXj0_P7LFhgSnU8Z-Oj_Uj4mcmuz2diy2K8lfCiHH4XgPnqJ_hHIVznsEKPKZgRwd41oX3sAutXLNq7kk0M3tOiQiOYYBVtrZxQ7bi2HOAePnpl-CR-vofXkD_3I5kQCVxb-DjBy7yg_p8L9GJcKBerOno4YKqxjjDMxMTZzENzVRSXUZpIG8qEsKG5LOkqK54hDO5LUZ-tKjhvf9JkLKG_8CaqDHDwAhEkaOzNPkHpmx1RCAwTE1HqlDLOAkN6Een8VLHGE07i_PmJuea2Hl3yz-HhMNrZB6xlY-Cg_6h-EeUAivrB6FVv7fBEBG09dCLWyPC3aTtYap0JeQzyT2902bK62nSUG302Js8xBGiA13sZ6GS525qmAI95Pdz5LwBT_eaHp9IbOjbOaw057Az2c9aMFZvS13Uk6t9BgkZSmzjg7avg5QFmqnXaqs62S7uYtBFWU-jkUuYagd80Y8s9lFdvZzmAR9jEVgQtRAT_Y2PNCei1t5TUdnTGj3trDYHB1GeUyqodrDrNiSILLUPC0PTyqnyGoYL81LjFujKyJR0iVk5eGrlKnW_rMnJVSsFrpzVObFnzQ1yZpKVTH5HQFu6Njpk2Jb7AC9I3C84bDEdXjqVjfYtrPm71HLtjHLMCnZu0GNo484MqSfKzJA35N4UYvlHUQ39OsEeBhn9sDmtdY=w1952-h1301-no"
   # Display an image gallery at the end of a post which have photos variables (false: disabled, true: enabled)
   imageGallery = true
 
   # Display thumbnail image of each post on index pages (false: disabled, true: enabled)
   thumbnailImage = true
+
   # Display thumbnail image at the right of title in index pages (`right`, `left` or `bottom`)
   # Set this value to `right` if you have old posts to keep the old style on them
   # and define `thumbnailImagePosition` on a post to overwrite this setting
@@ -177,13 +186,10 @@ canonifyurls = true
   # Custom CSS. Put here your custom CSS files. They are loaded after the theme CSS;
   # they have to be referred from static root. Example
   [[params.customCSS]]
-    href = ["css/font.css"]
+     href = "css/font.css"
 
-
-  # Custom CSS. Put here your custom CSS files. They are loaded after the theme CSS;
-  # they have to be referred from static root. Example
-  # [[params.customCSS]]
-  #   href = ["css/font.css", "css/syntax.css"]
+  [[params.customCSS]]
+     href = "css/syntax.css"
 
   # Custom JS. Put here your custom JS files. They are loaded after the theme JS;
   # they have to be referred from static root. Example
