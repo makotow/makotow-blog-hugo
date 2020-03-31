@@ -1,10 +1,10 @@
 ---
-title: "{{ replace .TranslationBaseName "-" " " | title }}"
+title: "{{ replace .Name "-" " " | title }}"
 subtitle: ""
 description: 
 author: "makotow"
 date: {{ .Date }}
-slug: "{{.File.BaseFileName}}"
+slug: "{{.Name}}"
 tags:
 -
 categories:

@@ -42,7 +42,7 @@ Rookだらけの Advent Calendar 2019/12/17: Rook EdgeFS Operator の力を実�
 端的に言うと以下のコマンドで終了です。  
 しかし、EdgeFSではクラスタ作成時の事前準備が必要となるためその部分を重点的に今日は書きたいと思います。
 
-```
+```bash
 $ git clone https://github.com/rook/rook.git
 $ cd cluster/examples/kubernetes/edgefs
 $ kubectl create -f operator.yaml
@@ -84,8 +84,10 @@ KVM の仮想マシンのディスク
 
 
 以下のような結果になればOKです。今回はvdbが対象のディスクになります。
-```
-$ sudo lsblk -l | grep vd``vda  252:0    0   30G  0 disk   
+
+```bash
+$ sudo lsblk -l | grep vd
+vda  252:0    0   30G  0 disk   
 vda1 252:1    0    1M  0 part   
 vda2 252:2    0    1G  0 part /boot  
 vda3 252:3    0   29G  0 part   
@@ -105,23 +107,60 @@ vdb  252:16   0   10G  0 disk
 
 基本的にはリポジトリのマニフェストをkubectl create -f で流していくだけで大丈夫です。
 
-はじめにEdgeFS Operatorを導入します
-```
+はじめにEdgeFS Operatorを導入します。
+
+```bash
 $ cd cluster/examples/kubernetes/edgefs
 $ kubectl create -f operator.yaml
-namespace/rook-edgefs-system created customresourcedefinition.apiextensions.k8s.io/clusters.edgefs.rook.io created customresourcedefinition.apiextensions.k8s.io/nfss.edgefs.rook.io created customresourcedefinition.apiextensions.k8s.io/swifts.edgefs.rook.io created customresourcedefinition.apiextensions.k8s.io/s3s.edgefs.rook.io created customresourcedefinition.apiextensions.k8s.io/s3xs.edgefs.rook.io created customresourcedefinition.apiextensions.k8s.io/iscsis.edgefs.rook.io created customresourcedefinition.apiextensions.k8s.io/isgws.edgefs.rook.io created clusterrole.rbac.authorization.k8s.io/rook-edgefs-cluster-mgmt created role.rbac.authorization.k8s.io/rook-edgefs-system created clusterrole.rbac.authorization.k8s.io/rook-edgefs-global created serviceaccount/rook-edgefs-system created rolebinding.rbac.authorization.k8s.io/rook-edgefs-system created clusterrolebinding.rbac.authorization.k8s.io/rook-edgefs-global created deployment.apps/rook-edgefs-operator created
+namespace/rook-edgefs-system created 
+customresourcedefinition.apiextensions.k8s.io/clusters.edgefs.rook.io created 
+customresourcedefinition.apiextensions.k8s.io/nfss.edgefs.rook.io created c
+ustomresourcedefinition.apiextensions.k8s.io/swifts.edgefs.rook.io created 
+customresourcedefinition.apiextensions.k8s.io/s3s.edgefs.rook.io created 
+customresourcedefinition.apiextensions.k8s.io/s3xs.edgefs.rook.io created 
+customresourcedefinition.apiextensions.k8s.io/iscsis.edgefs.rook.io created 
+customresourcedefinition.apiextensions.k8s.io/isgws.edgefs.rook.io created 
+clusterrole.rbac.authorization.k8s.io/rook-edgefs-cluster-mgmt created 
+role.rbac.authorization.k8s.io/rook-edgefs-system created 
+clusterrole.rbac.authorization.k8s.io/rook-edgefs-global created 
+serviceaccount/rook-edgefs-system created 
+rolebinding.rbac.authorization.k8s.io/rook-edgefs-system created 
+clusterrolebinding.rbac.authorization.k8s.io/rook-edgefs-global created 
+deployment.apps/rook-edgefs-operator created
 ```
 
 Operatorが導入されたことを確認します。
 
+```bash
+❯ kubectl -n rook-edgefs-system get pod -o wide 
+NAME                                    READY   STATUS    RESTARTS   AGE   IP            NODE      NOMINATED NODE   READINESS GATES 
+rook-discover-7jvfk                     1/1     Running   0          76s   10.244.2.9    worker3   <none>           <none> 
+rook-discover-h95k6                     1/1     Running   0          76s   10.244.1.10   worker2   <none>           <none> 
+rook-discover-nmksm                     1/1     Running   0          76s   10.244.3.10   worker1   <none>           <none> 
+rook-edgefs-operator-5c94848c48-dd84f   1/1     Running   0          84s   10.244.1.9    worker2   <none>           <none>
 ```
-❯ kubectl -n rook-edgefs-system get pod -o wide NAME                                    READY   STATUS    RESTARTS   AGE   IP            NODE      NOMINATED NODE   READINESS GATES rook-discover-7jvfk                     1/1     Running   0          76s   10.244.2.9    worker3   <none>           <none> rook-discover-h95k6                     1/1     Running   0          76s   10.244.1.10   worker2   <none>           <none> rook-discover-nmksm                     1/1     Running   0          76s   10.244.3.10   worker1   <none>           <none> rook-edgefs-operator-5c94848c48-dd84f   1/1     Running   0          84s   10.244.1.9    worker2   <none>           <none>
+
+続いて、クラスタの作成です。
+
+```bash
+❯ kubectl create -f cluster.yaml 
+namespace/rook-edgefs created
+serviceaccount/rook-edgefs-cluster created
+role.rbac.authorization.k8s.io/rook-edgefs-cluster created
+rolebinding.rbac.authorization.k8s.io/rook-edgefs-cluster-mgmt created
+rolebinding.rbac.authorization.k8s.io/rook-edgefs-cluster created
+podsecuritypolicy.policy/privileged created
+clusterrole.rbac.authorization.k8s.io/privileged-psp-user created
+clusterrolebinding.rbac.authorization.k8s.io/rook-edgefs-system-psp created
+clusterrolebinding.rbac.authorization.k8s.io/rook-edgefs-cluster-psp created
+cluster.edgefs.rook.io/rook-edgefs created
 ```
+
 最初はサンプルのマニフェストで実行していたところエラーが発生し、うまく行っておりませんでした。（エラーのログ失念…）
 
 stern を使ってPodの状態を関しすることで気づけました。
 
-```
+```bash
 stern . -n rook-edgefs-system
 ```
 
@@ -133,11 +172,11 @@ stern . -n rook-edgefs-system
 
 ということであれば、cluster.yaml を以下のように修正し対応しました。
 
-## Before
+### Before
 
 `useAllDevices: false`
 
-## After
+### After
 
 `useAllDevices: true`
 
@@ -153,37 +192,38 @@ stern . -n rook-edgefs-system
 
 ```
 ❯ kubectl get pod -n rook-edgefs -o wide 
-NAME                               READY   STATUS    RESTARTS   AGE     IP            NODE      NOMINATED NODE   READINESS GATES rook-edgefs-mgr-795c59c456-pgdrm   3/3     Running   0          3m30s   10.244.1.15   worker2   <none>           <none> rook-edgefs-target-0               3/3     Running   0          3m30s   10.244.2.12   worker3   <none>           <none> rook-edgefs-target-1               3/3     Running   0          3m30s   10.244.3.13   worker1   <none>           <none> rook-edgefs-target-2               3/3     Running   0          3m30s   10.244.1.16   worker2   <none>           <none>
+NAME                               READY   STATUS    RESTARTS   AGE     IP            NODE      NOMINATED NODE   READINESS GATES 
+rook-edgefs-mgr-795c59c456-pgdrm   3/3     Running   0          3m30s   10.244.1.15   worker2   <none>           <none> 
+rook-edgefs-target-0               3/3     Running   0          3m30s   10.244.2.12   worker3   <none>           <none> 
+rook-edgefs-target-1               3/3     Running   0          3m30s   10.244.3.13   worker1   <none>           <none> 
+rook-edgefs-target-2               3/3     Running   0          3m30s   10.244.1.16   worker2   <none>           <none>
 ```
 
 
 サービスも確認してみましょう。
 
 ```
-❯ kubectl get svc --all-namespaces NAMESPACE     NAME                  TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                      AGE default       kubernetes            ClusterIP   10.96.0.1        <none>        443/TCP                      45h kube-system   kube-dns              ClusterIP   10.96.0.10       <none>        53/UDP,53/TCP,9153/TCP       45h rook-edgefs   rook-edgefs-mgr       ClusterIP   10.97.189.186    <none>        6789/TCP                     6h52m rook-edgefs   rook-edgefs-restapi   ClusterIP   10.107.169.160   <none>        8881/TCP,8080/TCP,4443/TCP   6h52m rook-edgefs   rook-edgefs-target    ClusterIP   None             <none>        <none>                       6h52m rook-edgefs   rook-edgefs-ui        ClusterIP   10.108.180.155   <none>        3000/TCP,3443/TCP            6h52m
+❯ kubectl get svc --all-namespaces 
+NAMESPACE     NAME                  TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                      AGE default       
+kubernetes                          ClusterIP   10.96.0.1        <none>        443/TCP                      45h 
+kube-system   kube-dns              ClusterIP   10.96.0.10       <none>        53/UDP,53/TCP,9153/TCP       45h 
+rook-edgefs   rook-edgefs-mgr       ClusterIP   10.97.189.186    <none>        6789/TCP                     6h52m 
+rook-edgefs   rook-edgefs-restapi   ClusterIP   10.107.169.160   <none>        8881/TCP,8080/TCP,4443/TCP   6h52m 
+rook-edgefs   rook-edgefs-target    ClusterIP   None             <none>        <none>                       6h52m 
+rook-edgefs   rook-edgefs-ui        ClusterIP   10.108.180.155   <none>        3000/TCP,3443/TCP            6h52m
 ```
 
 サービスの中のrook-edgefs-ui が管理画面になっています。forwardして画面を確認しました。無事３ノード分のクラスタができていました。
 
-
-
-
 ![image](./images/2.png#layoutTextWidth)
 
-ダッシュボード
-
-
+## ダッシュボード
 
 仮想マシンを1台電源オフにすると 以下のようになりました。
 
-
-
-
 ![image](./images/3.png#layoutTextWidth)
 
-
-
-#### まとめ
+## まとめ
 
 本日はEdgeFS Operatorの導入とクラスタの導入までを書きました。
 

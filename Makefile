@@ -7,15 +7,26 @@ BRANCH := master
 
 ## Shortcuts
 
+po: post
 p: preview
 d: deploy
 u: update-theme
 
 ## Commands
 
+# base_url can be assigned by make parameter.
 .PHONY: preview
 preview:
-	$(HUGO) server --disableFastRender --gc --debug
+	hack/preview.sh ${base_url} 
+
+.PHONY: post
+post:
+ifdef title
+	hack/new-post.sh ${title}
+else
+	@echo "Please specify post title.\n"
+	@echo "   Example: make post title=your_article_title"
+endif
 
 .PHONY: deploy
 deploy:
