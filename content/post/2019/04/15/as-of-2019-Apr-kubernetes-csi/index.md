@@ -11,6 +11,7 @@ tags:
  - Storage
  - Containers
  - Technology
+ - csi
 categories:
 -
 aliases:
