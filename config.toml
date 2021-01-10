@@ -25,7 +25,9 @@ paginator_pages = "7"
 # Enable this if you want the archive list to be in a drop-down format.
 archive_dropdown = "true"
 
-  [[params.customCSS]]
+image = "/images/post/default.jpg"
+
+[[params.customCSS]]
     href = "/css/font.css"
 
 #  [[params.customCSS]]
