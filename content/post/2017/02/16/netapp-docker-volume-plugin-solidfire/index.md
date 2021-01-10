@@ -13,12 +13,9 @@ tags:
  - Infrastructure
  - Docker
  - Docker Volume
-
-series:
--
 categories:
 -
-image: "./images/1.png" 
+archives: ["2017/02"]
 images:
  - "./images/1.png"
  - "./images/2.png"
@@ -87,7 +84,7 @@ nDVP は Docker ホストOSに対してストレージリソースのプロビ�
 
 今回は curl を使用して REST API のリクエストを発行します、返り値は json となります。今回はREST APIの結果を見やすくするため jq を使用します。
 
-``` bash
+```bash
 apt-get intall jq
 ```
 
@@ -109,7 +106,7 @@ nDVP で使用する SolidFire の IP は以下の２つです。
 *   MVIP:192.168.199.224
 *   SVIP:192.168.199.225
 
-#### SolidFire ユーザアカウント設定
+## SolidFire ユーザアカウント設定
 
 SolidFire のコンフィグレーションは WebUI からオペレーションを行うか、REST API を使用してオペレーションを行います。
 
@@ -132,13 +129,13 @@ json ファイル (create-account.json) を作成し curl で実行します。
 
 実行コマンド
 
-``` bash
+```bash
 $ curl -k -X POST -H "Content-type: application/json-rpc" --data @create-account.json "https://admin:solidfire@192.168.199.224/json-rpc/7.0" | jq .
 ```
 
 結果
 
-``` json
+```json
 {  
         "id": 1,  
         "result": {  
@@ -151,7 +148,7 @@ $ curl -k -X POST -H "Content-type: application/json-rpc" --data @create-account
 
 json ファイル (get-account.json) を作成し curl で実行します。
 
-``` get-account.json
+```json get-account.json
 {  
         "method": "GetAccountByName",  
         "params": {  
@@ -162,7 +159,10 @@ json ファイル (get-account.json) を作成し curl で実行します。
 ```
 
 実行コマンド
-``$ curl -k -X POST -H "Content-type: application/json-rpc" --data @get-account.json "https://admin:solidfire@192.168.199.224/json-rpc/7.0" | jq .````{  
+
+```bash
+$ curl -k -X POST -H "Content-type: application/json-rpc" --data @get-account.json "https://admin:solidfire@192.168.199.224/json-rpc/7.0" | jq .
+{  
     "id": 1,  
     "result": {  
         "account": {  
@@ -175,7 +175,8 @@ json ファイル (get-account.json) を作成し curl で実行します。
             "volumes": []  
         }  
     }  
-}``
+}
+```
 
 WebUI から確認すると以下のように docker ユーザが作成されています。
 
@@ -184,18 +185,24 @@ WebUI から確認すると以下のように docker ユーザが作成されて
 
 
 
-#### Docker ホストOSの設定
+## Docker ホストOSの設定
 
 iscsi 接続をするために必要なパッケージを導入します。
-``sudo apt-get -y install open-iscsi``
 
-#### NetApp docker volume plugin の設定
+```bash
+sudo apt-get -y install open-iscsi
+```
+
+## NetApp docker volume plugin の設定
 
 SolidFire用の設定ファイルを記載します。
 
 以下のパスに jsonファイルを作成します。内容は以下の通りです。
 
-*   /etc/netappdvp/solidfire.json``{  
+*   /etc/netappdvp/solidfire.json
+    
+```json 
+{  
        "version": 1,  
        "storageDriverName": "solidfire-san",  
        "debug": true,  
@@ -230,19 +237,23 @@ SolidFire用の設定ファイルを記載します。
                       }  
                }  
         ]  
-}``
+}
+```
 
 パラメータについて説明します。
 
-*   TenantName: 「SolidFire ユーザアカウント設定」で作成したユーザとなります。今回は「docker」としました。
-*   DefaultVolSz: オプションでボリュームサイズを指定しなかった場合に使用されるデフォルトサイズ。
-*   InitiatorIFace: iSCSI 通信を行うネットワークインターフェースを指定します。今回はインターフェースを１つのみの準備のため “default”としています。
-*   Types: docker volume 作成時に指定できる QoS のタイプ。ここではサービスカタログとしてボリュームのQoSを定義しています。
+* TenantName: 「SolidFire ユーザアカウント設定」で作成したユーザとなります。今回は「docker」としました。
+* DefaultVolSz: オプションでボリュームサイズを指定しなかった場合に使用されるデフォルトサイズ。
+* InitiatorIFace: iSCSI 通信を行うネットワークインターフェースを指定します。今回はインターフェースを１つのみの準備のため “default”としています。
+* Types: docker volume 作成時に指定できる QoS のタイプ。ここではサービスカタログとしてボリュームのQoSを定義しています。
 
 ndvp を起動します。
-``/etc/netappdvp$ sudo netappdvp --volume-driver=solidfire-san --config=/etc/netappdvp/solidfire.json&amp;  
+
+```bash
+$ sudo netappdvp --volume-driver=solidfire-san --config=/etc/netappdvp/solidfire.json&  
 [1] 4403  
-/etc/netappdvp$ INFO[0000] Successfully initialized SolidFire Docker driver version 1.3``
+/etc/netappdvp$ INFO[0000] Successfully initialized SolidFire Docker driver version 1.3
+```
 
 **Successfully initialized** で作成成功です。
 
@@ -251,7 +262,9 @@ SolidFire のボリュームを作成して、docker 起動時にコンテナに
 -o でオプション指定が可能で type=XXXX で solidfire.json に定義したボリュームのQoSタイプを指定できます。 size=XX でボリュームのサイズを指定します。
 
 例として、サイズ10GBで MinQoS 6000IOPS、MaxQoS 8000IOPS、 BurstIOPS 10000IOPS のボリュームを作成します。
-``$ sudo docker volume create --driver solidfire-san --name vol-solid-1 -o size=10 -o type=Gold   
+
+```bash
+$ sudo docker volume create --driver solidfire-san --name vol-solid-1 -o size=10 -o type=Gold   
 vol-solid-1  
 $ cd /etc/netappdvp  
 $ ls  
@@ -261,19 +274,19 @@ DRIVER              VOLUME NAME
 solidfire-san       vol-solid-1  
 ontap-nas           vol1  
 ontap-nas           vol2  
-ontap-nas           vol3``
+ontap-nas           vol3
+```
 
 Web UI からQoSの設定状況を確認します。(4kbのQoS が Gold で定義しているものになっている)
-
-
-
 
 ![image](./images/4.png#layoutTextWidth)
 
 コンテナ起動とボリュームマウントをします。
 
 永続化できていることを確認するためファイルの作成をします。
-``/etc/netappdvp$ sudo docker run --rm -it --volume-driver solidfire-san --volume vol-solid-1:/mnt alpine ash  
+
+```bash
+$ sudo docker run --rm -it --volume-driver solidfire-san --volume vol-solid-1:/mnt alpine ash  
 / # ls  
 bin      dev      etc      home     lib      linuxrc  media    mnt      proc     root     run      sbin     srv      sys      tmp      usr      var  
 / # cd mnt  
@@ -281,35 +294,38 @@ bin      dev      etc      home     lib      linuxrc  media    mnt      proc    
 /mnt # ls  
 lost+found  test  
 /mnt # echo "persistent storage" &gt; test  
-/mnt # exit``
+/mnt # exit
+```
 
 一度コンテナを削除した後に上記で書き込んだテストファイルが存在するか、内容が永続化されているかを確認します。
-``/etc/netappdvp$ sudo docker ps  
+```bash
+$ sudo docker ps  
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES  
-/etc/netappdvp$ sudo docker ps -a  
+$ sudo docker ps -a  
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES  
-/etc/netappdvp$ sudo docker run --rm -it --volume-driver solidfire-san --volume vol-solid-1:/mnt alpine ash  
+$ sudo docker run --rm -it --volume-driver solidfire-san --volume vol-solid-1:/mnt alpine ash  
 / # cd /mnt  
 /mnt # ls  
 lost+found  test  
 /mnt # cat test  
 persistent storage  
-/mnt #``
+/mnt #
+```
 
 /mnt/test ファイルが存在し、内容が永続化されていることを確認できました。
 
-#### エラー発生時の対処方法
+## エラー発生時の対処方法
 
 solidfire docker voluem plugin の以下のログファイルに出力されています。
 
 *   /var/log/netappdvp/solidfire-san.log
 
-#### 技術情報
+## 技術情報
 
 *   [Volume Options with the NetApp Docker Volume Plugin](https://netapp.github.io/blog/2016/06/16/volume-options-with-the-netapp-docker-volume-plugin/)
 *   [Announcing the NetApp Docker Volume Plugin SolidFire Driver](https://netapp.github.io/blog/2016/06/29/announcing-netapp-docker-volume-plugin-solidfire-driver/)
 
-#### まとめ
+## まとめ
 
 ここまで10分程度で読めたかと思います。
 

@@ -12,15 +12,14 @@ tags:
  - Storage
  - Netapp
  - Tech
-
+archives: ["2019/08"]
 series:
 -
 categories:
 -
 aliases:
     - "/netapp-trident-19-07-new-features-64fe649a0a77"
-thumbnailImagePosition: top
-thumbnailImage: "/images/20190813/1.png" 
+image: "/images/20190813/1.png" 
 ---
 
 ## CSI: Volume Snapshot, Volume Clone
@@ -88,7 +87,7 @@ ANFについてはこちら： ベアメタルクラウドファイルストレ�
 
 ## Trident 19.07 のインストール
 
-```
+```bash
 $ wget https://github.com/NetApp/trident/releases/download/v19.07.0/trident-installer-19.07.0.tar.gz  
 $ tar -xf trident-installer-19.07.0.tar.gz  
 $ cd trident-installer  
@@ -102,11 +101,13 @@ Kubernetes は `1.14` を使ったので特にfeature gateを設定せずとも�
 Trident 19.04 が導入されている環境で実施しましたが自動でCSIへのマイグレーションも実行されました。
 
 インストール後にTridentがインストールされる `trident` namespace を確認します。
-```
+
+```bash
 $ kubectl get all -n trident
 ```
 
-```NAME                               READY   STATUS    RESTARTS   AGE  
+```bash
+NAME                               READY   STATUS    RESTARTS   AGE  
 pod/trident-csi-6r88q              2/2     Running   0          7d16h  
 pod/trident-csi-867d54588b-vz8ss   4/4     Running   0          7d16h  
 pod/trident-csi-c66qw              2/2     Running   0          7d16h  
@@ -128,13 +129,13 @@ replicaset.apps/trident-csi-867d54588b   1         1         1       7d16h
 
 Trident 19.07 から導入されたCRDを確認します。
 
-```
+```bash
 $ kubectl get crd
 ```
 
 _# trident 部分だけを抜粋_  
 
-```
+```bash
 NAME                                             CREATED AT  
 tridentbackends.trident.netapp.io                2019-08-01T15:09:37Z  
 tridentnodes.trident.netapp.io                   2019-08-01T15:09:37Z  
@@ -151,7 +152,8 @@ volumesnapshots.snapshot.storage.k8s.io          2019-08-01T15:10:03Z``
 ## バックエンドストレージの登録
 
 `setup/backend.json` に接続情報を記述し、以下のtridentctlでバックエンドを登録します。
-```
+
+```bash
 $ ./tridentctl create backend -f setup/backend.json  -n trident  
 +-------------------+----------------+--------------------------------------+--------+---------+  
 |       NAME        | STORAGE DRIVER |                 UUID                 | STATE  | VOLUMES |  
@@ -175,7 +177,7 @@ CSI版のStorageClassを作成します。 今までとあまり変更はあり�
 
 storageclass-csi.yaml
 
-```
+```bash
 $ kubectl create -f storageclass-csi.yaml  
 $ kubectl get sc  
 NAME                   PROVISIONER             AGE  
@@ -191,12 +193,12 @@ ontap-gold (default)   csi.trident.netapp.io   11d
 
 `storageClassName: basic-csi`とします。
 
-```
+```bash
 $ kubectl create -f pvc-sample.yaml  
 persistentvolumeclaim/basic created
 ```
 
-```
+```bash
 $ kubectl get pvc  
 NAME    STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE  
 basic   Bound    pvc-7547fa11-bd9f-11e9-a9c7-005056ab3e0c   1Gi        RWO            basic-csi      5s
@@ -229,12 +231,12 @@ VolumeSnapshotClassを作成します。
 
 *   `snapshotter: csi.trident.netapp.io`
 
-```
+```bash
 $ kubectl create -f VolumeSnapShotClass.yaml  
 volumesnapshotclass.snapshot.storage.k8s.io/csi-vsc created
 ```
 
-```
+```bash
 $ kubectl get volumesnapshotclass  
 NAME      AGE  
 csi-vsc   33s
@@ -248,12 +250,12 @@ VolumeSnapShotを作成する際にはこのクラス名を使用します。
 
 ここからが実際にスナップショットを取得するマニフェストになります。
 
-```
+```bash
 $ kubectl create -f VolumeSnapshot.yaml  
 volumesnapshot.snapshot.storage.k8s.io/basic-snapshot created
 ```
 
-```
+```bash
 $ kubectl get volumesnapshot  
 NAME             AGE  
 basic-snapshot   6s
@@ -274,7 +276,8 @@ dataSource:
 ```
 
 実行します。
-```
+
+```bash
 $ kubectl create -f pvc-from-snap.yaml  
 persistentvolumeclaim/pvc-from-snap created````$ kubectl get pvc  
 NAME            STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE  
@@ -291,12 +294,12 @@ SnapshotからPVCを作成することができました。
 こちらは非常に簡単に利用できます。 Cloneを作成する際に対象となるPVCのを指定すると新たなPVCが作成されます。
 
 
-```
+```bash
 $ kubectl create -f pvc-clone-from-pvc.yaml  
 persistentvolumeclaim/pvc-from-pvc created
 ```
 
-```
+```bash
 $ kubectl get pvc  
 NAME            STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE  
 basic           Bound    pvc-7547fa11-bd9f-11e9-a9c7-005056ab3e0c   1Gi        RWO            basic-csi      73m  

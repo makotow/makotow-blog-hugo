@@ -4,18 +4,10 @@ subtitle: "terraform libvirt provider"
 description: 
 author: "makotow"
 date: 2020-04-22T01:39:53+09:00
+archives: ["2020/04"]
 slug: "terraform-libvirt-practice"
-tags:
-- kvm
-- libvirt
-- terraform
-- kubernetes
-categories:
-- kubernetes-at-home
-keywords:
-- tech
-#thumbnailImagePosition: top
-#thumbnailImage: //example.com/image.jpg
+tags: ["kvm", "libvirt","terraform", "kubernetes"]
+categories: ["kubernetes-at-home"]
 ---
 
 自宅 Kuberenetes の真心込めた手作りをやめようと思ってはじめた取り組みです。
@@ -85,7 +77,7 @@ Terraform のセットアップや KVM, libvirt provider のセットアップ�
 `terraform apply` した際に出力されたエラーメッセージ、全量は多いので抜粋。
 
 
-```console
+```bash
 Error: Error defining libvirt domain: virError(Code=9, Domain=20, Message='operation failed: domain 'simple' already exists with uuid 563b3bfa-67cd-481c-803f-2021803fe96c')
 ```
 
@@ -101,7 +93,7 @@ Error: Error defining libvirt domain: virError(Code=9, Domain=20, Message='opera
 
 `/etc/libvirt/qemu.conf` の以下の部分を書き換えたら問題は解決。
 
-```
+```shell
 #       security_driver = [ "selinux", "apparmor" ]
 # value of security_driver cannot contain "dac".  The value "none" is
 # a special value; security_driver can be set to that value in

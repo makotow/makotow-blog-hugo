@@ -12,11 +12,9 @@ tags:
  - Rust
  - Tech
 
-series:
--
 categories:
 -
-
+archives: ["2017/08"]
 
 
 aliases:
@@ -29,76 +27,99 @@ aliases:
 
 *   [https://rust-lang-ja.github.io/the-rust-programming-language-ja/1.6/book/getting-started.html](https://rust-lang-ja.github.io/the-rust-programming-language-ja/1.6/book/getting-started.html)
 
-#### hello world
+## hello world
 
 main() 関数の中では  
- `println!(&#34;Hello, world!&#34;);`  
- println! は関数ではない、！がついていたらマクロと考える。
+
+```rust
+ println!("Hello, world!");
+```  
+
+println! は関数ではない、！がついていたらマクロと考える。
 
 Rustは式指向言語、行はセミコロン (;) で終わる。
 
-#### コンパイル・実行方法
+## コンパイル・実行方法
 
 コンパイルは rustc で実施  
  ファイル名の実行ファイルが作成される。
 
-`rustc main.rs`
-
+```bash
+rustc main.rs
 ./main
+```
 
-#### Cargo
+
+## Cargo
 
 Cargo は rust のビルドシステム。  
  コードのビルド、依存ライブラリのダウンロード、ダウンロードした依存ライブラリのビルドを実施。
 
-#### Hello world を Cargo に変換する。
+## Hello world を Cargo に変換する。
 
 Cargo は src ディレクトリにソースがあると想定して動作する。  
- Cargo.tomlが設定ファイルとなり、プロジェクトフォルダ直下に作成する。  
- Cが大文字であることに注意。  
- TOML = Tom’s Obvious, Minimal Language
+Cargo.tomlが設定ファイルとなり、プロジェクトフォルダ直下に作成する。  
+Cが大文字であることに注意。  
+TOML = Tom’s Obvious, Minimal Language
 
 ファイルの内容は以下の通り
-``[package]  
- name = &#34;hello_world&#34;  
- version = &#34;0.0.1&#34;  
- authors = [ &#34;あなたの名前 &lt;you@example.com&gt;&#34; ]``
+```toml
+[package]  
+ name = "hello_world"  
+ version = "0.0.1"  
+ authors = [ "あなたの名前 <you@example.com>" ]
+ ```
 
 上記ファイルをつくったらコマンド実行
-``$ cargo build  
+
+```bash
+$ cargo build  
  Compiling hello_world v0.0.1 (file:///Users/makoto/OneDrive/src/rustbyexample)  
 Finished debug [unoptimized + debuginfo] target(s) in 1.19 secs  
 $ ./target/debug/hello_world  
-Hello world!``
+Hello world!
+```
 
 一連の流れは,cargo run でも可能
-``$ cargo run  
+```bash
+$ cargo run  
  Finished debug [unoptimized + debuginfo] target(s) in 0.0 secs  
  Running `target/debug/hello_world`  
- Hello world!``
+ Hello world!
+ ```
 
 ファイルの更新が無いのでビルドは行っていないことに注目
 
-#### リリースビルドの仕方
+## リリースビルドの仕方
 
-cargo build — releaseでリリースビルド実施  
+cargo build --releaseでリリースビルド実施  
  Cargo.lockファイルが作成される。
 
-#### クレート？
+## クレート？
 
 いわゆるライブラリと考えて良さそう。  
  tomlの dependenciesに必要なライブラリを記述  
  以下のリポジトリにRustチームのクレートがある。  
- — [https://github.com/rust-lang/crates.io-index](https://github.com/rust-lang/crates.io-index)  
+
+* [https://github.com/rust-lang/crates.io-index](https://github.com/rust-lang/crates.io-index)  
    
  Cargo.tomlのクレートのバージョン指定は、  
- `rand=&#34;0.30&#34;`  
+ ```toml
+ rand="0.30"
+ ```
+
  という指定だと0.30 以上のバージョンという指定になることに注意  
- バージョンを固定したいのであれば `rand=“=0.30&#34;`
+ バージョンを固定したいのであれば 
+ 
+```toml
+rand=“=0.30"
+```
 
 最新であれば
 
-`rand=&#34;*&#34;`
+```toml
+rand="*"
+```
 
 クレートのバージョンが上がってしまい、ビルドするごとに最新版を取得するような動きはしない。  
  ビルド時にCargo.lockファイルにバージョンを記録するので移行はlockファイルにあるバージョンを使用するようになる。

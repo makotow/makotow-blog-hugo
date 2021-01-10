@@ -13,8 +13,8 @@ tags:
  - Cloud
 categories:
 - 2019-advent-calendar
-thumbnailImagePosition: top
-thumbnailImage: "/images/20191208/1.png" 
+image: "/images/20191208/landscape.jpg"
+archives: ["2019/12"]
 aliases:
     - "/kubernetes3-day9-statefulworkload-on-k8s-retrospective-and-next-challenges-18251c8b8cd3"
 ---

@@ -13,8 +13,7 @@ tags:
  - Docker Volume
  - Troubleshooting
 
-series:
--
+archives: ["2017/07"]
 categories:
 -
 
@@ -27,24 +26,24 @@ aliases:
 
 Slack のチャネルで議論されていたり、自身でもたまにハマるもの。メモとして残す。
 
-#### 結論
+## 結論
 
 NFS v3でnDVPを使う際には最近のLinux distributionでは, NFSクライアントやrpcbind などが標準でインストールされていない、サービスが有効になっていないのでまずはインストール状況、サービス稼働状況を確認。
 
 [VolumeDriver.Mount: Problem attaching docker volume with exit status 32](https://www.exospheredata.com/2017/05/25/problem-attaching-docker-volume/?utm_content=bufferb04c7&amp;utm_medium=social&amp;utm_source=twitter.com&amp;utm_campaign=buffer)
 
 
-#### 切り分け
+## 切り分け
 
 まずは NFS マウントをできるかを確認。
 
 できない場合は、原因として以下の２つが考えられる。
 
-#### NFS Client がインストールされていない
+## NFS Client がインストールされていない
 
 そのままなので、nfs-common(ubuntu)、nfs-utils(Redhat, CentOSパッケージをインストール。
 
-#### NFS を使うために必要なサービスが起動していない（NFSv３の場合)
+## NFS を使うために必要なサービスが起動していない（NFSv３の場合)
 
 タイトルのエラー「 status 32 error exit 」がでるケースはほとんどがrpcbind サービスが起動していないことによるもの。
 

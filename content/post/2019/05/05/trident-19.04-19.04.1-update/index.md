@@ -11,7 +11,7 @@ tags:
  - Trident
  - Netapp
  - Technology
-
+archives: ["2019/05"]
 categories:
 -
 aliases:
@@ -74,11 +74,12 @@ CSI 1.0 kubernetes 1.13 に対応、これはCSI 0.3 → 1.0 への対応の模�
 ## Enhancements
 
 *   **Trident driver for NetApp Cloud Volumes Service in AWS.**
-Cloud Volumes Service for AWS (a.k.a. CVS) をバックエンドに追加可能に。 *CVS: AWS上でManaged Volume を提供するサービス、データ管理や、性能のSLAを提供
-*   **Kubernetes: Import pre-existing volumes using the** `**ontap-nas**`**,** `**ontap-nas-flexgroup**`**,** `**solidfire-san**`**, and** `**aws-cvs**` **drivers. (Issue** [**#74**](https://github.com/NetApp/trident/issues/74)**)** Existing Volume import 機能を追加、Kubernetes クラスタ外からデータの持ち込みをストレージレイヤで可能になったもの。ずっと要望されていたものがようやく実装された。後ほど細かく見てみる。
-*   **Kubernetes:** Added support for Kubernetes 1.14. 
+Cloud Volumes Service for AWS (a.k.a. CVS) をバックエンドに追加可能に。 
+* CVS: AWS上でManaged Volume を提供するサービス、データ管理や、性能のSLAを提供
+*   Kubernetes: Import pre-existing volumes using the ontap-nas, `ontap-nas-flexgroup`, `solidfire-san`, and `aws-cvs` drivers. (Issue [#74](https://github.com/NetApp/trident/issues/74)) Existing Volume import 機能を追加、Kubernetes クラスタ外からデータの持ち込みをストレージレイヤで可能になったもの。ずっと要望されていたものがようやく実装された。後ほど細かく見てみる。
+*   Kubernetes: Added support for Kubernetes 1.14. 
 そのまま k8s 1.14に対応
-*   **Kubernetes:** Updated etcd to v3.3.12. 
+*   Kubernetes: Updated etcd to v3.3.12. 
 そのまま etcd v3.3.12へアップデート。(Tridentは独自にPod内にetcdを持っている。）
 
 ## Import pre-existing volumes

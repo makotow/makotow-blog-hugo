@@ -13,14 +13,9 @@ tags:
  - Container
  - Kubernetes
  - Docker
-
-series:
--
+archives: ["2018/01"]
 categories:
 -
-
-
-
 aliases:
     - "/2013-2018-container-85d169b6965e"
 
@@ -37,7 +32,7 @@ _TODOs_
 *   [] k8s 関連を追記
 *   [] 各クラウドプロバイダーの動きを追記
 
-#### 2013 年 〜 2018年にかけて（簡単にまとめ）
+## 2013 年 〜 2018年にかけて（簡単にまとめ）
 
 *   2013年 Docker 現る
 *   2014年 注目を浴びるDocker
@@ -46,14 +41,14 @@ _TODOs_
 *   2017年 コンテナオーケストレーション戦国時代
 *   2018年以降（予想）: 標準化が進み…
 
-#### 2013 年 Docker 現る
+## 2013 年 Docker 現る
 
 *   Evernoteの記録をみると自分で最初にDockerを知ったのが2013/6/17のようだ。その当時は仮想環境実現のための１つの手段として記録されている。
 *   AUFSのファイルシステムでOSのイメージ差分を管理、実行環境としてLXCをベースとしていた時代。
 *   ユースケースとしては Jenkins の ジョブを実行するなどのものが多かった。
 *   年末ごろには Docker 0.7がリリースされ、ストレージドライバAPIを採用しプラガブルにした。
 
-#### 2014 年 注目を浴びる Docker
+## 2014 年 注目を浴びる Docker
 
 *   年初に Mac 対応。
 *   1月にリリースされたThoughWorks社の「[TECHNOLOGY RADAR](http://thoughtworks.fileburst.com/assets/technology-radar-jan-2014-en.pdf)」にも ASSESSとして登場。
@@ -69,7 +64,7 @@ _TODOs_
 *   Docker Machine/Swarm/Composeを発表。
 *   個人的にはVagrant から VM起動をやっていた時代でDocker使うと起動早くなるかなぐらいの時代でした。なので、記録も曖昧。
 
-#### 2015 年 進撃のDocker、 エコシステム周り強まる
+## 2015 年 進撃のDocker、 エコシステム周り強まる
 
 *   年明けは Rocket とのいざこざがあったイメージ。
 *   少ししてから Machine/Swarm/Composeがリリースされる。
@@ -88,7 +83,7 @@ _TODOs_
 *   Docker 1.9 Swarm、マルチポストネットワーキングが プロダクションレディに。
 *   関連事項としてCNCFがこの時に設立。
 
-#### 2016 年 Dockerが一般的になる
+## 2016 年 Dockerが一般的になる
 
 *   Docker 社、Unikernel社を買収
 *   やっぱり便利な開発環境
@@ -106,7 +101,7 @@ _TODOs_
 
 書くの疲れてきたので雑に。
 
-#### 2017 年 コンテナオーケストレーション戦国時代
+## 2017 年 コンテナオーケストレーション戦国時代
 
 *   Docker Con 2017
 *   moby project -hyperkit -vpnkit -Containerd -infrakit -linuxkit
@@ -122,7 +117,7 @@ _TODOs_
 *   DockerCon 2017/1１ではユーザ事例などが多くなってきている。
 *   2017/12 k8s 1.9 リリース。Workload API GA, CSI αリリース、Windows 対応の発表など
 
-#### 2018 年 Alternative Container Engine.
+## 2018 年 Alternative Container Engine.
 
 *   2017 年から 標準化の動きが活発化
 *   Kubernetes/Container image のテストツールなどがリリースされ始める。

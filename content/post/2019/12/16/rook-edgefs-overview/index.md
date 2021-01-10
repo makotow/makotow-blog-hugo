@@ -11,11 +11,10 @@ tags:
  - Kubernetes
  - Edgefs
  - Storage
-
 categories:
 - 2019-advent-calendar
-thumbnailImagePosition: top
-thumbnailImage: "/images/20191216/1.png" 
+image: "/images/20191216/spec.png"
+archives: ["2019/12"]
 aliases:
     - "/rook-edgefs-overview-bb2e19ea0e0e"
 ---
@@ -26,13 +25,13 @@ aliases:
 
 コンテンツとしては以下の7本を予定しています。
 
-1.  2019/12/16: EdgeFS 概要
-2.  2019/12/17: EdgeFS クラスタデプロイ
-3.  2019/12/18: EdgeFS NFSサービス
-4.  2019/12/19: EdgeFS iSCSIサービス
-5.  2019/12/22: EdgeFS S3/S3X
-6.  2019/12/23: EdgeFS CSI
-7.  2019/12/24: EdgeFS ISGW Link
+1. 2019/12/16: EdgeFS 概要
+2. 2019/12/17: EdgeFS クラスタデプロイ
+3. 2019/12/18: EdgeFS NFSサービス
+4. 2019/12/19: EdgeFS iSCSIサービス
+5. 2019/12/22: EdgeFS S3/S3X
+6. 2019/12/23: EdgeFS CSI
+7. 2019/12/24: EdgeFS ISGW Link
 
 本日は１回目「EdgeFS 概要」です。現時点はRook1.1.8がStableですがmasterブランチを使って試していきます。この記事は本家の記事を読み解いてき基本的には本家のニュアンスをそのままにし、わかりにくい箇所には補足を入れています。1日目は概念や考え方、何ができるかを説明するためほとんどが文章となります。
 
@@ -125,6 +124,7 @@ RookがKubernetesで実行されている場合、Pod または外部アプリ�
 
 一部分繰り返しになりますが網羅すると以下の通りです。
 
+
 *   File, Block, Objecのプロトコルを提供
 *   速く、簡単にデプロイ
 *   データ保護
@@ -133,6 +133,7 @@ RookがKubernetesで実行されている場合、Pod または外部アプリ�
 *   QoSのマルチテナントへの適応
 *   SPOFがない
 *   Highly-Available
+
 
 ### File, Block and Objectを提供
 

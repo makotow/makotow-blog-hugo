@@ -13,8 +13,7 @@ tags:
  - Storage
 categories:
  - 2019-advent-calendar
-thumbnailImagePosition: top
-thumbnailImage:
+archives: ["2019/12"]
 aliases:
     - "/rook-edgefs-aws-s3-edge-x-s3-%E3%82%84%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%9F-64f3735ce411"
 
@@ -56,7 +55,7 @@ EdgeFSの基本構成
 
 EdgeFSでテナント作成やバケット作成、サービスの有効化をします。
 
-```
+```bash
 ❯ kubectl get po --all-namespaces | grep edgefs-mgr  
 
 rook-edgefs          rook-edgefs-mgr-795c59c456-pgdrm             3/3     Running   0          7d  
@@ -86,7 +85,7 @@ root@rook-edgefs-mgr-795c59c456-pgdrm:/opt/nedge# efscli bucket create Hawaii/Pe
 
 作成したバケットを外部に公開するためサービスを作成します。この操作はEdgeFS側の操作です。
 
-```
+```bash
 root@rook-edgefs-mgr-795c59c456-pgdrm:/opt/nedge# efscli service create s3 s3-cola  
 root@rook-edgefs-mgr-795c59c456-pgdrm:/opt/nedge# efscli service serve s3-cola Hawaii/Cola  
 Serving new tenant Hawaii/Cola  
@@ -185,7 +184,7 @@ spec:
 
 上記の名前のみを変更したCRDを使いマニフェストを適応していきます。
 
-```
+```bash
 ❯ kubectl create -f s3-cola.yaml  
 s3.edgefs.rook.io/s3-cola created  
 
@@ -206,14 +205,14 @@ rook-edgefs-target-2                         3/3     Running   0          7d
 
 ポッドが上記のCRDで指定したインスタンス分動起していることがわかりします。(以下のイメージです。）
 
-```
+```bash
 rook-edgefs-s3-s3-cola-5f88bfd97f-dk2zc      1/1     Running   0          25s  
 rook-edgefs-s3-s3-pepsi-7bfbf6ffd7-bsbjn     1/1     Running   0          21s
 ```
 
 外部公開するためのサービス（KubernetesのService)を確認します。
 
-```
+```bash
 ❯ kubectl get svc -n rook-edgefs
 NAME                        TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                                                                                                               AGE
 rook-edgefs-mgr             ClusterIP   10.97.189.186    <none>        6789/TCP                                                                                                              7d
@@ -228,20 +227,20 @@ rook-edgefs-ui              ClusterIP   10.108.180.155   <none>        3000/TCP,
 
 こちらもテナントごとにサービスが作成されました。ClusterIPで作られているので外部に公開するにはNodePortかLoadBalancerに変更するかIngressを使うのがいいでしょう。今回はMetalLBを導入しているのでLoadBalancerで実施しアクセスしています。
 
-```
+```bash
 rook-edgefs-s3-s3-cola      ClusterIP   10.107.177.146   <none>        49000/TCP,9982/TCP,9443/TCP                                                                                           72s
 rook-edgefs-s3-s3-pepsi     ClusterIP   10.96.119.236    <none>        49000/TCP,9982/TCP,9443/TCP                                                                                           68s
 ```
 
 Service.Type を LoadBalancer に変更
 
-```
+```bash
 rook-edgefs-s3-s3-cola      LoadBalancer   10.107.177.146   192.168.122.11   49000:30852/TCP,9982:31066/TCP,9443:32070/TCP
 ```
 
 curl でLoadBalancerの外部IP向けにアクセスし、確認しました。
 
-```
+```bash
 ❯ curl http://192.168.122.11:9982/ -v
 *   Trying 192.168.122.11...
 * TCP_NODELAY set
@@ -294,7 +293,8 @@ APIの一覧は以下のサイトに公開されていました。
 
 
 では、デプロイしていきます。今回はS3で準備したクラスタ、テナント、バケットを共有する形とします。色々見ているとどうやらEdgeFSの中のバケット１つにたいして様々なストレージプロトコルが割り当てられることがわかりました。
-```
+
+```bash
 root@rook-edgefs-mgr-795c59c456-pgdrm:~# efscli service create s3x s3x-cola  
 root@rook-edgefs-mgr-795c59c456-pgdrm:~# efscli service serve s3x-cola Hawaii/Cola  
 Serving new tenant Hawaii/Cola  
@@ -310,6 +310,7 @@ s3x-cola
 s3x-pepsi  
 root@rook-edgefs-mgr-795c59c456-pgdrm:~#`
 ```
+
 Kubernetesへ戻り、以下２つのマニフェストを作成し適応します。
 
 * s3x-cola.yaml
@@ -341,7 +342,7 @@ spec:
 
 上記マニフェストを適応すると以下のような状態になります。Edge-X S3 の場合はAWS S3 と比べProxyコンテナが付与された形で立ち上がります。
 
-```
+```bash
 ❯ kubectl get pod  
 NAME                                         READY   STATUS    RESTARTS   AGE  
 prometheus-rook-prometheus-0                 3/3     Running   4          123m  
@@ -359,7 +360,7 @@ rook-edgefs-target-2                         3/3     Running   3          7d6h
 
 中身を見てみます。Proxyが立ち上がっているのがわかります。
 
-```
+```bash
 ❯ kubectl describe pod rook-edgefs-s3x-s3x-cola-68b69db694-fdlxp
 Name:           rook-edgefs-s3x-s3x-cola-68b69db694-fdlxp
 Namespace:      rook-edgefs
@@ -462,7 +463,7 @@ AWS S3 との差異の部分について実施します。
 
 EdgeX-S3のポイントを確認します。External IPを割り当ててます。
 
-```
+```bash
 NAME                        TYPE           CLUSTER-IP       EXTERNAL-IP      PORT(S)                                                                                                               AGE  
 rook-edgefs-s3x-s3x-cola    LoadBalancer   10.105.230.5     192.168.122.12   49000:30163/TCP,4000:31779/TCP,4443:31545/TCP                                                                         23h`
 ```
@@ -470,7 +471,7 @@ rook-edgefs-s3x-s3x-cola    LoadBalancer   10.105.230.5     192.168.122.12   490
 
 ここからは以下の通りデータをjsonに追加して、NoSQLライクに取得できるところを確認しようとしましたがうまく行きませんでした。（もう少し調査して追記できたらします。）リクエストを投げると以下のエラーとなってしまいました。
 
-```
+```bash
 # create JSON Key-Value database mydb.json in bucket bk1
 $ curl -X POST -H "Content-Type: application/json" \
     --data '{"key1":"value1"}' \
@@ -481,7 +482,7 @@ $ curl "http://192.168.122.12:4000/bk1/mydb.json?comp=kv&key=key1&maxresults=3&v
 
 エラー内容(Podのログ）がセグっているのでもしかしたらMasterブランチを使っているのが理由かもしれません。
 
-```
+```bash
 rook-edgefs-s3x-s3x-cola-68b69db694-fdlxp rook-edgefs-s3x-s3x-cola 2019-12-22T15:28:52.348Z cmd.Wait() failed with 'signal: segmentation fault (core dumped)'
 ```
 

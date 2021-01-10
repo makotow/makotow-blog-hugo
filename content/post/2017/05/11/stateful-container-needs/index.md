@@ -13,14 +13,12 @@ tags:
  - Docker
  - Netapp
 
-series:
--
+archives: ["2017/05"]
 categories:
 -
-image: "/posts/2017/05/11/なぜコンテナでデータ永続化が必要なのか/images/2.png" 
 images:
- - "/posts/2017/05/11/なぜコンテナでデータ永続化が必要なのか/images/1.png"
- - "/posts/2017/05/11/なぜコンテナでデータ永続化が必要なのか/images/2.png"
+ - "./images/1.png"
+ - "./images/2.png"
 
 
 aliases:
@@ -28,17 +26,17 @@ aliases:
 
 ---
 
-#### Dockerコンテナが辿ってきた歴史（主にストレージ方面）これまで Docker Volume Plugin の記事を記載してきました。
+## Dockerコンテナが辿ってきた歴史（主にストレージ方面）これまで Docker Volume Plugin の記事を記載してきました。
 
 今回は **「なぜコンテナでデータ永続化が必要なのか」** を説明していきます。
 
-#### コンテナの市場動向
+## コンテナの市場動向
 
 2016年は「コンテナ」、「Deep Learning/Machine Learning」 が最も目立ったテクノロジーでした。コンテナ自体の考えは昔からあるものですが、Dockerが実現したものはアプリケーションパッケージング、プラットフォームを問わずにアプリケーションをデプロイすることができる docker image でした。
 
 Docker image を DockerHub で共有しアプリケーションの再利用が非常に簡単になりました。
 
-#### コンテナを用いたアプリケーションライフサイクルとデータライフサイクルのギャップ
+## コンテナを用いたアプリケーションライフサイクルとデータライフサイクルのギャップ
 
 ここでは、よく課題に上がる、アプリケーションとコンテナのライフサイクルのギャップ、主にデータ永続化について説明致します。
 
@@ -55,7 +53,7 @@ dockerコマンドで docker イメージに保存も可能ですが（厳密に
 停止状態から起動するとデータは残ったままで起動します。停止しているコンテナインスタンスを削除することで保存されているデータが削除されます。
 
 
-![image](/posts/2017/05/11/なぜコンテナでデータ永続化が必要なのか/images/1.png#layoutTextWidth)
+![image](./images/1.png#layoutTextWidth)
 
 
 
@@ -63,11 +61,11 @@ dockerコマンドで docker イメージに保存も可能ですが（厳密に
 
 アプリケーションが稼働するために必要なデータ、主に業務データなどのDBに保存されるデータはシステム全体が稼働を終えるまで取り続ける必要があります。従来型のデプロイであればサーバや仮想マシンを作り直すのではなく存在し続けているサーバリソースにアプリケーションを展開し直すという形であったため、環境そのものは残っている状態です。
 
-#### 2016年までのコンテナ(Docker)に不足していたもの１つ (ストレージ、データ永続化）
+## 2016年までのコンテナ(Docker)に不足していたもの１つ (ストレージ、データ永続化）
 
 コンテナの登場時点ではクラウドネイティブなインフラ、スケーラビリティやステートレスと言ったキーワードが似合うアプリケーションでの使用を想定したものであり、エンタープライズアプリケーションへの対応はまだ未済の状態でした。そのような中データの永続化というテーマが課題になることがありました。
 
-#### エンタープライズアプリケーションに適応する
+## エンタープライズアプリケーションに適応する
 
 2016 年の初頭から Docker が永続化の仕組みを提供しました。
 
@@ -87,20 +85,20 @@ Docker社自体は Infinit は現在のストレージソリューションを�
 *   [https://blog.docker.com/2017/01/docker-storage-infinit-faq/](https://blog.docker.com/2017/01/docker-storage-infinit-faq/)
 
 上記URLの文言を一部抜粋しました。
-> 4. For existing storage plugin owners, is this a replacement, or does it mean we can adapt our plugins to work with the Infinit architecture?> It is not Docker’s philosophy to impose on its community or customers a single solution. Docker has always described itself as a plumbing platform for mass innovation. Even though Infinit will very likely solve storage-related challenges in Docker’s products, it will always be possible to switch from the default for another storage solution per our batteries included but swappable philosophy.> As such, Docker’s objective with the acquisition of Infinit is not to replace all the other storage solutions but rather to provide a reasonable default to the community. Also keep in mind that a storage solution solving all the use cases will likely never exist. The user must be able to pick the solution that best fits her needs.#### 取り組み
+> 4. For existing storage plugin owners, is this a replacement, or does it mean we can adapt our plugins to work with the Infinit architecture?> It is not Docker’s philosophy to impose on its community or customers a single solution. Docker has always described itself as a plumbing platform for mass innovation. Even though Infinit will very likely solve storage-related challenges in Docker’s products, it will always be possible to switch from the default for another storage solution per our batteries included but swappable philosophy.> As such, Docker’s objective with the acquisition of Infinit is not to replace all the other storage solutions but rather to provide a reasonable default to the community. Also keep in mind that a storage solution solving all the use cases will likely never exist. The user must be able to pick the solution that best fits her needs.## 取り組み
 
 ここまで、なぜコンテナでデータ永続が必要になっているかを説明しました。
 
 ここからはネットアップが取り組んでいることについて紹介したいと思います。
 
-#### Cloud Native Computing Foundation
+## Cloud Native Computing Foundation
 
 クラウドネイティブなアプリケーションがどのようにあるべきかを議論する団体です。 NetApp はこの団体のゴールドメンバーとして加入しており、クラウドネイティブなアプリケーション構成はどうあるべきかという議論・方針の策定を行っています。
 
 *   [https://www.cncf.io/about/governing-board/](https://www.cncf.io/about/governing-board/)
 *   [https://www.cncf.io/about/members/](https://www.cncf.io/about/members/)
 
-#### Kubernetes
+## Kubernetes
 
 CNCFでリードされている Kubernetes では Special Interest Group (SIG)という特定領域におけるインフラストラクチャがどうあるべきかということを議論するグループがあります。ネットアップはここで SIG-Storageの領域でクラウドネイティブな環境下においてストレージのあるべき姿について積極的に議論を行っています。
 
@@ -113,7 +111,7 @@ Trident は kubernetes から外部ストレージに対して動的にプロビ
 Kubernetes version 1.4 リリース時にステートフルアプリケーション対応を強化し、Provisioner controller という仕組み・概念を提供しました。Trident は Provisioner controller を初めて実装したものです。
 
 
-![image](/posts/2017/05/11/なぜコンテナでデータ永続化が必要なのか/images/2.png#layoutTextWidth)
+![image](./images/2.png#layoutTextWidth)
 
 Trident overview
 
@@ -121,7 +119,7 @@ Trident overview
 
 Trident は複数のバックエンドストレージの統合的なインターフェースという仕組みを提供しています。Kubernetesだけではなく、REST API のエンドポイントを備えているためkubernetes 以外からも使用可能です。
 
-#### まとめ
+## まとめ
 
 今回は少し趣向を変えて、Dockerコンテナという技術領域が辿ってきた歴史、誕生からステートフルコンテナが必要になってきた背景、そして現在NetAppがコミュニティでどのような取り組みを行っているかについて記載しました。
 

@@ -12,8 +12,7 @@ tags:
  - Git
  - Tech
 
-series:
--
+archives: ["2017/08"]
 categories:
 -
 
@@ -24,13 +23,13 @@ aliases:
 
 ---
 
-#### ユーティリティや他システム連携の準備
+## ユーティリティや他システム連携の準備
 
 ### 背景
 
 git のサブコマンドで任意の動作、例えばワークフローをまとめてみたり、外部のプログラムやAPIを呼び出すことをやりたかった。
 
-#### 実現する方法
+## 実現する方法
 
 まずは基本を確認、gitのサブコマンドの実装方法に調べた。
 
@@ -40,7 +39,7 @@ git のサブコマンドで任意の動作、例えばワークフローをま�
 
 この仕組みを取ることで `git xxx arg1 arg2`のように Git のサブコマンドとして使用可能になる。
 
-#### できること
+## できること
 
 1.  一連の git ワークフローをまとめる
 2.  Git コマンドの裏側で何かしらの処理をさせる
@@ -49,13 +48,15 @@ git のサブコマンドで任意の動作、例えばワークフローをま�
 
 本来は「Git コマンドの裏側で何かしらの処理をさせる」をできるようにしたい。
 
-#### 出来上がったもの
+## 出来上がったもの
 
 [makotow/dailyutils](https://github.com/makotow/dailyutils/blob/master/git-mirror/git-mirror)
 
 
 シンプルに git のリポジトリをミラーするもの。
 
-`$ git mirror src_repo dest_repo`
+```bash
+$ git mirror src_repo dest_repo
+```
 
 でgit repository をコピーするもの

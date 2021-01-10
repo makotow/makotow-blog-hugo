@@ -16,11 +16,9 @@ tags:
 
 categories:
 -
-thumbnailImagePosition: top
-thumbnailImage: "/images/20190311/1.png" 
 aliases:
     - "/learning-istio-from-zero-part1-23792f11ddb3"
-
+archives: ["2019/03"]
 ---
 
 #### Istioの概要を学んでみた

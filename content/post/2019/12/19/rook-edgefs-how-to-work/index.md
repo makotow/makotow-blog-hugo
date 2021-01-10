@@ -7,26 +7,17 @@ lastmod: 2020-01-05T03:12:35+09:00
 description: "Rookだらけの Advent Calendar 2019/12/19: Rook EdgeFS 今までの回で疑問に思ったこと調べていく"
 subtitle:    "Rookだらけの Advent Calendar 2019/12/19: Rook EdgeFS 今までの回で疑問に思ったこと調べていく"
 slug: rook-edgefs-how-to-work
+archives: ["2019/12"]
 tags:
  - Kubernetes
  - Edgefs
  - Rook
  - Storage
-
-series:
-- 2019-advent-calendar
-
 categories:
--
-
-thumbnailImagePosition: top
-thumbnailImage: "/images/20191219/1.png"
-images:
- - "/posts/2019/12/19/rook-edgefs-how-to-work/images/1.png"
-
+- 2019-advent-calendar
+image: "/images/20191219/crd.png"
 aliases:
     - "/rook-edgefs-components-98285e7a7d12"
-
 ---
 
 

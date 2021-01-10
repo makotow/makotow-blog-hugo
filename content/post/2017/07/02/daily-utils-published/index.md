@@ -13,29 +13,24 @@ tags:
  - Shell
  - Tools
 
-series:
--
 categories:
 -
-
-
-
+archives: ["2017/07"]
 aliases:
     - "/daily-utils-published-a4bb22af01d0"
-
 ---
 
-#### 日常的に行う処理を定形化したスクリプトリポジトリ
+## 日常的に行う処理を定形化したスクリプトリポジトリ
 
-#### 目的・背景
+## 目的・背景
 
 似たようなスクリプトを都度つくっていたので今回意を決してリポジトリに集めることとした。
 
 今のところ差し障りのないスクリプトだけを登録している、このほかにもスニペット的なものがたくさんあるので同じリポジトリか別に作ろうと考えている。
 
-#### いま登録されているスクリプトたち
+## いま登録されているスクリプトたち
 
-#### tmux-ssh
+## tmux-ssh
 
 その名の通り、tmux を複数のPaneを作成しコマンドラインで指定したホストにログインする機能、秘密鍵の指定、ログインユーザの指定が可能。
 
@@ -51,12 +46,9 @@ aliases:
 [greymd/tmux-xpanes](https://github.com/greymd/tmux-xpanes)
 
 
-#### homebrew manager
+## homebrew manager
 
 brewm
-
-[makotow/dailyutils](https://github.com/makotow/dailyutils/tree/master/brewmanager)
-
 
 homebrew を使う際の便利コマンド。
 
@@ -69,7 +61,7 @@ brew, brew caskどちらにも対応。
 
 ほとんどこれしか使わない。
 
-#### gosetup
+## gosetup
 
 その名の通り golang のディレクトリ構成を作ってくれるシンプルなモノ。
 
@@ -78,7 +70,7 @@ brew, brew caskどちらにも対応。
 [makotow/dailyutils](https://github.com/makotow/dailyutils/tree/master/gosetup)
 
 
-#### readmegen
+## readmegen
 
 README.md を作成する。
 

@@ -11,8 +11,8 @@ tags:
  - Kubernetes
  - Istio
  - Service Mesh
- - Tech
-
+ - Tech 
+archives: ["2019/03"]
 categories:
 -
 aliases:
@@ -55,19 +55,20 @@ NodePortを使う場合は以下の通り設定可能と記載があるので備
 ## クラスタの状況確認
 
 今回試している環境の確認。
-```
+```bash
 $ kubectl version --short
 ```
 
-```
+```bash
 Client Version: v1.13.1  
 Server Version: v1.12.3
 ```
 
-```
+```bash
 $ kubectl get all --all-namespaces
 ```
-```
+
+```bash
 NAMESPACE     NAME                                                                          READY   STATUS    RESTARTS   AGE  
 kube-system   pod/coredns-576cbf47c7-8x2bg                                                  1/1     Running   0          8m38s  
 kube-system   pod/coredns-576cbf47c7-cr9gc                                                  1/1     Running   0          8m38s  
@@ -105,11 +106,11 @@ kube-system   replicaset.apps/tiller-deploy-6fb6d4777d          1         1     
 
 Helmのバージョンを確認
 
-```
+```bash
 $ helm version
 ```
 
-```
+```bash
 Client: &amp;version.Version{SemVer:&#34;v2.12.1&#34;, GitCommit:&#34;02a47c7249b1fc6d8fd3b94e6b4babf9d818144e&#34;, GitTreeState:&#34;clean&#34;}  
 Server: &amp;version.Version{SemVer:&#34;v2.12.1&#34;, GitCommit:&#34;02a47c7249b1fc6d8fd3b94e6b4babf9d818144e&#34;, GitTreeState:&#34;clean&#34;}``
 ```
@@ -137,7 +138,8 @@ istioをデプロイするnamespaceを作成します。
 
 istioのマニフェスト投入します。  
 （ちょっと長いですが備忘のためすべて記載）
-``$ kubectl apply -f manifest/istio.yaml````configmap/istio-galley-configuration created  
+```bash
+$ kubectl apply -f manifest/istio.yaml````configmap/istio-galley-configuration created  
 configmap/istio-statsd-prom-bridge created  
 configmap/prometheus created  
 configmap/istio-security-custom-resources created  
@@ -314,7 +316,8 @@ horizontalpodautoscaler.autoscaling/istio-pilot            Deployment/istio-pilo
 horizontalpodautoscaler.autoscaling/istio-policy           Deployment/istio-policy           &lt;unknown&gt;/80%   1         5         1          45s  
 horizontalpodautoscaler.autoscaling/istio-telemetry        Deployment/istio-telemetry        &lt;unknown&gt;/80%   1         5         1          45s````NAME                                    COMPLETIONS   DURATION   AGE  
 job.batch/istio-cleanup-secrets         1/1           14s        52s  
-job.batch/istio-security-post-install   1/1           11s        51s``
+job.batch/istio-security-post-install   1/1           11s        51s
+```
 
 ここまででIstioインストール完了です。
 
@@ -335,7 +338,9 @@ Dynamic Admission Controlについては下のページへ。
 ### サンプルのアプリをデプロイする。
 
 Inject は namespaceに付与されているlabelで行われるため、namespace defaultにistio-injection=enabledを付与します。
-``$ kubectl apply -f istio-1.0.5/samples/sleep/sleep.yaml````service/sleep created  
+
+```bash
+$ kubectl apply -f istio-1.0.5/samples/sleep/sleep.yaml````service/sleep created  
 deployment.extensions/sleep created  
  ~/s/istio-sandbox $ kubectl get pod  
 NAME                     READY   STATUS    RESTARTS   AGE  
@@ -344,7 +349,8 @@ default             Active   2d7h   enabled
 istio-system        Active   8h  
 kube-public         Active   2d7h  
 kube-system         Active   2d7h  
-stackpoint-system   Active   2d7h``
+stackpoint-system   Active   2d7h
+```
 
 InjectionはPodの作成時に行われるためポッドを削除し、1/1 Ready → 2/2 Readyになることを確認します。
 
@@ -352,8 +358,21 @@ InjectionはPodの作成時に行われるためポッドを削除し、1/1 Read
 ``$ kubectl delete pod sleep-86cf99dfd6-xk9b2````pod &#34;sleep-86cf99dfd6-xk9b2&#34; deleted``
 
 しばらくするとPod Status は2/2になり、サービスを提供するコンテナとside car コンテナが起動していることが確認できます。
-``$ kubectl get pod````NAME                     READY   STATUS    RESTARTS   AGE  
-sleep-86cf99dfd6-xfvmk   2/2     Running   0          37s````$ kubectl describe pod````Name:               sleep-86cf99dfd6-xfvmk  
+```bash
+$ kubectl get pod
+```
+
+```bash
+NAME                     READY   STATUS    RESTARTS   AGE  
+sleep-86cf99dfd6-xfvmk   2/2     Running   0          37s
+```
+
+```bash
+$ kubectl describe pod
+```
+
+```bash
+Name:               sleep-86cf99dfd6-xfvmk  
 Namespace:          default  
 Priority:           0  
 PriorityClassName:  &lt;none&gt;  
@@ -489,7 +508,8 @@ Events:
   Normal  Started    4m38s  kubelet, ip-172-23-1-146.ap-northeast-1.compute.internal  Started container  
   Normal  Pulled     4m38s  kubelet, ip-172-23-1-146.ap-northeast-1.compute.internal  Container image &#34;docker.io/istio/proxyv2:1.0.5&#34; already present on machine  
   Normal  Created    4m38s  kubelet, ip-172-23-1-146.ap-northeast-1.compute.internal  Created container  
-  Normal  Started    4m38s  kubelet, ip-172-23-1-146.ap-northeast-1.compute.internal  Started container``
+  Normal  Started    4m38s  kubelet, ip-172-23-1-146.ap-northeast-1.compute.internal  Started container
+ ```
 
 ### まとめ
 

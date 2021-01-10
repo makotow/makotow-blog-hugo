@@ -14,15 +14,13 @@ tags:
  - Data Management
  - Altavault
  - Ontap
-
-series:
--
+archives: ["2017/07"]
 categories:
 -
-image: "/posts/2017/07/31/mongodb-meets-netapp/images/2.png" 
+ 
 images:
- - "/posts/2017/07/31/mongodb-meets-netapp/images/1.png"
- - "/posts/2017/07/31/mongodb-meets-netapp/images/2.png"
+ - "./images/1.png"
+ - "./images/2.png"
 
 
 aliases:
@@ -30,7 +28,7 @@ aliases:
 
 ---
 
-#### クラウド連携をメインとしたソリューション編
+## クラウド連携をメインとしたソリューション編
 
 この記事ではTechnical Reportとして発行している内容をサマライズしてお届けします。
 
@@ -43,7 +41,7 @@ MongoDBは一般的な汎用オープンソースのスケールアウトNoSQL D
 このブログ記事は、MongoDB Ops Manager バックアップをコストとスペース効率良くNetApp上でMongoDBを動かすソリューションをまとめたものです。  
 また、NetApp Data FabricとVMware vSphere上に MongoDB NoSQLデータベースをデプロイする方法についても説明します。
 
-#### NetAppとMongoDB Ops Managerとの統合
+## NetAppとMongoDB Ops Managerとの統合
 
 MongoDB Ops Manager は、データ保護の豊富な機能を提供します。これらの機能には、ローカルストレージおよびクラウドベースのストレージで整合性の取れたポイントインタイムバックアップを作成し、データの損失が発生しないことを確認する機能が含まれます。ほとんどの顧客はMongoDBに大量のデータを格納するため、バックアップストレージは非常に大きくなります。また、ストレージサイズとRTO(目標復旧時間)で常にトレードオフがあります。その結果、ローカルバックアップの保持には限界があり、これらのバックアップをクラウドに保存するとコストが高くなる可能性があります。
 
@@ -58,7 +56,7 @@ Ops Managerはスナップショットを作成すると、バックアップフ
 
 
 
-![image](/posts/2017/07/31/mongodb-meets-netapp/images/1.png#layoutTextWidth)
+![image](./images/1.png#layoutTextWidth)
 
 図1）MongoDB Ops ManagerとNetAppの統合
 
@@ -70,7 +68,7 @@ MongoDB Ops ManagerとNetApp AltaVaultを統合することで Ops Managerのデ
 *   **ストレージコスト削減** NetAppストレージの容量効率化によるクラウドストレージのコスト削減
 *   **データセキュリティ** オンプレミスとクラウド間のデータ転送中の暗号化
 
-#### NetAppデータファブリック上のMongoDB
+## NetAppデータファブリック上のMongoDB
 
 NetAppは、仮想環境におけるスケールアウトMongo DB をVMWare vSphere と NetApp Data Fabric上に効率的にデプロイするためのエンドツーエンドソリューションを設計し、検証をしました。  
 このソリューションでは、スケールアウトNetApp All Flash FAS（AFF）がMongoDB仮想マシンとデータベースをホストします。バックアップおよび災害復旧サービスは、Amazon AWS上で稼働する NetApp ONTAP Cloud SDSソリューション及びNetApp Private Storageによって提供されます。（図2参照）
@@ -78,13 +76,13 @@ NetAppは、仮想環境におけるスケールアウトMongo DB をVMWare vSph
 
 
 
-![image](/posts/2017/07/31/mongodb-meets-netapp/images/2.png#layoutTextWidth)
+![image](./images/2.png#layoutTextWidth)
 
 NetApp データファブリック上のMongoDB
 
 
 
-#### まとめ
+## まとめ
 
 NetApp上のMongoDBは、より柔軟なインフラ、データ保護のためのシームレスのクラウド連携とスケールアウトを提供します。  
 そして、コモディティストレージよりも優れた可用性とセキュリティを提供します。

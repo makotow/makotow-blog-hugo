@@ -15,15 +15,13 @@ tags:
  - Kubernetes
  - Tech
 
-series:
--
+archives: ["2017/10"]
 categories:
 -
-image: "/posts/2017/10/24/kubernetesopenshift-static-vs-dynamic-storage/images/3.png" 
 images:
- - "/posts/2017/10/24/kubernetesopenshift-static-vs-dynamic-storage/images/1.png"
- - "/posts/2017/10/24/kubernetesopenshift-static-vs-dynamic-storage/images/2.png"
- - "/posts/2017/10/24/kubernetesopenshift-static-vs-dynamic-storage/images/3.png"
+ - "./images/1.png"
+ - "./images/2.png"
+ - "./images/3.png"
 
 
 aliases:
@@ -31,13 +29,13 @@ aliases:
 
 ---
 
-#### PV /PVC/ StorageClass の関係、External Dynamic Provisionerについて
+## PV /PVC/ StorageClass の関係、External Dynamic Provisionerについて
 
-#### コンテナを運用するために必要なもの
+## コンテナを運用するために必要なもの
 
 今回はコンテナを運用するための考慮すべきことや必要となることについて説明するとともに NetApp が提供しているコンテナ関連のテクノロジー、インテグレーションについて紹介します。
 
-#### コンテナ、コンテナオーケストレーション とは？
+## コンテナ、コンテナオーケストレーション とは？
 
 Dockerだけでコンテナを管理しようとすると、単一のホストの機能を超えてアプリケーションを拡張することは複雑な作業になります。 このプロセスを簡単にするために、いくつかのコンテナオーケストラが非常に目立つようになりました。その1つはKubernetes (k8s) です。
 
@@ -60,7 +58,7 @@ k8s を使用する場合、アプリケーション開発者/管理者は、ア
 *   社内の開発環境の払い出しの高速化
 *   ビジネス上のアウトプットの速度を向上、市場へのTTMを高速化
 
-#### kubernetesでのデータ永続化
+## kubernetesでのデータ永続化
 
 Kubernetes の永続化ストレージの考え方は大きく３つに分類されます。
 
@@ -81,7 +79,7 @@ PVC は kubernetes よって以下の動きをします。
 
 
 
-![image](/posts/2017/10/24/kubernetesopenshift-static-vs-dynamic-storage/images/1.png#layoutTextWidth)
+![image](./images/1.png#layoutTextWidth)
 
 k8s におけるStatic provisioning のストレージリソース割り当て
 
@@ -89,7 +87,7 @@ k8s におけるStatic provisioning のストレージリソース割り当て
 
 コンテナを活用したセルフサービス、消費型のインフラストラクチャを実現するには**オンデマンド**にPV を作成し、コンテナにマウントする必要があります。
 
-#### Dynamic Provisioning &amp; StorageClass
+### Dynamic Provisioning & StorageClass
 
 動的にストレージをプロビジョニングし、コンテナ化されたアプリケーションにPVを割り当てる機構として StorageClass が存在します。
 
@@ -106,20 +104,20 @@ StorageClassを使ったDynamic Provisioning は以下のようなイメージ�
 
 
 
-![image](/posts/2017/10/24/kubernetesopenshift-static-vs-dynamic-storage/images/2.png#layoutTextWidth)
+![image](./images/2.png#layoutTextWidth)
 
 k8s の Dynamic Provisioning &amp; StorageClass
 
 
 
-### External Storage Provisioner とは？
+## External Storage Provisioner とは？
 
 External Storage Provisioner は kubernetes の out-of-tree (外側)でPVのダイナミックプロビジョニングを実現するものです。  
 out-of-treeとはkubernetes のコントローラーからボリュームをプロビジョニングするものではなく、外部に存在するもので独立してデプロイ、アップデートができるものです。
 
 PersistentVolumeClaim で StorageClass を要求されたリクエストを監視し、自動的にPersistentVolumeを作成します。
 
-#### NetApp Trident
+## NetApp Trident
 
 NetAppのストレージ・ポートフォリオを使用する場合、このダイナミックプロビジョニング機能は、NetAppのオープンソースプロジェクトのNetApp Tridentを使用して提供されます。  
  TridentはKubernetes/OpenShiftに対応する External Storage Provisioner です。NFSエクスポートや iSCSI LUN などのストレージリソースを動的に作成し、アプリケーションによって指定された StorgeClass に設定されている要求を満たしたストレージリソースを作成し、提供します。 アプリケーションは、基盤となるストレージインフラストラクチャを気にすることなく、Kubernetesクラスタ内のホスト間で Pod をシームレスに拡張し、展開でき、 必要なときに、必要な場所でストレージリソースを利用できます。
@@ -131,7 +129,7 @@ Trident は Storage Dynamic Provisioner として NetApp ストレージと Stor
 
 
 
-![image](/posts/2017/10/24/kubernetesopenshift-static-vs-dynamic-storage/images/3.png#layoutTextWidth)
+![image](./images/3.png#layoutTextWidth)
 
 Tridentの概念図
 
@@ -147,13 +145,13 @@ Tridentを使用することでNetAppストレージポートフォリオ全体�
 
 大きく２つの価値を提供できます。
 
-#### 1. 消費型のインフラの実現
+## 1. 消費型のインフラの実現
 
 この記事の最初にも記載したとおり消費型のインフラをつくる、PaaSのように開発者にワンクリックで環境を作成し提供するような場合に必須となる機能を実現することができます。
 
 コンテナを活用した開発インフラを検討する際にはおそらくOpenShiftやk8s をベースにすることを考えるでしょう。その時にストレージのプロビジョニングは動的にできワークロードに応じたストレージリソースをプロビジョニングする必要があります。ストレージオーケストレータである trideht を使うことで上記のことを実現することができます。
 
-#### 2. マルチクラウド運用の実現
+## 2. マルチクラウド運用の実現
 
 NetAppが提唱しているデータファブリックのアーキテクチャの中でデータを管理し、データモビリティを実現することができるようになります。
 
@@ -172,7 +170,8 @@ NetAppのテクノロジーでデータプラットフォームを作成する�
 先日、NetApp社内でのOpenShiftのユースケースについてもブログで公開されました。
 
 [Introducing Platform-as-a-Service (PaaS) in NetApp IT | NetApp Blog](https://blog.netapp.com/blogs/introducing-platform-as-a-service-paas-in-netapp-it)
-#### 次回予告
+
+## 次回予告
 
 今回の記事ではなぜオーケストレータが必要なのか、NetAppを用いることでできることをお伝えしました。  
  次回は実際に試してみた結果をお伝えします。

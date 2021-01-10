@@ -3,16 +3,11 @@ title: "Kubernetes Meetup #27 に参加してきた"
 description: "今回初めての Kubernetes Meetup"
 author: "makotow"
 date: 2020-02-02T01:16:46+09:00
+archives: ["2020/02"]
+image: "/images/20200202/k8sjp.jpg"
 slug: kubernetes-meetup-no27
-tags:
-- kubernetes
-- k8sjp
-categories:
--
-thumbnailImagePosition: top
-thumbnailImage: /images/20200202/1.png
-keywords:
-- tech
+tags: ["kubernetes", "k8sjp"]
+categories: [""]
 ---
 
 [Kubernetes Meetup #27](https://k8sjp.connpass.com/event/162343/) にブログ枠で参加してきました。

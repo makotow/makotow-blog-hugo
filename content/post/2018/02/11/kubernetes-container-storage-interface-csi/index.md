@@ -14,11 +14,9 @@ tags:
  - Volume
  - Tech
 
-series:
--
 categories:
 -
-
+archives: ["2018/02"]
 
 
 aliases:
@@ -26,9 +24,9 @@ aliases:
 
 ---
 
-#### CSI について学んだことをメモ
+# CSI について学んだことをメモ
 
-#### Kubernetes 1.9 Release
+## Kubernetes 1.9 Release
 
 今回は興味深い記事が kubernetes のブログで出ていたので勉強も兼ねて翻訳・意訳してみました。個人的なメモを公開します。誤訳などがある場合はコメントいただければと思います。最後の開発者へのリンクやコミュニテへの参加方法についてはこのブログでは割愛しました。
 
@@ -54,7 +52,7 @@ Kubernetes 1.9 で [コンテナストレージインタフェース（CSI）](h
 
 機能は1.9で、アルファなので、明示的に有効にする必要があります。アルファステージの機能はプロダクション利用は推奨しませんが、プロジェクトがやろうとしていることを確認するために使うのは良いことです。今回はより高い拡張性と標準化されたkubernetesストレージのエコシステムを確認できます。
 
-#### Why Kubernetes CSI？
+## Why Kubernetes CSI？
 
 Kubernetesボリュームのプラグインは 「in-tree」で開発されています。つまり、kubernetes と密接に関係しており、コンパイル、ビルド、リリースはkubernetesのコアバイナリと一緒にリリースされます。  
  新しいストレージシステムを kubernetes コアのコードリポジトリにコードを追加する必要があります。しかし、kubernetes のリリースプロセスとあうように調整することは多くのプラグイン開発者にとっては苦痛となります。
@@ -68,17 +66,17 @@ Kubernetesボリュームのプラグインは 「in-tree」で開発されて�
 
 CSI は out-of-treeのストレージプラグインを開発し、コンテナ化してKubernetesプリミティブを経由してデプロイ、そしてユーザーがよく知り、使っているKubernetesプリミティブ(StorageClasses、PersistentVolumeClaims、PersistentVolumes） を通してリソースを消費することで上記のすべての問題を解決します。
 
-#### What is CSI?
+## What is CSI?
 
 CSIの目的は、コンテナオーケストレーションシステム（COs）がコンテナ化されたワークロードに任意のストレージシステムを公開するための標準化されたメカニズムを確立することです。 CSIの仕様は、Kubernetes、Mesos、Docker、Cloud Foundryなどのさまざまなコンテナオーケストレーションシステム（COs）のコミュニティメンバー間の協力から生まれました。 仕様はKubernetesから独立して開発され、[https://github.com/container-storage-interface/spec/blob/master/spec.md](https://github.com/container-storage-interface/spec/blob/master/spec.md) 管理されています。
 
 Kubernetesのv1.9はKubernetesにデプロイおよびKubernetesワークロードによって消費されるCSI互換ボリュームドライバをイネーブルCSI指定のアルファ実装を公開します。
 
-#### どのように私はKubernetesクラスタ上のCSIのドライバをデプロイすればよいですか？
+## どのように私はKubernetesクラスタ上のCSIのドライバをデプロイすればよいですか？
 
 CSIプラグインの作者はKubernetesに自分のプラグインを導入するための独自の指示を提供します。
 
-#### どのように私はCSIボリュームを使用していますか？
+## どのように私はCSIボリュームを使用していますか？
 
 CSIストレージプラグインがすでにクラスタ上で展開されていると仮定すると、あなたはおなじみのKubernetesストレージプリミティブを通してそれを使用することができますPersistentVolumeClaims、PersistentVolumes、およびStorageClasses。
 
@@ -91,22 +89,27 @@ CSIはKubernetes v1.9デベロッパーでアルファの機能です。これ�
 *   –feature-gates=MountPropagation=true
 *   –allow-privileged=true
 
-#### 動的なプロビジョニング
+## 動的なプロビジョニング
 
 CSI plugin を 指定するようStorrage class 作成することによって、動的プロビジョニングをサポートしボリュームの自動作成/削除有効にすることができ瑠葉になります。
 
 例として、次の StorageClass は、provisoner に 「com.example.team/csi-driver」を指定して「高速ストレージ」ボリュームを動的に作成することができます。
-``kind: StorageClass  
+
+```yaml
+kind: StorageClass  
 apiVersion: storage.k8s.io/v1  
 metadata:  
   name: fast-storage  
 provisioner: com.example.team/csi-driver  
 parameters:  
-  type: pd-ssd``
+  type: pd-ssd
+```
 
 動的プロビジョニングをトリガするために、PersistentVolumeClaimのオブジェクトを作成します。  
  以下のPersistentVolumeClaimは、StorageClassを使って動的プロビジョニングをトリガするものです。
-``apiVersion: v1  
+
+```yaml
+apiVersion: v1  
 kind: PersistentVolumeClaim  
 metadata:  
   name: my-request-for-storage  
@@ -116,7 +119,8 @@ spec:
   resources:  
     requests:  
       storage: 5Gi  
-  storageClassName: fast-storage``
+  storageClassName: fast-storage
+```
 
 ボリュームのプロビジョニングが呼び出されると、パラメータ「type: pd-ssd」がCSIプラグイン「com.example.team/csi-driver」に 「CreateVolume」コールを経由して渡されます。  
  結果として、外部ボリュームプラグインは新規のボリュームの作成と、 PersistentVolumeをオブジェクトを新規ボリュームを表現しています。  
@@ -124,11 +128,13 @@ spec:
 
 StorageClass 「高速ストレージ」がデフォルトならば、PersistentVolumeClaimに定義しなかった場合、StorageClass 「高速ストレージ」がデフォルトで使用されます。
 
-#### 事前プロビジョニングされたボリューム
+## 事前プロビジョニングされたボリューム
 
 既存のボリュームをkubernetes 内で利用するためには PersistentVolume オブジェクトを手動で作成することにより、Kubernetesにおける既存のボリュームをいつでも公開することができます。  
  次のPersistentVolumeの例は「existingVolumeName」というボリューム名をCSIストレージプラグインの「com.example.team/csi-driver」で表すものです。
-``apiVersion: v1  
+
+```yaml
+apiVersion: v1  
 kind: PersistentVolume  
 metadata:  
   name: my-manually-created-pv  
@@ -141,12 +147,15 @@ spec:
   csi:  
     driver: com.example.team/csi-driver  
     volumeHandle: existingVolumeName  
-    readOnly: false``
+    readOnly: false
+```
 
-#### アタッチとマウント
+## アタッチとマウント
 
 任意のポッドまたはポッドテンプレート内のCSIボリュームにバインドしているPersistentVolumeClaimを参照できます。
-``kind: Pod  
+
+```yaml
+kind: Pod  
 apiVersion: v1  
 metadata:  
   name: my-pod  
@@ -160,13 +169,14 @@ spec:
   volumes:  
     - name: my-csi-volume  
       persistentVolumeClaim:  
-        claimName: my-request-for-storage``
+        claimName: my-request-for-storage
+```
 
 CSIのボリュームを参照するポッドがスケジュールされたら、Kubernetesは外部CSIプラグイン(External CSI plugin: ControllerPublishVolume, NodePublishVolume, etc.)に対して適切な操作を開始して指定されたボリュームがポッド内のコンテナによって接続され、マウントされ、使用可能になるようにします。
 
 詳細については[CSI設計ドキュメント](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md) と[ドキュメント](https://github.com/kubernetes-csi/docs/wiki/Setup)を参照してください。
 
-#### CSIドライバの作成方法
+## CSIドライバの作成方法
 
 Kubernetesは、可能な限りCSIボリュームドライバのパッケージ化とデプロイメントを最小限に抑えています。  
  Kubernetes上にCSIボリュームドライバを展開するための最小要件が[ここ](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md#third-party-csi-volume-drivers) に文章化されています。
@@ -185,21 +195,21 @@ Kubernetesは、可能な限りCSIボリュームドライバのパッケージ�
 
 CSIドライバを使用することでkubernetesの構造を知らなくとも上記のメカニズムを使用することでストレージベンダーは彼らのプラグインをデプロイすることができます。
 
-#### どこでCSIのドライバを見つけることができますか？
+## どこでCSIのドライバを見つけることができますか？
 
 CSIドライバはサードパーティで開発、メンテナンスされています。  
  サンプルのCSIのドライバは[ここ](https://github.com/kubernetes-csi/drivers)で見つけることができます。  
  しかし、これらは例示的な目的のために提供されており、本番環境で使用されることを意図されていません。
 
-#### Flex Volumeについてはどうなのでしょうか？
+## Flex Volumeについてはどうなのでしょうか？
 
 [Flex Volume Plugin](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md) は、「out-of-tree」ボリュームプラグインを作成するための exec ベースのメカニズムとして存在します。上記で言及したいくつかの欠点がありますが、Flex Volume Plugin は、新しいCSIボリュームプラグインと共存します。SIG Storageは既存のすでに本番環境で稼働しているサードパーティ製のFlexのドライバが動作し続けるようにするFlex APIを維持していきます。将来的には、新しいボリュームの機能は、CSIのみに追加されます。
 
-#### in-tree volume plugins には何が起こりますか？
+## in-tree volume plugins には何が起こりますか？
 
 CSIがstable に達すると、CSIへin-tree volume plugin のほとんどを移行する計画をしています。詳細についてはKubernetes CSIの実装が stable に近づくのをお楽しみに。
 
-#### アルファの制限は何ですか？
+## アルファの制限は何ですか？
 
 CSIの alpha implementationは次の制限があります。
 
@@ -209,6 +219,6 @@ CSIの alpha implementationは次の制限があります。
 *   CSIドライバは、「external-attacher」ででデプロイされる必要がある、「ControllerPublishVolume」を実装していなくてもだ。
 *   Kubernetesスケジューラトポロジは、CSIボリュームはサポートされていません。要するに、k8sスケジューラが賢くスケジューリングの決定を行うことができるようにプロビジョニングされたボリュームに関する情報(zone, regions, etc)を共有するべきです。
 
-#### 次は何ですか？
+## 次は何ですか？
 
 フィードバックと採用率によって、Kubernetesチームが1.10または1.11のいずれかでCSIの実装をベータにプッシュする予定です。

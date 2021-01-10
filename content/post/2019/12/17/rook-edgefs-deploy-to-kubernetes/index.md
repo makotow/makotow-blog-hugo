@@ -6,6 +6,7 @@ lastmod: 2020-01-05T03:12:32+09:00
 description: "Rookだらけの Advent Calendar 2019/12/17: Rook EdgeFS Operator の力を実感する"
 subtitle: "Rookだらけの Advent Calendar 2019/12/17: Rook EdgeFS Operator の力を実感する"
 slug: rook-edgefs-deploy-to-kubernates
+archives: ["2019/12"]
 tags:
  - Kubernetes
  - Rook
@@ -15,8 +16,7 @@ tags:
 categories:
 - 2019-advent-calendar
 
-thumbnailImagePosition: top
-thumbnailImage: "/images/20191217/2.png" 
+image: "/images/20191217/admin.png" 
 aliases:
     - "/rook-edgefs-operator-6b3c379519c8"
 ---
@@ -174,11 +174,11 @@ stern . -n rook-edgefs-system
 
 ### Before
 
-`useAllDevices: false`
+`useAllDevices: true`
 
 ### After
 
-`useAllDevices: true`
+`useAllDevices: false`
 
 シングルノードの場合はyamlの#sysRepCount: 1 のコメントを外してください。
 

@@ -11,7 +11,7 @@ tags:
  - Edgefs
  - Rook
  - Storage
-
+archives: ["2019/12"]
 categories:
 - 2019-advent-calendar
 aliases:
@@ -54,20 +54,20 @@ EdgeFS上にサイトやテナントをつくる には `efscli` というCLIを
 
 デプロイ済みのポッドを確認しましょう。
 
-```
+```bash
 $ kubectl get po --all-namespaces | grep edgefs-mgr rook-edgefs          
 rook-edgefs-mgr-795c59c456-pgdrm        3/3     Running   0
 ```
 
 ポッド名がわかったのでログインします。
 
-```
+```bash
 kubectl exec -it -n rook-edgefs rook-edgefs-mgr-795c59c456-pgdrm -- env COLUMNS=$COLUMNS LINES=$LINES TERM=linux toolbox 
 ```
 
 ログインすると以下のメッセージが表示されます。
 
-```
+```bash
 Defaulting container name to rook-edgefs-mgr. Use 'kubectl describe pod/rook-edgefs-mgr-795c59c456-pgdrm -n rook-edgefs' to see all of the containers in this pod.  Welcome to EdgeFS Mgmt Toolbox. Hint: type neadm or efscli to begin
 ```
 
@@ -75,7 +75,7 @@ Defaulting container name to rook-edgefs-mgr. Use 'kubectl describe pod/rook-edg
 
 クラスタの正常性の確認をします。efscli system status で無事３ノードオンラインであることがわかりました。
 
-```
+```bash
 # efscli system status 
 ServerID 0BB3CBC69F1727D1FDD4A3E0285863B6 worker3:rook-edgefs-target-0-0 ONLINE 
 ServerID FACE8E0BBE22B723E4530FAB11F566AD worker1:rook-edgefs-target-1-0 ONLINE 
@@ -84,7 +84,7 @@ ServerID 89CC529B2CB846199F37FE6594224118 worker2:rook-edgefs-target-2-0 ONLINE
 
 EdgeFSを初期化するコマンドを実行したのですが、すでに初期化されている旨のメッセージが出力されました。ドキュメントの反映が追いついていないのか、振る舞いが変わったのでしょう。
 
-```
+```bash
 root@rook-edgefs-mgr-795c59c456-pgdrm:/opt/nedge# efscli system init   Already initialized  
 System GUID: 30CB31D57B0D491FAFFD81AA62892445 ccow_system_init err=-17
 ```
@@ -92,7 +92,8 @@ System GUID: 30CB31D57B0D491FAFFD81AA62892445 ccow_system_init err=-17
 クラスタ、テナント、バケットを作ります。
 
 (見づらいのでプロンプトを削ります。）
-```
+
+```bash
 # efscli cluster create japan   
 # efscli tenant create japan/tokyo   
 # efscli bucket create japan/tokyo/bucket1   
@@ -105,7 +106,7 @@ System GUID: 30CB31D57B0D491FAFFD81AA62892445 ccow_system_init err=-17
 
 作成したバケットごとにNFSサービスを作成します。
 
-```
+```bash
 # efscli service create nfs nfs-tokyo root@rook-edgefs-mgr-
 # efscli service serve nfs-tokyo japan/tokyo/bucket1 
 Serving new export 2,tokyo/bucket1@japan/tokyo/bucket1 
@@ -157,7 +158,7 @@ instances はアクティブに動くNFSサービスの個数です。今回は�
 
 tokyo/osakaのNFSサービスを確認
 
-```
+```bash
 ❯ kubectl get svc --all-namespaces
 NAMESPACE     NAME                        TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                                                                                                               AGE
 default       kubernetes                  ClusterIP   10.96.0.1        <none>        443/TCP                                                                                                               47h
@@ -190,7 +191,7 @@ master1:~$ showmount -e 10.108.69.77
 
 export パスがわかったので、マスターノードからNFSマウントしてみました。
 
-```
+```bash
 master1:~/mnt$ df -h
 Filesystem                         Size  Used Avail Use% Mounted on
 udev                               1.9G     0  1.9G   0% /dev
@@ -220,7 +221,7 @@ NFSとしての稼働は確認できました。
 
 サンプルにあった[storage-class.yaml](https://github.com/rook/rook/blob/master/cluster/examples/kubernetes/edgefs/storage-class.yaml)と[persistent-volume.yaml](https://github.com/rook/rook/blob/master/cluster/examples/kubernetes/edgefs/persistent-volume.yaml)を利用します。
 
-```
+```bash
 ❯ kubectl create -f storage-class.yaml
 ❯ kubectl create -f persistent-volume.yaml
 NAME CAPACITY ACCESS MODES RECLAIM POLICY STATUS CLAIM STORAGECLASS REASON AGE
@@ -230,7 +231,7 @@ edgefs-data-1 100Gi RWO Retain Available local-storage 23h
 
 PVをdescribeしてみます。
 
-```
+```bash
 ❯ kubectl describe pv edgefs-data-0
 Name: edgefs-data-0
 Labels: type=local

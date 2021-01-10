@@ -3,11 +3,10 @@
 TITLE=$1
 
 if [ "${TITLE}" = "" ]; then
-    echo "Please specify artcile title."
+    echo "Please specify article title."
     exit 1;
 fi
 
 DIR=post/$(date '+%Y/%m/%d')/"${TITLE}"
 
-hugo new -k default "${DIR}"/index.md
-mkdir -p content/"${DIR}"/images
+${HUGO} new -k default "${DIR}"/index.md

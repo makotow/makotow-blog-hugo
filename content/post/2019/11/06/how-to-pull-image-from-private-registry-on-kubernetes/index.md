@@ -12,7 +12,7 @@ tags:
  - Kubernetes
  - Containers
  - Container Registry
-
+archives: ["2019/11"]
 categories:
 -
 aliases:
@@ -66,12 +66,12 @@ Secretの作成を実施します。
 
 コマンドラインからSecret作成時にユーザ名、パスワードを設定します。
 
-```
+```bash
 $ kubectl create secret docker-registry regcred --docker-server=asia.gcr.io --docker-username=_json_key --docker-password=$(cat key.json)" --docker-email=email-address@address -n namespace
 ```
 
 default service account に `imagePullSecrets` を追加します。上記で作成したSecret名をnameに設定します。
-```
+```bash
 $ kubectl patch serviceaccount default -p '{\"imagePullSecrets\": [{\"name\": \"regcred\"}]}' -n namespace
 ```
 

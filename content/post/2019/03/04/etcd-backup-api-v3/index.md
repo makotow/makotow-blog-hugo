@@ -14,12 +14,12 @@ tags:
 
 categories:
 -
+archives: ["2019/03"]
 aliases:
     - "/etcd-backup-apiv3-828158cb06e0"
-
 ---
 
-#### 主にKubernetes環境におけるバックアップ
+## 主にKubernetes環境におけるバックアップ
 
 公式ドキュメントを確認すると普通に記載があるが少し手間取ったためメモ。
 
@@ -33,7 +33,7 @@ aliases:
 <!--more-->
 <!--toc-->
 
-#### 結論から
+## 結論から
 
 バックアップは以下の通り。
 
@@ -42,16 +42,20 @@ etcdctl のv2とv3ではコマンドラインの引数が変わる。単純にHe
 環境変数 ETCDCTL_API＝３とするとv３APIになる。
 
 kubernetesだとv3なので基本的にはv３を使う。
-`ETCDCTL_API=3 etcdctl --debug --endpoints [https://ip_address:2379](https://ip_address:2379)  --cert=”server.crt” --key=”server.key” --cacert=”ca.crt” snapshot save backup.db`
+```bash
+ETCDCTL_API=3 etcdctl --debug --endpoints [https://ip_address:2379](https://ip_address:2379)  --cert=”server.crt” --key=”server.key” --cacert=”ca.crt” snapshot save backup.db
+```
 
 とてもわかり易いドキュメント
 
 [https://github.com/etcd-io/etcd/blob/master/Documentation/op-guide/recovery.md](https://github.com/etcd-io/etcd/blob/master/Documentation/op-guide/recovery.md)
 
-#### 気をつけること・ハマったこと
+## 気をつけること・ハマったこと
 
 例えば、ヘルプを見るときには以下のように実行すると環境で標準とされているetcdのAPIバージョンとなる。
-`$ etcdctl --help  
+
+```bash
+$ etcdctl --help  
 
  NAME:  
  etcdctl — A simple command line client for etcd.  
@@ -103,12 +107,15 @@ kubernetesだとv3なので基本的にはv３を使う。
  — timeout value connection timeout per request (default: 2s)  
  — total-timeout value timeout for the command execution (except watch) (default: 5s)  
  — help, -h show help  
- — version, -v print the version`
+ — version, -v print the version
+ ```
 
 ここで出力されたヘルプがAPIv2だったことに気づかず、ドハマリした。**Warning** にしっかり書いてあるのだがバックアップをしたいのでサブコマンドにしか目が行かなかった。
 
 ここでAPIバージョンを指定することで、指定したバージョンのヘルプを見ることができる。（あたりまであるが…）
-`$ ETCDCTL_API=3 etcdctl --help  
+
+```bash
+$ ETCDCTL_API=3 etcdctl --help  
 
  NAME:  
  etcdctl — A simple command line client for etcd3.  
@@ -187,7 +194,8 @@ kubernetesだとv3なので基本的にはv３を使う。
  — keepalive-timeout=6s keepalive timeout for client connections  
  — key=”” identify secure client using this TLS key file  
  — user=”” username[:password] for authentication (prompt if password is not supplied)  
- -w, — write-out=”simple” set the output format (fields, json, protobuf, simple, table)`
+ -w, — write-out=”simple” set the output format (fields, json, protobuf, simple, table)
+ ```
 
 このようにサブコマンド自体がだいぶ変わっていることがわかる。
 

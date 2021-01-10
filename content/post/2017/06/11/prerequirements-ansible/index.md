@@ -11,14 +11,11 @@ slug:
 tags:
  - Ansible
  - Tech
-
-series:
--
 categories:
 -
-image: "/posts/2017/06/11/ansible-の実行以前の話/images/1.png" 
+archives: ["2017/06"]
 images:
- - "/posts/2017/06/11/ansible-の実行以前の話/images/1.png"
+ - "./images/1.png"
 
 
 aliases:
@@ -26,12 +23,12 @@ aliases:
 
 ---
 
-#### いまさらSSHの設定を見直してみた
+## いまさらSSHの設定を見直してみた
 
 
 
 
-![image](/posts/2017/06/11/ansible-の実行以前の話/images/1.png#layoutTextWidth)
+![image](./images/1.png#layoutTextWidth)
 
 
 
@@ -44,25 +41,40 @@ Ansible の設定を行うついでにSSHの設定を見直して手順をクリ
 *   [http://qiita.com/kentarosasaki/items/aa319e735a0b9660f1f0](http://qiita.com/kentarosasaki/items/aa319e735a0b9660f1f0)
 *   [http://qiita.com/taka379sy/items/331a294d67e02e18d68d](http://qiita.com/taka379sy/items/331a294d67e02e18d68d)
 
-#### 鍵認証を有効にする
+## 鍵認証を有効にする
 
 まずは鍵の生成
-`$ ssh-keygen  
-`## パスワードなし認証するのでパスフレーズなしとする  
-## 公開鍵、秘密鍵が作成される``
+
+```bash
+$ ssh-keygen  
+```
+
+パスワードなし認証するのでパスフレーズなしとする  
+
+## 公開鍵、秘密鍵が作成される
 
 作成された公開鍵を ansible でプロビジョニングするホストへ配布
-``$ ssh-copy-id -i ~/.ssh/id_rsa.pub host_name_or_IP  
-## `ssh-copy-idは公開鍵をコピーして、authorized_keysにも登録してくれる便利コマンド`
+```bash
+$ ssh-copy-id -i ~/.ssh/id_rsa.pub host_name_or_IP
+```  
 
-#### Ansible 用の設定
+ssh-copy-idは公開鍵をコピーして、authorized_keysにも登録してくれる便利コマンド
+
+## Ansible 用の設定
 
 Ansibleの設定ファイルはplaybook配下にansible.cfg を配置。
-``/path/to/playbook/ansible.cfg``
+
+```/path/to/playbook/ansible.cfg```
 
 Ansibleで指定するホストファイルに存在するホストはすべて信頼できるホストであることを前提として、以下の通りssh_args を設定する。
-``ssh_args = -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null``
+
+```bash
+ssh_args = -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null
+```
 
 Ansibleのプロビジョニング対象となるホストではsshdの設定を変更
-``$ sudo vi /etc/ssh/sshd_config  
-AuthorizedKeysFile のコメントアウト解除``
+
+```bash
+$ sudo vi /etc/ssh/sshd_config  
+AuthorizedKeysFile のコメントアウト解除
+```

@@ -10,13 +10,13 @@ type: about
 * Technical blog & poem.
 * Daily Knowledge base.
 
-# About me
+## About me
 
 * Kubernetes enthusiast
 * CSI Watcher
 * Keyboard enthusiast
 * Cloud Solutions architect/Engineers
 
-# Resources
+## Resources
 
 * Photo by Rudolf Kirchner from Pexels

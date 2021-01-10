@@ -13,11 +13,9 @@ tags:
  - Operation
  - Tech
 
-series:
--
 categories:
 -
-
+archives: ["2017/12"]
 
 
 aliases:
@@ -25,7 +23,7 @@ aliases:
 
 ---
 
-#### 完全に分離された環境の運用
+## 完全に分離された環境の運用
 
 開発環境、本番環境のように完全にネットワークが分離されている環境や、インターネットに接続されていない環境がある場合どのように運用するのがいいのかということを考えた。
 
@@ -34,13 +32,13 @@ aliases:
 *   プライベートなDocker Registryの構築
 *   Docker imageのデプロイ：開発→本番 開発環境で作成したイメージの本番へのデプロイ方法（ネットワークは物理的に分断）
 
-#### プライベートなDocker Registryの構築
+## プライベートなDocker Registryの構築
 
 こちらはDocker本家ページに記載の通り、ただし 本番運用するにはしっかりとセキュリティ関連（証明書など）は検討する必要あり。
 
 *   [https://docs.docker.com/registry/](https://docs.docker.com/registry/)
 
-#### Docker imageのデプロイ：開発→本番
+## Docker imageのデプロイ：開発→本番
 
 完全に開発環境、本番環境間でネットワークが分離されている場合の話かつプライベートリポジトリかつ、本番環境はインターネット接続なしのケース。
 
@@ -52,11 +50,11 @@ aliases:
  本番：作業ホストで開発環境からエクスポートしたイメージをDocker imageとして復元  
  本番：ホストのdocker image へ登録されるため、private registory へpush
 
-#### さらに調べておくべきこと
+## さらに調べておくべきこと
 
 今回調べたのはシンプルにDockerだけのケースなのでこれらをkubernetes, openshift, Rancherといったオーケストレータから使う場合どのような運用が適するのかは見定める必要がありそう。
 
-#### references
+## references
 
 *   [https://hub.docker.com/_/registry/](https://hub.docker.com/_/registry/)
 *   [https://docs.docker.com/registry/](https://docs.docker.com/registry/)

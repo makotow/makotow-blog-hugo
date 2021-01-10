@@ -13,27 +13,25 @@ tags:
  - Netapp
  - Tech
  - Heptioark
-
-series:
--
 categories:
 -
-image: "/posts/2018/12/23/netapp-kubernetes-service-part2-kubernetes-backuprestore-with-heptio-ark/images/4.png" 
+archives: ["2018/12"]
+
 images:
- - "/posts/2018/12/23/netapp-kubernetes-service-part2-kubernetes-backuprestore-with-heptio-ark/images/1.jpeg"
- - "/posts/2018/12/23/netapp-kubernetes-service-part2-kubernetes-backuprestore-with-heptio-ark/images/2.png"
- - "/posts/2018/12/23/netapp-kubernetes-service-part2-kubernetes-backuprestore-with-heptio-ark/images/3.jpeg"
- - "/posts/2018/12/23/netapp-kubernetes-service-part2-kubernetes-backuprestore-with-heptio-ark/images/4.png"
- - "/posts/2018/12/23/netapp-kubernetes-service-part2-kubernetes-backuprestore-with-heptio-ark/images/5.jpeg"
- - "/posts/2018/12/23/netapp-kubernetes-service-part2-kubernetes-backuprestore-with-heptio-ark/images/6.png"
- - "/posts/2018/12/23/netapp-kubernetes-service-part2-kubernetes-backuprestore-with-heptio-ark/images/7.png"
- - "/posts/2018/12/23/netapp-kubernetes-service-part2-kubernetes-backuprestore-with-heptio-ark/images/8.png"
- - "/posts/2018/12/23/netapp-kubernetes-service-part2-kubernetes-backuprestore-with-heptio-ark/images/9.png"
- - "/posts/2018/12/23/netapp-kubernetes-service-part2-kubernetes-backuprestore-with-heptio-ark/images/10.png"
- - "/posts/2018/12/23/netapp-kubernetes-service-part2-kubernetes-backuprestore-with-heptio-ark/images/11.png"
- - "/posts/2018/12/23/netapp-kubernetes-service-part2-kubernetes-backuprestore-with-heptio-ark/images/12.png"
- - "/posts/2018/12/23/netapp-kubernetes-service-part2-kubernetes-backuprestore-with-heptio-ark/images/13.png"
- - "/posts/2018/12/23/netapp-kubernetes-service-part2-kubernetes-backuprestore-with-heptio-ark/images/14.png"
+ - "./images/1.jpeg"
+ - "./images/2.png"
+ - "./images/3.jpeg"
+ - "./images/4.png"
+ - "./images/5.jpeg"
+ - "./images/6.png"
+ - "./images/7.png"
+ - "./images/8.png"
+ - "./images/9.png"
+ - "./images/10.png"
+ - "./images/11.png"
+ - "./images/12.png"
+ - "./images/13.png"
+ - "./images/14.png"
 
 
 aliases:
@@ -41,7 +39,7 @@ aliases:
 
 ---
 
-#### Heptio Ark を使ったバックアップ・リストア
+## Heptio Ark を使ったバックアップ・リストア
 
 NetApp Kubernetes Service (NKS)の使い所を見ながら、ポイントとなる機能をみていくシリーズです。
 
@@ -64,7 +62,7 @@ Part1は実施した前提(NKSでk8sクラスタデプロイ済み)として、�
 NKSの画面から Heptio Ark をクリックすると以下の画面になります。
 
 
-![Heptio Ark](/posts/2018/12/23/netapp-kubernetes-service-part2-kubernetes-backuprestore-with-heptio-ark/images/1.jpeg#layoutTextWidth)
+![Heptio Ark](./images/1.jpeg#layoutTextWidth)
 
 Heptio ark 設定画面
 
@@ -73,7 +71,7 @@ Heptio ark 設定画面
 「Enable Kubernetes State Backup」をクリックしてバックアップを有効にします。
 
 
-![image](/posts/2018/12/23/netapp-kubernetes-service-part2-kubernetes-backuprestore-with-heptio-ark/images/2.png#layoutTextWidth)
+![image](./images/2.png#layoutTextWidth)
 
 バックアップオン
 
@@ -87,18 +85,18 @@ S3バケットは自動で作成するため登録しているクレデンシャ
 その後画面下の「Save」ボタンを押すと以下のメッセージがポップアップ表示されます。
 
 
-![image](/posts/2018/12/23/netapp-kubernetes-service-part2-kubernetes-backuprestore-with-heptio-ark/images/3.jpeg#layoutTextWidth)
+![image](./images/3.jpeg#layoutTextWidth)
 
 
 
 画面左のイベントログから今行った実行ログが確認できます。
 
 
-![image](/posts/2018/12/23/netapp-kubernetes-service-part2-kubernetes-backuprestore-with-heptio-ark/images/4.png#layoutTextWidth)
+![image](./images/4.png#layoutTextWidth)
 
 
 
-![image](/posts/2018/12/23/netapp-kubernetes-service-part2-kubernetes-backuprestore-with-heptio-ark/images/5.jpeg#layoutTextWidth)
+![image](./images/5.jpeg#layoutTextWidth)
 
 ark がインストールされる
 
@@ -109,7 +107,7 @@ ark がインストールされる
 Ark 設定後にAWS S3のコンソールからバケットの確認をします。
 
 
-![image](/posts/2018/12/23/netapp-kubernetes-service-part2-kubernetes-backuprestore-with-heptio-ark/images/6.png#layoutTextWidth)
+![image](./images/6.png#layoutTextWidth)
 
 
 
@@ -118,14 +116,14 @@ Ark 設定後にAWS S3のコンソールからバケットの確認をします�
 更に中を見ていくと、初回起動のタイミングですでに１つバックアップが取得されています。
 
 
-![image](/posts/2018/12/23/netapp-kubernetes-service-part2-kubernetes-backuprestore-with-heptio-ark/images/7.png#layoutTextWidth)
+![image](./images/7.png#layoutTextWidth)
 
 
 
 バケットの内容は以下の３ファイルです。
 
 
-![image](/posts/2018/12/23/netapp-kubernetes-service-part2-kubernetes-backuprestore-with-heptio-ark/images/8.png#layoutTextWidth)
+![image](./images/8.png#layoutTextWidth)
 
 
 
@@ -143,7 +141,7 @@ Ark 設定後にAWS S3のコンソールからバケットの確認をします�
 現在クラスタにデプロイしているものは以下の通りです。
 
 
-![image](/posts/2018/12/23/netapp-kubernetes-service-part2-kubernetes-backuprestore-with-heptio-ark/images/9.png#layoutTextWidth)
+![image](./images/9.png#layoutTextWidth)
 
 クラスタにインストールされているソリューションの状況(NKSからデプロイしたもの）
 
@@ -154,7 +152,7 @@ Jenkinsを削除してからリストを試します。
 以下はJenkinsを削除したところ。
 
 
-![image](/posts/2018/12/23/netapp-kubernetes-service-part2-kubernetes-backuprestore-with-heptio-ark/images/10.png#layoutTextWidth)
+![image](./images/10.png#layoutTextWidth)
 
 
 
@@ -165,7 +163,7 @@ Jenkinsを削除してからリストを試します。
 Ark から「RESTORE]ボタンをクリック。
 
 
-![image](/posts/2018/12/23/netapp-kubernetes-service-part2-kubernetes-backuprestore-with-heptio-ark/images/11.png#layoutTextWidth)
+![image](./images/11.png#layoutTextWidth)
 
 リストア時はリストアボタンをクリックするだけ
 
@@ -175,14 +173,14 @@ Ark から「RESTORE]ボタンをクリック。
  該当のバックアップを選択して、「RESTORE THIS BACKUP」をクリックして復元開始です。
 
 
-![image](/posts/2018/12/23/netapp-kubernetes-service-part2-kubernetes-backuprestore-with-heptio-ark/images/12.png#layoutTextWidth)
+![image](./images/12.png#layoutTextWidth)
 
 
 
 Heptio Arkのアイコン横にあるインジケータが動き始めます。
 
 
-![image](/posts/2018/12/23/netapp-kubernetes-service-part2-kubernetes-backuprestore-with-heptio-ark/images/13.png#layoutTextWidth)
+![image](./images/13.png#layoutTextWidth)
 
 復元中
 
@@ -191,7 +189,7 @@ Heptio Arkのアイコン横にあるインジケータが動き始めます。
 上記Solutionリストには戻りませんでしたが、Deploymentとしては復元できました。ラベルにark-restoreが付与されます。
 
 
-![image](/posts/2018/12/23/netapp-kubernetes-service-part2-kubernetes-backuprestore-with-heptio-ark/images/14.png#layoutTextWidth)
+![image](./images/14.png#layoutTextWidth)
 
 
 

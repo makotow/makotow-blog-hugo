@@ -13,32 +13,25 @@ tags:
  - Tech
  - Ansible
 
-series:
--
 categories:
 -
-image: "/posts/2017/07/04/netapp-docker-volume-plugin-with-ansible-playbook/images/1.png" 
-images:
- - "/posts/2017/07/04/netapp-docker-volume-plugin-with-ansible-playbook/images/1.png"
-
-
 aliases:
     - "/netapp-docker-volume-plugin-with-ansible-playbook-383d3fad9eae"
-
+archives: ["2017/07"]
 ---
 
-#### nDVP を一発インストール
+## nDVP を一発インストール
 
 
 
 
-![image](/posts/2017/07/04/netapp-docker-volume-plugin-with-ansible-playbook/images/1.png#layoutTextWidth)
+![image](./images/1.png#layoutTextWidth)
 
 
 [makotow/ndvp-provisioning](https://github.com/makotow/ndvp-provisioning)
 
 
-#### Docker Volume Plugin のAnsible Playbookを作った
+## Docker Volume Plugin のAnsible Playbookを作った
 
 手作業で数十台のホストOSへのインストールを簡単にするために作成。
 
@@ -48,11 +41,11 @@ aliases:
 
 絶賛、エンハンス中です。
 
-#### ハマるかもしれないポイント
+## ハマるかもしれないポイント
 
 基本的には README.md [https://github.com/makotow/ndvp-provisioning](https://github.com/makotow/ndvp-provisioning)に細かく書きましたが幾つかはまりそうなところがあるので補足します。
 
-#### バックエンドストレージのパラメータ指定
+## バックエンドストレージのパラメータ指定
 
 `ndvp-provisioning/roles/ndvp/files/`
 
@@ -60,7 +53,9 @@ aliases:
 
 また、ここで指定するマネジメントやストレージ通信用のIPについては、ansible playbook を実行した時点で疎通可能であることを推奨します。
 
-Docker Volume plugin が定期的に疎通を確認しに行くため、疎通ができないとエラーログを出力し続けることになるためです。### 今後について
+Docker Volume plugin が定期的に疎通を確認しに行くため、疎通ができないとエラーログを出力し続けることになるためです。
+
+## 今後について
 
 機能追加や柔軟性を持たせることはこれからのフェーズで実施します。
 

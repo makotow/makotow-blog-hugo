@@ -17,20 +17,20 @@ series:
 categories:
 -
 
-
+archives: ["2018/07"]
 
 aliases:
     - "/on-premise-kubernetes-pitfalls-2aa49e1a4c2c"
 
 ---
 
-#### オンプレkubernetesで共通してはまるところ
+## オンプレkubernetesで共通してはまるところ
 
 ウェブで公開されているマニフェストは基本的にはクラウドで動かすことを想定しているのでオンプレミスで動かそうとするとそのままでは動かない箇所があったりする。
 
 今回はだれもがハマるであろうことを自分への備忘も含めて記載してみた。
 
-#### Service の type
+## Service の type
 
 マニフェスト内に`type: LoadBalancer`とあるが、これは外部にサービスを公開する際にクラウドが提供しているロードバランスサー経由でアクセスできるようにするもの。外部公開用のIPの設定やロードバランス先も設定される。
 
@@ -41,14 +41,14 @@ aliases:
 1.  解決方法としては `type: NodePort`またはIngressを使う方向へ。
 2.  [MetalLB](https://metallb.universe.tf/)のようなオンプレミスでクラウドのロードバランスサーのようなことをできるものを使う。
 
-#### Deployment/Pod等のストレージ設定
+## Deployment/Pod等のストレージ設定
 
 上記のロードバランサーと同様にストレージについても動的にプロビジョニングされることを前提としている。  
  クラウドサービスを使った場合、PVCのマニフェストに`StorageClass`が指定されていないければデフォルトのストレージクラスが使用され、動的にプロビジョニングされる。([https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass](https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass))
 
 クラウドプロバイダー毎で実装は違うところもあると思うがオンプレミスでやるとそもそもストレージクラスが存在しないのでボリュームを作成するところでエラー。
 
-#### その他はまりどころ
+## その他はまりどころ
 
 *   DNS、名前解決をどうするか
 *   SSL certification、自己証明書での実装

@@ -5,6 +5,7 @@ date: 2019-12-25T16:00:13.536Z
 lastmod: 2020-01-05T03:12:42+09:00
 description: "Rook EdgeFS ISGW について"
 subtitle: "Rookだらけの Advent Calendar 2019/12/24: EdgeFSの真髄"
+archives: ["2019/12"]
 slug: rook-edgefs-isgw
 tags:
  - Rook
@@ -13,8 +14,7 @@ tags:
  - Kubernetes
 categories:
 -  2019-advent-calendar
-thumbnailImagePosition: top
-thumbnailImage: /images/20191225/1.png
+image: /images/20191225/isgw.png
 aliases:
     - "/rook-edgefs-isgw-walkthrough-6dee382fa6fe"
 ---
@@ -144,7 +144,7 @@ Hawaiiクラスタのbk1がHawaii-rクラスタにレプリケーションされ
 
 ![image](./images/12.png)
 
-```
+```bash
 ❯ kubectl get svc -n rook-edgefs | grep hawaii  
 rook-edgefs-isgw-hawaii-r      ClusterIP   10.100.194.238   none 49000/TCP,14000/TCP    4m32s
 ```
@@ -171,13 +171,13 @@ rook-edgefs-isgw-hawaii-r      ClusterIP   10.100.194.238   none 49000/TCP,14000
 ## レプリケーションの状況を確認する
 
 レプリケーションの状況はedgefs-mgrポッドから確認できます。
-```
+```bash
 $ kubectl exec -it -n rook-edgefs rook-edgefs-mgr-795c59c456-pgdrm -- env COLUMNS=$COLUMNS LINES=$LINES TERM=linux toolbox  
 ```
 
 上記のコマンドを実行すると、toolboxにログインします。送信元のhawaiiクラスタの状態を確認すると以下の通りとなります。出力結果真ん中以降の「bytes sent」の箇所に変化があります。
 
-```
+```bash
 Defaulting container name to rook-edgefs-mgr.
 Use 'kubectl describe pod/rook-edgefs-mgr-795c59c456-pgdrm -n rook-edgefs' to see all of the containers in this pod.
 Welcome to EdgeFS Mgmt Toolbox.
@@ -234,7 +234,7 @@ root@rook-edgefs-mgr-795c59c456-pgdrm:/opt/nedge#
 
 送信元のバケットにデータをつくり、しばらくしてから再度同じコマンドを実行すると以下のようになります
 
-```
+```bash
 root@rook-edgefs-mgr-795c59c456-pgdrm:/opt/nedge# efscli service show hawaii -s
 X-Service-Name: hawaii
 X-Service-Type: isgw
@@ -283,6 +283,7 @@ PARAMETER          |      VALUE
   Local io errors            | 0                 
   Remote io errors           | 0
 ```
+
 データを変更すると送信されるようになっています。
 
 ## データの確認

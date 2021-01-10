@@ -17,7 +17,6 @@ series:
 -
 categories:
 -
-image: "/posts/2018/10/25/netapp-kubernetes-service-part1-nks/images/1.png" 
 images:
  - "/posts/2018/10/25/netapp-kubernetes-service-part1-nks/images/1.png"
  - "/posts/2018/10/25/netapp-kubernetes-service-part1-nks/images/2.jpeg"
@@ -33,7 +32,7 @@ images:
  - "/posts/2018/10/25/netapp-kubernetes-service-part1-nks/images/12.jpeg"
  - "/posts/2018/10/25/netapp-kubernetes-service-part1-nks/images/13.jpeg"
 
-
+archives: ["2018/10"]
 aliases:
     - "/netapp-kubernetes-service-part1-nks-179211138638"
 

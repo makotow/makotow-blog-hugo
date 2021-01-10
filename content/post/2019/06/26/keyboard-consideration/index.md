@@ -17,7 +17,7 @@ categories:
 -
 aliases:
     - "/realforce-pfu-a7c3137ffe40"
-
+archives: ["2019/06"]
 ---
 
 ## キーボード沼

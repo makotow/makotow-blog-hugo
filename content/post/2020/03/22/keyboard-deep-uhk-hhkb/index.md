@@ -4,18 +4,12 @@ subtitle: "Realforce, Happy Hacking Keyboard, Ultimate Hacking Keyboard"
 description: "食わず嫌いのキーボードもすぐなれる" 
 author: "makotow"
 date: 2020-03-31T03:42:36+09:00
+archives: ["2020/03"]
 slug: "keyboard-deep-uhk-hhkb"
-tags:
-- keyboard
-- happy-hacking-keyboard
-- ultimate-hacking-keyboard
-- gadgets
-categories:
-- Gadget
-keywords:
-- tech
-thumbnailImagePosition: top
-thumbnailImage: /images/20200331/HHKB-hybrid-type-s-thum.jpg
+tags: ["keyboard", "happy-hacking-keyboard", "ultimate-hacking-keyboard", "gadgets"]
+categories: ["Gadget"]
+#image: /images/20200331/HHKB-hybrid-type-s-thum.jpg
+image: /images/20200331/hhkb.jpg
 ---
 
 昨年、[こんな記事](https://blog.makotow.net/post/2019/06/26/keyboard-consideration/) を書いたがその後にアップデートがあったため、

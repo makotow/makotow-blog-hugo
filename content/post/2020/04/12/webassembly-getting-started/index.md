@@ -6,15 +6,10 @@ author: "makotow"
 draft: false 
 date: 2020-04-12T14:30:49+09:00
 slug: "webassembly-getting-started"
-tags:
-- wasm
-- tech
-categories:
-- wasm-getting-started
-keywords:
-- tech
-thumbnailImagePosition: top
-thumbnailImage: https://github.com/carlosbaraza/web-assembly-logo/blob/master/dist/logo/web-assembly-logo-512px.png?raw=true
+image: https://github.com/carlosbaraza/web-assembly-logo/blob/master/dist/logo/web-assembly-logo-512px.png?raw=true
+archives: ["2020/04"]
+tags: ["wasm", "tech"]
+categories: ["wasm-getting-started"]
 ---
 
 WebAssembly に入門した記事。

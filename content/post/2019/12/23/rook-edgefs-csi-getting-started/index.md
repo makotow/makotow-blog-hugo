@@ -15,10 +15,9 @@ tags:
  - Storage
  - CSI
 categories:
-- 2019-advent-calendar
-
-thumbnailImagePosition: top
-thumbnailImage: /images/20191223/1.png
+- 2019-advent-calendar 
+archives: ["2019/12"]
+image: /images/20191223/bucket.png
 aliases:
     - "/rook-edgefs-csi%E3%82%92%E8%A9%A6%E3%81%99-927368a119f8"
 
@@ -64,14 +63,15 @@ EdgeFS NFSについてはこちらを。
 ## 事前準備
 
 バージョンによってはCSIのCRDが入っていない可能性があるので確認し、なければ導入します。
-```
+
+```bash
 kubectl get customresourcedefinition.apiextensions.k8s.io/csidrivers.csi.storage.k8s.io  
 kubectl get customresourcedefinition.apiextensions.k8s.io/csinodeinfos.csi.storage.k8s.io
 ```
 
 上記コマンドでなにも出力されなかった場合は以下のコマンドでCSIのCRDを導入しておきます。
 
-```
+```bash
 kubectl create -f [https://raw.githubusercontent.com/kubernetes/csi-api/release-1.13/pkg/crd/manifests/csidriver.yaml](https://raw.githubusercontent.com/kubernetes/csi-api/release-1.13/pkg/crd/manifests/csidriver.yaml)  
 kubectl create -f [https://raw.githubusercontent.com/kubernetes/csi-api/release-1.13/pkg/crd/manifests/csinodeinfo.yaml](https://raw.githubusercontent.com/kubernetes/csi-api/release-1.13/pkg/crd/manifests/csinodeinfo.yaml)
 ```
@@ -80,13 +80,13 @@ NFS, iSCSI をノードから使うため、ノード側にもパッケージが
 
 ### for NFS  
 
-```
+```bash
 apt install -y nfs-common rpcbind  
 ```
 
 ### for ISCSI  
 
-```
+```bash
 apt install -y open-iscsi
 ```
 
@@ -96,7 +96,7 @@ apt install -y open-iscsi
 
 今回はCSI用に以下の環境をEdgeFSで作成しました。
 
-* luster名: csi-test
+* cluster名: csi-test
 * Tenant名: tenant01
 
 edgefs-nfs-csi-driver-config.yaml というコンフィグファイルがあります、これを使ってsecretを作成します。
@@ -105,13 +105,13 @@ edgefs-nfs-csi-driver-config.yaml はCluster名、Tenant名を指定する箇所
 
 rook 以下で以下のように作業ディレクトリへ移動します。
 
-```
+```bash
 cd cluster/examples/kubernetes/edgefs/csi/nfs
 ```
 
 edgefs-nfs-csi-driver-config.yaml の該当箇所を変更します。
 
-```
+```bash
 # edgefs-nfs-csi-driver config file to create k8s secret
 #
 # $ kubectl create secret generic edgefs-nfs-csi-driver-config --from-file=./edgefs-nfs-csi-driver-config.yaml
@@ -133,13 +133,13 @@ password: admin #edgefs k8s cluster  grpc connection password
 
 secret として上記内容を登録します。
 
-```
+```bash
 kubectl create secret generic edgefs-nfs-csi-driver-config --from-file=./edgefs-nfs-csi-driver-config.yaml
 ```
 
 次にCSI ドライバを作成します。
 
-```
+```bash
 $ kubectl apply -f edgefs-nfs-csi-driver.yaml 
 
 csidriver.csi.storage.k8s.io/io.edgefs.csi.nfs created 
@@ -156,7 +156,7 @@ daemonset.apps/edgefs-nfs-csi-node created
 
 CSI のポッドが上がってきました。
 
-```
+```bash
 ❯ kubectl get pod   
 NAME                                  READY   STATUS    RESTARTS   AGE  
 edgefs-nfs-csi-controller-0           3/3     Running   0          23h  
@@ -173,13 +173,14 @@ StorageClassの作成からPVCバウンドまでを一気に実施します。
 
 今回はexamplesにStorageClassからまるっと作ってくれるものが入っているのでそれを使います。
 
-```
+```bash
 $ cd rook/cluster/examples/kubernetes/edgefs/csi/nfs/examples
 $ kubectl apply -f dynamic-nginx.yaml
 ```
 
 サンプルだと様々なパラメータが設定してありますが、上述した`edgefs-nfs-csi-driver-config.yaml` に記載済みのため省略しました。
-```
+
+```bash
 ❯ kubectl get pvc -n rook-edgefs  
 NAME                 STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS                  AGE  
 edgefs-nfs-csi-pvc   Bound    pvc-2fa43b39-2f25-4b68-ab63-852c32506d3b   1Gi        RWO            edgefs-nfs-csi-storageclass   23h
@@ -187,7 +188,7 @@ edgefs-nfs-csi-pvc   Bound    pvc-2fa43b39-2f25-4b68-ab63-852c32506d3b   1Gi    
 
 しっかりとBoundされました。nginx pod も立ち上がっています。
 
-```
+```bash
 ❯ kubectl get pod -n rook-edgefs  
 NAME                                         READY   STATUS    RESTARTS   AGE  
 nginx                                        1/1     Running   0          23h

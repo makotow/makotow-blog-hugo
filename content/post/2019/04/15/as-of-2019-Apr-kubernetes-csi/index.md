@@ -14,6 +14,7 @@ tags:
  - csi
 categories:
 -
+archives: ["2019/04"]
 aliases:
     - "/as-of-april-2019-kubernetes-csi-875afa9feac"
 ---
@@ -248,25 +249,9 @@ CSIのへのマイグレーションガイドを参考にマイグレーショ�
 
 ここまで参照したすべてのリンク集です。
 
-*   CSI Volume Plugins in Kubernetes Design Doc、おそらくここが一番情報がまとまっています。
-[kubernetes/community](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md)
-
-
-*   CSIの実装すべき一覧も常にアップデートがかかっています。
-[container-storage-interface/spec](https://github.com/container-storage-interface/spec/blob/master/spec.md#goals-in-mvp)
-
-
-*   公式のVolumesのページは必読です。
-[Volumes](https://kubernetes.io/docs/concepts/storage/volumes/#csi)
-
-
-*   Protocol bufferの定義はこちらで参照できます。
-[container-storage-interface/spec](https://github.com/container-storage-interface/spec/blob/master/csi.proto)
-
-
-*   Volume Snapshots
-[Volume Snapshots](https://kubernetes.io/docs/concepts/storage/volume-snapshots/)
-
-
-*   Kubernetes CSI Developer Documentation (必読）
-[Introduction - Kubernetes CSI Developer Documentation](https://kubernetes-csi.github.io/docs/)
+* CSI Volume Plugins in Kubernetes Design Doc、おそらくここが一番情報がまとまっています。 [kubernetes/community](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md)
+* CSIの実装すべき一覧も常にアップデートがかかっています。 [container-storage-interface/spec](https://github.com/container-storage-interface/spec/blob/master/spec.md#goals-in-mvp)
+* 公式のVolumesのページは必読です。 [Volumes](https://kubernetes.io/docs/concepts/storage/volumes/#csi)
+* Protocol bufferの定義はこちらで参照できます。 [container-storage-interface/spec](https://github.com/container-storage-interface/spec/blob/master/csi.proto)
+* Volume Snapshots [Volume Snapshots](https://kubernetes.io/docs/concepts/storage/volume-snapshots/)
+* Kubernetes CSI Developer Documentation (必読） [Introduction - Kubernetes CSI Developer Documentation](https://kubernetes-csi.github.io/docs/)

@@ -19,31 +19,24 @@ series:
 -
 categories:
 -
-image: "/posts/2018/08/21/oracle-on-openshiftkubernetes-with-netapp-pvc-cloning/images/1.png" 
 images:
- - "/posts/2018/08/21/oracle-on-openshiftkubernetes-with-netapp-pvc-cloning/images/1.png"
+ - "./images/1.png"
 
-
+archives: ["2018/08"]
 aliases:
     - "/oracle-on-openshift-kubernetes-with-netapp-pvc-cloning-26859a442631"
-
 ---
 
-#### Instant clone and without requiring additional storage
+## Instant clone and without requiring additional storage
 
-
-
-
-![image](/posts/2018/08/21/oracle-on-openshiftkubernetes-with-netapp-pvc-cloning/images/1.png#layoutTextWidth)
-
-
+![image](./images/1.png#layoutTextWidth)
 
 今回試したのは２つ。
 
 1.  Oracle(今回はシングル)をコンテナ化し、kubernetes（あとからOpenShiftを使用）上で稼働させる。
 2.  1.5TBのデータベースを複数して稼働させる。約20秒から30秒で起動可能。
 
-#### Oracleをコンテナ化する
+## Oracleをコンテナ化する
 
 久しぶりにOracleを触ろうとおもったら最初からわからない用語が出てきて躓いた。  
  CDB/PDB といった概念がわからずとりあえずその理解から開始。
@@ -59,7 +52,7 @@ aliases:
 
 *   [https://github.com/oracle/docker-images](https://github.com/oracle/docker-images)
 
-#### Docker image のビルドと対応した内容
+## Docker image のビルドと対応した内容
 
 ビルドは以下のURLに書いてあるとおり実施。
 
@@ -72,7 +65,7 @@ aliases:
 *   swap領域がないことでエラー(swap領域がない理由はこの記事の最後に記載）
 *   VMのメモリが足りずにエラー
 
-#### Kubernetes 用のマニフェストを定義
+## Kubernetes 用のマニフェストを定義
 
 以下の進化を経て最終的にはテンプレートから既存PVCをクローンするマニフェストが完成。
 
@@ -82,17 +75,19 @@ aliases:
 
 コンテナのイメージレジストリは OpenShift のレジストリを利用しました。
 
-#### データの永続化については Tridentを利用
+## データの永続化については Tridentを利用
 
 クローニング元のデータベースを作成、`/opt/oracle/oradata`を永続化するようPVCを作成。
 
 利用したマニフェストは以下の通り。
-``apiVersion: apps/v1  
+
+```yaml
+apiVersion: apps/v1  
 kind: Deployment  
 metadata:  
   name:  oracle-se2  
   labels:  
-    app:  database  
+    app:  database
 spec:  
   selector:  
     matchLabels:  
@@ -107,11 +102,11 @@ spec:
         name: oracle-se2  
         env:  
         - name: ORACLE_SID  
-          value: &#34;tridentsid&#34;  
+          value: "tridentsid"  
         - name: ORACLE_PDB  
-          value: &#34;tridentpdb&#34;  
+          value: tridentpdb  
         - name: ORACLE_PWD  
-          value: &#34;PASSWORD&#34;  
+          value: "PASSWORD"  
         ports:  
         - containerPort:  1521  
           name:  oraclelistener  
@@ -123,34 +118,39 @@ spec:
       volumes:  
         - name: oradata  
           persistentVolumeClaim:  
-            claimName: oracle-pv-claim``
+            claimName: oracle-pv-claim
+```
 
 PVC は以下の通りデータベースを作成するため2TiBのボリュームを作成している。
-``apiVersion: v1  
+```yaml
+apiVersion: v1  
 kind: PersistentVolumeClaim  
 metadata:  
   name: oracle-pv-claim  
   labels:  
     app: backend  
   annotations:  
-    trident.netapp.io/reclaimPolicy: &#34;Retain&#34;  
-    trident.netapp.io/exportPolicy: &#34;default&#34;  
+    trident.netapp.io/reclaimPolicy: Retain  
+    trident.netapp.io/exportPolicy: default  
 spec:  
   accessModes:  
     - ReadWriteOnce  
   resources:  
     requests:  
       storage: 2Ti  
-  storageClassName: ontap-gold``
+  storageClassName: ontap-gold
+```
 
 上記のマニフェストから`deployment`を作成。
 
-#### OracleDatabase でデータを生成
+## OracleDatabase でデータを生成
 
 上記のPVC上のデータに1.5TBのOracleDBテストデータの作成をするため以下の通りテストデータを作成。
 
 sqlplusでログインしsqlを実行し、PDBを切り替えて接続を確認する。
-``SQL&gt; select name, open_mode from v$pdbs;  
+
+```sql
+SQL< select name, open_mode from v$pdbs;  
 
 NAME  
 --------------------------------------------------------------------------------  
@@ -174,55 +174,74 @@ SQL&gt; show con_name
 CON_NAME  
 ------------------------------  
 TRIDENTPDB  
-SQL&gt;``
+```
 
 1.5TBのテーブルスペースの作成。
-``sqlplus sys/netapp123@tridentsid as sysdba  
 
-create bigfile tablespace hugetbs datafile &#39;/opt/oracle/oradata/tridentsid/tridentpdb/hugetbs.dbf&#39; size 1536G autoextend on next 10G maxsize 1638G;``
+```sql
+sqlplus sys/password@tridentsid as sysdba  
+
+create bigfile tablespace hugetbs datafile '/opt/oracle/oradata/tridentsid/tridentpdb/hugetbs.dbf' size 1536G autoextend on next 10G maxsize 1638G;
+```
 
 デフォルトのテーブルスペースを`hugetbs`へ変更。
-``ALTER USER SYS DEFAULT TABLESPACE HUGETBS``
+
+```sql
+ALTER USER SYS DEFAULT TABLESPACE HUGETBS`
+``
 
 テストデータを投入するテーブルを作成。
-``CREATE TABLE testdata  
+
+```sql
+CREATE TABLE testdata  
 (  
     DT            DATE,  
     CD            VARCHAR2(10),  
     KIN           NUMBER(9,0)  
-);``
+);
+```
 
 `testdata`テーブルのテーブルスペースの変更
-``ALTER TABLE testdata MOVE TABLESPACE hugetbs;``
+
+```sql
+ALTER TABLE testdata MOVE TABLESPACE hugetbs;
+```
 
 テストデータ作成。これで大体1.5GBくらいになるので、あとはテーブルを必要数分コピーして1.5TBまで増やす。
-``INSERT /*+ APPEND */ INTO testdata NOLOGGING  
+```sql
+INSERT /*+ APPEND */ INTO testdata NOLOGGING  
 SELECT   
-TO_DATE(&#39;20040101&#39;,&#39;YYYYMMDD&#39;)  
+TO_DATE('20040101','YYYYMMDD')  
 +MOD(ABS(DBMS_RANDOM.RANDOM())  
-,TO_DATE(&#39;20190101&#39;,&#39;YYYYMMDD&#39;)-TO_DATE(&#39;20040101&#39;,&#39;YYYYMMDD&#39;)) DT  
-,TO_CHAR(ABS(DBMS_RANDOM.RANDOM()),&#39;FM0000000000&#39;) CD  
+,TO_DATE('20190101','YYYYMMDD')-TO_DATE('20040101','YYYYMMDD')) DT  
+,TO_CHAR(ABS(DBMS_RANDOM.RANDOM()),'FM0000000000') CD  
 ,MOD(DBMS_RANDOM.RANDOM(),100000) KIN  
 FROM  
-(SELECT 0 FROM ALL_CATALOG WHERE ROWNUM &lt;= 10000)   
-,(SELECT 0 FROM ALL_CATALOG WHERE ROWNUM &lt;= 10000)  
+(SELECT 0 FROM ALL_CATALOG WHERE ROWNUM <= 10000)   
+,(SELECT 0 FROM ALL_CATALOG WHERE ROWNUM <= 10000)  
 
-commit;``
+commit;
+```
 
 以下のSQLを実行してテーブルを作成する。
 
-**testdata_1** の”1&#34;の部分を変更することで1.5GBのテストデータをそのままコピーすることが可能。
-``CREATE TABLE testdata_1 NOLOGGING PARALLEL AS SELECT * FROM testdata;  
-commit;``
+**testdata_1** の1の部分を変更することで1.5GBのテストデータをそのままコピーすることが可能。
 
-#### 高速クローニング
+```sql
+CREATE TABLE testdata_1 NOLOGGING PARALLEL AS SELECT * FROM testdata;  
+commit;
+```
+
+## 高速クローニング
 
 今回ためしたいことの１つとしてPVCクローニング機能。これを実現するために[Trident 18.04](http://netapp-trident.readthedocs.io/en/stable-v18.04/)を使う。
 
 クローニングの記述はこちら[Kubernetes PersistentVolumeClaim objects](https://netapp-trident.readthedocs.io/en/stable-v18.04/kubernetes/concepts/objects.html?highlight=clone#kubernetes-persistentvolumeclaim-objects)
 
 OpenShiftのTemplateを使ってカタログ登録をして、コマンドラインから9個のOracleデータベースを起動する。
-``apiVersion: v1  
+
+```yaml
+apiVersion: v1  
 kind: Template  
 metadata:  
   annotations:  
@@ -286,8 +305,8 @@ objects:
               command:  
               - /bin/sh  
               - -c  
-              - echo &#39;select * from dual;&#39;  
-              - &#39;|&#39;  
+              - echo 'select * from dual;'  
+              - '|'  
               - sqlplus  
               - sys/netapp123@tridentsid  
               - as  
@@ -333,42 +352,49 @@ parameters:
   displayName: Volume Capacity  
   name: VOLUME_CAPACITY  
   required: true  
-  value: 2Ti``
+  value: 2Ti
+```
 
 templateの登録。
-``$ oc create -f oc-oracle-template.yaml -n trident-demo  
+```bash
+`$ oc create -f oc-oracle-template.yaml -n trident-demo  
 
-_template &#34;oracle-netapp-clone&#34; created_  
+_template'oracle-netapp-clone' created_  
 
 $ oc get template -n trident-demo  
 
 _NAME                  DESCRIPTION                                          PARAMETERS    OBJECTS  
-oracle-netapp-clone   Oracledatabase rapid cloning with NetApp FlexClone   6 (all set)   2_``
+oracle-netapp-clone   Oracledatabase rapid cloning with NetApp FlexClone   6 (all set)   2_
+```
 
 複数Template展開できるようにスクリプト作成
-``for i in start..limit  
-      cmd = &#34;oc process oracle-netapp-clone -p DEPLOY_NAME=oracle-clone-#{i} | oc create -f -&#34;  
+
+```ruby
+for i in start..limit  
+      cmd = "oc process oracle-netapp-clone -p DEPLOY_NAME=oracle-clone-#{i} | oc create -f "  
        system(cmd)  
-end``
+end
+```
 
 これで1.5TBのテーブルスペースをもつOracleDatabaseを20–30秒でプロビジョニング可能になった。
 
 以下の動画が実際の1.5TBのデータを持ったデータベースの複製をデモしたもの。
 
 
-
-
-#### ハマりポイントまとめ
+## ハマりポイントまとめ
 
 主に個人向けのメモとハマったときに振り返るためのメモ。
 
-#### OpenShiftで稼働させるコンテナでroot ユーザが必要な場合
+## OpenShiftで稼働させるコンテナでroot ユーザが必要な場合
 
 セキュリティポリシーを変更する必要あり。
 
 本来はrootでコンテナを動かすのは望ましくないが稼働確認のため以下のコマンドで許可。
-``$  oc adm policy add-scc-to-group anyuid system:authenticated  
-$  oc adm policy add-scc-to-user anyuid system:serviceaccount:default:root``
+
+```bash
+$  oc adm policy add-scc-to-group anyuid system:authenticated  
+$  oc adm policy add-scc-to-user anyuid system:serviceaccount:default:root
+```
 
 #### Oracleのコンテナイメージを作成時の仮想マシンのメモリ量/Swapの有効化
 

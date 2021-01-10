@@ -3,18 +3,12 @@ title: "Webassembly に入門してみた。 Rust で実装。"
 subtitle: "WebAssembly 完全に理解した。"
 description: "WebAssembly と聞いて「あーあれね」から脱するが目的"
 author: "makotow"
-date: 2020-04-13T23:37:48+09:00
 slug: "wasm-rust-getting-started"
-tags:
-- wasm
-- tech
-- rust
-categories:
-- wasm-getting-started
-keywords:
-- tech
-thumbnailImagePosition: top
-thumbnailImage: https://github.com/carlosbaraza/web-assembly-logo/blob/master/dist/logo/web-assembly-logo-512px.png?raw=true
+date: 2020-04-13T23:37:48+09:00
+image: https://github.com/carlosbaraza/web-assembly-logo/blob/master/dist/logo/web-assembly-logo-512px.png?raw=true
+archives: ["2020/04"]
+tags: ["wasm", "tech", "rust"]
+categories: ["wasm-getting-started"]
 ---
 
 前回、「[Webassembly に入門してみた。](https://blog.XXXXXXX.net/post/2020/04/12/webassembly-getting-started/) 」の続編です。
@@ -37,7 +31,7 @@ https://developer.mozilla.org/en-US/docs/WebAssembly/rust_to_wasm
 
 wasm-pack crate をインストールします。
 
-```shell script
+```shell
 ❯ cargo install wasm-pack
   Updating crates.io index
   Downloaded wasm-pack v0.9.1
@@ -438,13 +432,13 @@ cargo install wasm-pack  284.78s user 7.35s system 492% cpu 59.364 total
 
 上の方でOpenSSLのエラーがでて失敗するので、OpenSSLのパッケージをインストール。
 
-```shell script
+```shell 
 sudo apt-get install libssl-dev
 ```
 
 もう一度実行。
 
-```
+```shell
 ❯ cargo install wasm-pack        
     Updating crates.io index
   Installing wasm-pack v0.9.1
@@ -652,7 +646,7 @@ cargo install wasm-pack  532.94s user 11.56s system 910% cpu 59.796 total
 
 私は npm のユーザを持っていなかったのでユーザ作成します。
 
-```shell script
+```shell 
 ❯ mkdir webassembly-rust
 ❯ cd webassembly-rust 
 ❯ ls
@@ -675,7 +669,7 @@ Logged in as XXXXXX on https://registry.npmjs.org/.
 ## Rust プロジェクト作成
 cargo で rust プロジェクト作成します。
 
-```shell script
+```shell 
 cargo new --lib hello-wasm
      Created library `hello-wasm` package
 ```
@@ -684,7 +678,7 @@ cargo new --lib hello-wasm
 
 ソースをドキュメント通りに書いて、
 
-```shell script
+```shell 
 ❯ wasm-pack build --scope XXXXXXX
 [INFO]: Checking for the Wasm target...
 [INFO]: Compiling to Wasm...
@@ -708,7 +702,7 @@ npm としてパブリッシュする。
 
 npmでVerifyしてから再度実行。
 
-```shell script
+```shell 
 npm publish --access=public
 npm notice 
 npm notice 📦  @XXXXXXX/hello-wasm@0.1.0
@@ -731,7 +725,7 @@ npm notice
 
 ウェブ上でパッケージを作成する。
 
-```shell script
+```shell 
 ❯ cd ../..
 ❯ ls
 hello-wasm/
@@ -741,7 +735,7 @@ hello-wasm/
 
 ソースをドキュメント通り書いて実行。
 
-```shell script
+```shell 
 ❯ npm install                  
 npm notice created a lockfile as package-lock.json. You should commit this file.
 npm WARN optional SKIPPING OPTIONAL DEPENDENCY: fsevents@^1.2.7 (node_modules/chokidar/node_modules/fsevents):
@@ -834,7 +828,7 @@ npm install  10.52s user 1.98s system 77% cpu 16.096 total
 
 実行します。
 
-```shell script
+```shell
 ❯  npm run serve
 
 > @ serve /home/XXXXXXX/data/src/webassembly-rust/site
