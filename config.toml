@@ -26,6 +26,16 @@ paginator_pages = "7"
 archive_dropdown = "true"
 
 #image = "/images/post/default.jpg"
+
+[params.post]
+# See the Tailwind CSS documentation to set it up.
+# Recommended settings are h-32 to h-48.
+# https://tailwindcss.com/docs/height
+thumbnail_height = "h-48"
+
+# https://tailwindcss.com/docs/width
+thumbnail_width = "w-auto"
+
 [[params.customCSS]]
     href = "/css/font.css"
 
