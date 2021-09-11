@@ -4,7 +4,7 @@ description: "今回初めての Kubernetes Meetup"
 author: "makotow"
 date: 2020-02-02T01:16:46+09:00
 archives: ["2020/02"]
-image: "/images/20200202/k8sjp.jpg"
+image: "k8sjp.jpg"
 slug: kubernetes-meetup-no27
 tags: ["kubernetes", "k8sjp"]
 categories: [""]

@@ -13,7 +13,7 @@ tags:
  - Storage
 categories:
 - 2019-advent-calendar
-image: "/images/20191216/spec.png"
+image: "spec.png"
 archives: ["2019/12"]
 aliases:
     - "/rook-edgefs-overview-bb2e19ea0e0e"

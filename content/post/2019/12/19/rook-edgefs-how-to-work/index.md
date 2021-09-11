@@ -15,7 +15,7 @@ tags:
  - Storage
 categories:
 - 2019-advent-calendar
-image: "/images/20191219/crd.png"
+image: "1.png"
 aliases:
     - "/rook-edgefs-components-98285e7a7d12"
 ---

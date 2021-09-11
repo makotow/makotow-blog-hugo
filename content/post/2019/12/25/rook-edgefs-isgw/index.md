@@ -14,7 +14,7 @@ tags:
  - Kubernetes
 categories:
 -  2019-advent-calendar
-image: /images/20191225/isgw.png
+image: isgw.png
 aliases:
     - "/rook-edgefs-isgw-walkthrough-6dee382fa6fe"
 ---

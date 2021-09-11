@@ -8,7 +8,7 @@ archives: ["2020/03"]
 slug: "keyboard-deep-uhk-hhkb"
 tags: ["keyboard", "happy-hacking-keyboard", "ultimate-hacking-keyboard", "gadgets"]
 categories: ["Gadget"]
-image: /images/20200331/hhkb.jpg
+image: hhkb.jpg
 ---
 
 昨年、[こんな記事](https://blog.makotow.net/post/2019/06/26/keyboard-consideration/) を書いたがその後にアップデートがあったため、

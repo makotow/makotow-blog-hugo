@@ -16,7 +16,7 @@ tags:
 categories:
 - 2019-advent-calendar
 
-image: "/images/20191217/admin.png" 
+image: "admin.png" 
 aliases:
     - "/rook-edgefs-operator-6b3c379519c8"
 ---

@@ -17,7 +17,7 @@ tags:
 categories:
 - 2019-advent-calendar 
 archives: ["2019/12"]
-image: /images/20191223/bucket.png
+image: bucket.png
 aliases:
     - "/rook-edgefs-csi%E3%82%92%E8%A9%A6%E3%81%99-927368a119f8"
 

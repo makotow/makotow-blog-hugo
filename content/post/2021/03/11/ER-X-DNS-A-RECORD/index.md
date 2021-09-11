@@ -9,7 +9,7 @@ slug: "er-x-dnsmasq"
 tags: ["network", "dns"]
 archives: ["2021/03"]
 categories: ["network"]
-image: /images/20210311/erx.png
+image: erx.png
 ---
 
 家庭内のLANで名前解決を簡単にしたかたのでいろいろ調べた結果、なんとなく結論がでたのでその記録を残しておく記事です。
