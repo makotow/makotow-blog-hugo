@@ -27,8 +27,7 @@ archives: ["2019/03"]
 
 Istioの学習記録、今回は本家のマニュアルに書いてあることの理解を深める回であり、  
 人に伝えるためにはどのように考えて伝えればよいかを洗い出す目的で記述する記事です。
-<!--more-->
-<!--toc-->
+
 
 ### 今回の範囲・目標
 
@@ -94,11 +93,8 @@ Mixerはポリシー、テレメトリのハブとなる。
 
 
 
-![image](/posts/2019/03/11/ゼロから始めるサービスメッシュ入門-part1/images/1.png#layoutFillWidth)
+![Istioアーキテクチャ](1.png)
 
-Istioアーキテクチャ
-
-*   [https://istio.io/docs/concepts/what-is-istio/arch.svg](https://istio.io/docs/concepts/what-is-istio/arch.svg)
 
 他にもIstioを構成するコンポーネントは以下のURLに記載がります。ここではすべてを説明せずにリファレンスをします。
 

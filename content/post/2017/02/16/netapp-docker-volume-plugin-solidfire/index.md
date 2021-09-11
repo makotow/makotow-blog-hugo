@@ -17,10 +17,10 @@ categories:
 -
 archives: ["2017/02"]
 images:
- - "./images/1.png"
- - "./images/2.png"
- - "./images/3.png"
- - "./images/4.png"
+ - "1.png"
+ - "2.png"
+ - "3.png"
+ - "4.png"
 
 
 aliases:
@@ -58,7 +58,7 @@ nDVP の実現には Docker 社から提供されている Docker Volume Plugin 
 当初は Docker からホスト OS 上にデータを永続化する仕組みを提供していましたが、 Docker version 1.8 から Docker Volume の保存先を外部ストレージへ永続化できるようにプラグインフレームワーク (Docker Volume Plugin) が提供されました。（図１：Docker Volume Plugin と nDVP の関係）
 
 
-![図１: Docker Volume Plugin と nDVP の関係](./images/1.png "図１: Docker Volume Plugin と nDVP の関係")
+![図１: Docker Volume Plugin と nDVP の関係](1.png)
 
 図１: Docker Volume Plugin と nDVP の関係
 
@@ -93,7 +93,7 @@ apt-get intall jq
 今回使用する環境は以下の通りです。（図２: 検証環境) クライアント部分は前回と同じです。 SolidFire クラスタが追加になりました。
 
 
-![image](./images/2.png)
+![image](2.png)
 
 図２: 検証環境
 
@@ -181,7 +181,7 @@ $ curl -k -X POST -H "Content-type: application/json-rpc" --data @get-account.js
 WebUI から確認すると以下のように docker ユーザが作成されています。
 
 
-![image](./images/3.png#layoutTextWidth)
+![docker ユーザ作成](3.png)
 
 
 
@@ -279,7 +279,7 @@ ontap-nas           vol3
 
 Web UI からQoSの設定状況を確認します。(4kbのQoS が Gold で定義しているものになっている)
 
-![image](./images/4.png#layoutTextWidth)
+![QoS](4.png)
 
 コンテナ起動とボリュームマウントをします。
 

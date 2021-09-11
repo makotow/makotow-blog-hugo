@@ -17,8 +17,8 @@ archives: ["2017/05"]
 categories:
 -
 images:
- - "./images/1.png"
- - "./images/2.png"
+ - "/1.png"
+ - "/2.png"
 
 
 aliases:
@@ -53,7 +53,7 @@ dockerコマンドで docker イメージに保存も可能ですが（厳密に
 停止状態から起動するとデータは残ったままで起動します。停止しているコンテナインスタンスを削除することで保存されているデータが削除されます。
 
 
-![image](./images/1.png#layoutTextWidth)
+![ライフサイクルの違い](1.png)
 
 
 
@@ -111,11 +111,7 @@ Trident は kubernetes から外部ストレージに対して動的にプロビ
 Kubernetes version 1.4 リリース時にステートフルアプリケーション対応を強化し、Provisioner controller という仕組み・概念を提供しました。Trident は Provisioner controller を初めて実装したものです。
 
 
-![image](./images/2.png#layoutTextWidth)
-
-Trident overview
-
-
+![Trident overview](2.png)
 
 Trident は複数のバックエンドストレージの統合的なインターフェースという仕組みを提供しています。Kubernetesだけではなく、REST API のエンドポイントを備えているためkubernetes 以外からも使用可能です。
 

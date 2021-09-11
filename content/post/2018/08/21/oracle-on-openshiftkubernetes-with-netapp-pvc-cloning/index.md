@@ -19,8 +19,7 @@ series:
 -
 categories:
 -
-images:
- - "./images/1.png"
+image: "1.png"
 
 archives: ["2018/08"]
 aliases:
@@ -29,7 +28,7 @@ aliases:
 
 ## Instant clone and without requiring additional storage
 
-![image](./images/1.png#layoutTextWidth)
+![image](1.png)
 
 今回試したのは２つ。
 
@@ -188,7 +187,7 @@ create bigfile tablespace hugetbs datafile '/opt/oracle/oradata/tridentsid/tride
 
 ```sql
 ALTER USER SYS DEFAULT TABLESPACE HUGETBS`
-``
+```
 
 テストデータを投入するテーブルを作成。
 
@@ -208,6 +207,7 @@ ALTER TABLE testdata MOVE TABLESPACE hugetbs;
 ```
 
 テストデータ作成。これで大体1.5GBくらいになるので、あとはテーブルを必要数分コピーして1.5TBまで増やす。
+
 ```sql
 INSERT /*+ APPEND */ INTO testdata NOLOGGING  
 SELECT   
@@ -356,8 +356,9 @@ parameters:
 ```
 
 templateの登録。
+
 ```bash
-`$ oc create -f oc-oracle-template.yaml -n trident-demo  
+$ oc create -f oc-oracle-template.yaml -n trident-demo  
 
 _template'oracle-netapp-clone' created_  
 

@@ -37,10 +37,6 @@ aliases:
 *   いつの時代もステートフルワークロードは少し遅れて課題が出てくる、2019年はステートフルワークロード元年
 *   様々な環境下でのステートフルワークロード対応としてグローバル分散DB/ファイルに注目
 
-<!--more-->
-
-<!-- toc -->
-
 ---
 
 ## 過去 2015–2017くらいの話: これまで
@@ -102,9 +98,9 @@ CSIがGAしてから早いペースで仕様が追加されております。201
 
 また、以下のCNCF LandscapeにリストされているCloud Native Storage も最初から比べるとだいぶ賑やかなメンツが揃ってきました。
 
-![image](./images/1.jpg#layoutTextWidth)
+![2019/12 時点のCloud Native Storage抜粋](1.jpg)
 
-2019/12 時点のCloud Native Storage抜粋:
+
 
 [CNCF Cloud Native Interactive Landscape](https://landscape.cncf.io/category=cloud-native-storage&format=card-mode&grouping=category)
 
@@ -153,10 +149,10 @@ Vitess: Stateless Storage in the Cloud
 
 2つのプロダクトの一言紹介を見ると想定しているワークロードは見えてきますね。
 
-*   [**YugaByte**](https://www.yugabyte.com/) **DB**: The high-performance distributed SQL database
+*   **[YugaByteDB](https://www.yugabyte.com/)** : The high-performance distributed SQL database
 for global, internet-scale apps. Avoid cloud lock-in with
 an enterprise-grade, cloud-native, open-source database.
-*   [**EdgeFS**](http://edgefs.io/): Multi-cloud era distributed storage system for geo-transparent data access.
+*   **[EdgeFS](http://edgefs.io/)**: Multi-cloud era distributed storage system for geo-transparent data access.
 
 ## まとめ
 

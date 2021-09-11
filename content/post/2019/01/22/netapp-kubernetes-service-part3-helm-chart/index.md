@@ -33,15 +33,14 @@ NetApp Kubernetes Service (NKS)の使い所を見ながら、ポイントとな�
 *   **今回** 自作Helm Chartを登録する
 *   Federationを試す！
 *   ServiceMeshを試す！
-<!--more-->
-<!--toc-->
+
 
 ## 概要
 
 NKSのSolutionsにはいくつかのカテゴリがあり、以下の３つが提供されています。
 
 
-![image](./images/1.jpeg#layoutTextWidth)
+![](1.jpeg)
 
 
 
@@ -69,7 +68,7 @@ NKSのSolutionsにはいくつかのカテゴリがあり、以下の３つが�
 NKSの画面で 「Solutions」-&gt;「CHARTS REPOS」と遷移後、以下の画面になります。
 
 
-![image](./images/2.jpeg#layoutTextWidth)
+![](2.jpeg)
 
 リポジトリ登録
 
@@ -78,13 +77,13 @@ NKSの画面で 「Solutions」-&gt;「CHARTS REPOS」と遷移後、以下の�
 ここで右上の以下のアイコンをクリックします。
 
 
-![image](./images/3.jpeg#layoutTextWidth)
+![](3.jpeg)
 
 インポートボタン
 
 
 
-![image](./images/4.jpeg#layoutTextWidth)
+![](4.jpeg)
 
 リポジトリ選択画面
 
@@ -98,28 +97,28 @@ NKSの画面で 「Solutions」-&gt;「CHARTS REPOS」と遷移後、以下の�
 URL 入力後「REVIEW REPOSITORY」をクリックします。
 
 
-![image](./images/5.jpeg#layoutTextWidth)
+![](5.jpeg)
 
 
 
 確認画面となるので「SAVE REPOSITORY」をクリックします。
 
 
-![image](./images/6.jpeg#layoutTextWidth)
+![](6.jpeg)
 
 
 
 少し待つと以下の画面となりインポート成功です。
 
 
-![image](./images/7.jpeg#layoutTextWidth)
+![](7.jpeg)
 
 
 
 MyChartにもJenkinsが登録されました。（自身のリポジトリにJenkinsを作った）
 
 
-![image](./images/8.jpeg#layoutTextWidth)
+![](8.jpeg)
 
 
 

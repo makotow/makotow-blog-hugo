@@ -19,8 +19,7 @@ archives: ["2018/03"]
 categories:
 -
 
-images:
- - "./images/1.jpeg"
+image: "1.jpeg"
 
 
 aliases:
@@ -31,9 +30,8 @@ aliases:
 #### コンテナ関連のソリューションを１つに。
 
 
-![image](./images/1.jpeg#layoutTextWidth)
+![TridentにnDVPが統合](1.jpeg)
 
-TridentにnDVPが統合
 
 
 

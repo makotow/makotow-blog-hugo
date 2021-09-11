@@ -18,14 +18,10 @@ categories:
 aliases:
     - "/netapp-docker-volume-plugin-with-ansible-playbook-383d3fad9eae"
 archives: ["2017/07"]
+image: "1.png"
 ---
 
 ## nDVP を一発インストール
-
-
-
-
-![image](./images/1.png#layoutTextWidth)
 
 
 [makotow/ndvp-provisioning](https://github.com/makotow/ndvp-provisioning)

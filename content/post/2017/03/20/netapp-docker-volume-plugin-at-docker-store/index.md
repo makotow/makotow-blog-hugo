@@ -31,7 +31,7 @@ aliases:
 Docker CE/EEが発表されたと同時にdocker store に NetApp Docker Volume Plugin が登録されています。
 
 
-![image](./images/1.png#layoutTextWidth)
+![image](1.png)
 
 nDVP at Docker Store
 

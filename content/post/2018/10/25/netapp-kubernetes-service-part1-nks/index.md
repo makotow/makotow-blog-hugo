@@ -17,20 +17,8 @@ series:
 -
 categories:
 -
-images:
- - "/posts/2018/10/25/netapp-kubernetes-service-part1-nks/images/1.png"
- - "/posts/2018/10/25/netapp-kubernetes-service-part1-nks/images/2.jpeg"
- - "/posts/2018/10/25/netapp-kubernetes-service-part1-nks/images/3.jpeg"
- - "/posts/2018/10/25/netapp-kubernetes-service-part1-nks/images/4.png"
- - "/posts/2018/10/25/netapp-kubernetes-service-part1-nks/images/5.jpeg"
- - "/posts/2018/10/25/netapp-kubernetes-service-part1-nks/images/6.jpeg"
- - "/posts/2018/10/25/netapp-kubernetes-service-part1-nks/images/7.jpeg"
- - "/posts/2018/10/25/netapp-kubernetes-service-part1-nks/images/8.jpeg"
- - "/posts/2018/10/25/netapp-kubernetes-service-part1-nks/images/9.jpeg"
- - "/posts/2018/10/25/netapp-kubernetes-service-part1-nks/images/10.jpeg"
- - "/posts/2018/10/25/netapp-kubernetes-service-part1-nks/images/11.jpeg"
- - "/posts/2018/10/25/netapp-kubernetes-service-part1-nks/images/12.jpeg"
- - "/posts/2018/10/25/netapp-kubernetes-service-part1-nks/images/13.jpeg"
+image: "1.png"
+
 
 archives: ["2018/10"]
 aliases:
@@ -43,7 +31,7 @@ aliases:
 
 
 
-![image](/posts/2018/10/25/netapp-kubernetes-service-part1-nks/images/1.png#layoutTextWidth)
+![](1.png)
 
 
 
@@ -74,7 +62,7 @@ NetApp Kubernetes Service (NKS)の使い所を見ながら、ポイントとな�
 
 *   [https://cloud.netapp.com](https://cloud.netapp.com)
 
-![image](/posts/2018/10/25/netapp-kubernetes-service-part1-nks/images/2.jpeg#layoutTextWidth)
+![](2.jpeg)
 
 クラウドセントラル、サービスのダッシュボード
 
@@ -83,7 +71,7 @@ NetApp Kubernetes Service (NKS)の使い所を見ながら、ポイントとな�
 サインアップして、サービス一覧へ。
 
 
-![Topページ](/posts/2018/10/25/netapp-kubernetes-service-part1-nks/images/3.jpeg#layoutTextWidth)
+![Topページ](3.jpeg)
 
 ユースケース一覧、右の矢印をクリック
 
@@ -92,7 +80,7 @@ NetApp Kubernetes Service (NKS)の使い所を見ながら、ポイントとな�
 「Go to Cloud Data Services」をクリックして
 
 
-![NKS](/posts/2018/10/25/netapp-kubernetes-service-part1-nks/images/4.png#layoutTextWidth)
+![NKS](4.png)
 
 サービス一覧
 
@@ -113,7 +101,7 @@ NetApp Kubernetes Service (NKS)の使い所を見ながら、ポイントとな�
 #### サービス選択
 
 
-![image](/posts/2018/10/25/netapp-kubernetes-service-part1-nks/images/5.jpeg#layoutTextWidth)
+![](5.jpeg)
 
 デプロイするプロバイダーを選択
 
@@ -125,7 +113,7 @@ NetApp Kubernetes Service (NKS)の使い所を見ながら、ポイントとな�
 10/25時点でGPUサービスが追加されていました。
 
 
-![image](/posts/2018/10/25/netapp-kubernetes-service-part1-nks/images/6.jpeg#layoutTextWidth)
+![](6.jpeg)
 
 リソースの設定をする画面
 
@@ -141,7 +129,7 @@ NetApp Kubernetes Service (NKS)の使い所を見ながら、ポイントとな�
 デプロイするk8sを形成するOSなどを選択します。
 
 
-![image](/posts/2018/10/25/netapp-kubernetes-service-part1-nks/images/7.jpeg#layoutTextWidth)
+![](7.jpeg)
 
 ソフトウェアの導入・バーションの設定
 
@@ -156,7 +144,7 @@ NetApp Kubernetes Service (NKS)の使い所を見ながら、ポイントとな�
 *   Trusted Chart
 *   My Charts
 
-![image](/posts/2018/10/25/netapp-kubernetes-service-part1-nks/images/8.jpeg#layoutTextWidth)
+![](8.jpeg)
 
 登録されているHelmチャート一覧
 
@@ -169,7 +157,7 @@ NetApp Kubernetes Service (NKS)の使い所を見ながら、ポイントとな�
 ちなみに Prometheus を追加すると、依存関係のあるHAPROXYも自動で追加してくれます。
 
 
-![image](/posts/2018/10/25/netapp-kubernetes-service-part1-nks/images/9.jpeg#layoutTextWidth)
+![](9.jpeg)
 
 依存関係も見てくれる。
 
@@ -181,7 +169,7 @@ NetApp Kubernetes Service (NKS)の使い所を見ながら、ポイントとな�
 出来上がったクラスタは一覧でみることができます。
 
 
-![image](/posts/2018/10/25/netapp-kubernetes-service-part1-nks/images/10.jpeg#layoutTextWidth)
+![](10.jpeg)
 
 クラスタ一覧
 
@@ -192,7 +180,7 @@ NetApp Kubernetes Service (NKS)の使い所を見ながら、ポイントとな�
 出来上がったクラスタのクラスタ名をクリックするとクラスタの詳細をみることができます。
 
 
-![image](/posts/2018/10/25/netapp-kubernetes-service-part1-nks/images/11.jpeg#layoutTextWidth)
+![](11.jpeg)
 
 クラスタの構成
 
@@ -213,7 +201,7 @@ NetApp Kubernetes Service (NKS)の使い所を見ながら、ポイントとな�
 *   頻度はどのくらいか？
 *   使うクレデンシャルは？
 
-![image](/posts/2018/10/25/netapp-kubernetes-service-part1-nks/images/12.jpeg#layoutTextWidth)
+![](12.jpeg)
 
 heptio Arkの設定
 
@@ -222,7 +210,7 @@ heptio Arkの設定
 リストアもこの画面から実施することができます。
 
 
-![image](/posts/2018/10/25/netapp-kubernetes-service-part1-nks/images/13.jpeg#layoutTextWidth)
+![](13.jpeg)
 
 
 

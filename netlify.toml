@@ -1,30 +1,41 @@
 [build]
-publish = "public"
-command = "git submodule update --remote --merge && hugo --theme=Blonde --gc --minify"
+    publish = "public"
+    command = "git submodule update --remote --merge && hugo --theme=hugo-theme-stack --gc --minify"
 
 [context.production.environment]
-HUGO_VERSION = "0.78.2"
-HUGO_ENV = "production"
-HUGO_ENABLEGITINFO = "true"
+    HUGO_VERSION = "0.87.0"
+    HUGO_ENV = "production"
+    HUGO_ENABLEGITINFO = "true"
+    HUGO_THEME = "repo"
 
 [context.split1]
-command = "hugo --gc --minify --enableGitInfo"
+    command = "hugo --gc --minify --enableGitInfo"
 
 [context.split1.environment]
-HUGO_VERSION = "0.78.2"
-HUGO_ENV = "production"
+    HUGO_VERSION = "0.87.0"
+    HUGO_ENV = "production"
 
 [context.deploy-preview]
-command = "hugo --gc --minify --buildFuture -b $DEPLOY_PRIME_URL"
+    command = "hugo --gc --minify --buildFuture -b ${DEPLOY_PRIME_URL}"
 
 [context.deploy-preview.environment]
-HUGO_VERSION = "0.78.2"
+    HUGO_VERSION = "0.87.0"
 
 [context.branch-deploy]
-command = "hugo --gc --minify -b $DEPLOY_PRIME_URL"
+    command = "hugo --gc --minify -b ${DEPLOY_PRIME_URL}"
 
 [context.branch-deploy.environment]
-HUGO_VERSION = "0.78.2"
+    HUGO_VERSION = "0.87.0"
 
 [context.next.environment]
-HUGO_ENABLEGITINFO = "true"
+    HUGO_ENABLEGITINFO = "true"
+
+
+[[plugins]]
+    package = "netlify-plugin-hugo-cache-resources"
+
+        [plugins.inputs]
+            # If it should show more verbose logs (optional, default = true)
+            debug = true
+            # Relative path to source directory in case you use Hugo's "--s" option
+            srcdir = "./"

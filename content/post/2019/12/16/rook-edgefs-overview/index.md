@@ -55,9 +55,9 @@ aliases:
 
 Rook のストレージプロバイダーとしてEdgeFSは、Stableという状態です。
 
-![image](./images/1.png)
+![Project status([https://github.com/rook/rook#project-status](https://github.com/rook/rook#project-status))](1.png)
 
-Project status([https://github.com/rook/rook#project-status](https://github.com/rook/rook#project-status))
+
 
 
 
@@ -103,9 +103,9 @@ EdgeFSは、1つのグローバルネームスペースとして接続された�
 
 ここではRookとの関係を確認していきます。
 
-![image](./images/2.png)
+![Rook Operator Architecture](2.png)
 
-Rook Operator Architecture
+
 本家を参照したアーキテクチャを最初に示しました。
 Rookを使用すると、Kubernetesの機能を使いEdgeFS サイトを簡単に展開できます。  
 RookがKubernetesで実行されている場合、Pod または外部アプリケーションは、Rookが管理するブロックデバイスとファイルシステムをマウントしたり、オブジェクトストレージにS3 / S3X APIでアクセスできます。

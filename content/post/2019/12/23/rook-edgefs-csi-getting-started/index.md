@@ -33,9 +33,6 @@ aliases:
 *  EdgeFS CSI は NFS/iSCSI が存在
 *  （おそらく）Dynamic ProvisioningはCSI NFS/iSCSIを使うEdgeFS には NFS, iSCSI がありますが、CSIモードのNFS, CSI もあります。
 
-<!--more-->
-
-<!-- toc -->
 
 ---
 
@@ -227,9 +224,9 @@ spec:
 
 EdgeFS 側では以下のようにバケットが作成されていました。
 
-![image](./images/1.png)
+![PVC バウンド後に自動でEdgeFSのバケットが作成されている。](1.png)
 
-PVC バウンド後に自動でEdgeFSのバケットが作成されている。(pvc-2fa… という名前のものです。)
+(pvc-2fa… という名前のものです。)
 
 ## まとめ
 

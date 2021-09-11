@@ -8,16 +8,11 @@ date: 2021-03-11T00:00:00+09:00
 slug: "er-x-dnsmasq"
 tags: ["network", "dns"]
 archives: ["2021/03"]
-tags: ["network", "dns"]
 categories: ["network"]
 image: /images/20210311/erx.png
 ---
 
 家庭内のLANで名前解決を簡単にしたかたのでいろいろ調べた結果、なんとなく結論がでたのでその記録を残しておく記事です。
-
-<!--more-->
-
-<!-- toc -->
 
 ---
 

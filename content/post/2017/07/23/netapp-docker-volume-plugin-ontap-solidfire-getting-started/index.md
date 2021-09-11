@@ -18,9 +18,7 @@ series:
 -
 categories:
 -
-images:
- - "./images/1.png"
- - "./images/2.png"
+image: "1.png"
 archives: ["2017/07"]
 
 aliases:
@@ -29,14 +27,6 @@ aliases:
 ---
 
 ## nDVPのインストールからボリューム作成まで
-
-
-
-
-![image](./images/1.png#layoutTextWidth)
-
-NetApp Docker Volume Plugin Overview
-
 
 
 以前は各ホストに Docker Volume Plugin をインストールしていましたが、Docker version 1.13 以降はdocker コマンドで docker volume plugin をインストール可能となりました。
@@ -56,14 +46,7 @@ Docker Managed Plugin system は Docker イメージで plugin を配布する�
 今回の記事で検証した環境は以下の通りです。  
 HostOSから docker コマンドを使用してストレージ側にボリュームの操作ができるところまでの設定を本記事で記載します。
 
-
-
-
-![image](./images/2.png#layoutTextWidth)
-
-今回検証した環境
-
-
+![今回検証した環境](2.png)
 
 事前に docker や必要なパッケージ、設定事項は導入済みである前提です。
 

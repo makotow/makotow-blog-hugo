@@ -16,6 +16,7 @@ categories:
 archives: ["2019/12"]
 aliases:
     - "/rook-edgefs-aws-s3-edge-x-s3-%E3%82%84%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%9F-64f3735ce411"
+image: "1.png"
 
 ---
 
@@ -35,8 +36,6 @@ aliases:
 1.  EdgeFS 上でefscliを使い、クラスタ作成、テナント作成、バケット作成、サービス有効化を実施
 2.  Kubernetes側でCRDを作成しKubernetes上で使えるようにする
 
-<!--more-->
-<!-- toc -->
 ---
 
 では、早速コマンドを見ていきましょう。
@@ -45,9 +44,7 @@ aliases:
 
 EdgeFSの構造はトップにクラスタ、クラスタ配下にテナント、テナント内にバケットという構成です。
 
-![image](./images/1.png)
-
-EdgeFSの基本構成
+![EdgeFSの基本構成](1.png)
 
 *   Hawaii クラスタを作成
 *   Cola， Pepsi テナントをHawaiiクラスタ内に作成
@@ -147,9 +144,8 @@ X-Domain: pepsi.co`
 
 S3サービスを公開しました。ここまででEdgeFS側のオペレーションは終了です。
 
-![image](./images/2.png)
+![サービスを作成しバケットを外部に公開するイメージ図](2.png)
 
-サービスを作成しバケットを外部に公開するイメージ図
 
 ## Kubernetes上でアクセスできるようにする
 
@@ -276,10 +272,7 @@ AWS S3との違いとしては以下の表がまとまっています。
 
 
 
-![image](./images/3.jpg)
-
-[https://github.com/Nexenta/edge-dev/blob/master/images/EdgeVsS3.png?raw=true](https://github.com/Nexenta/edge-dev/blob/master/images/EdgeVsS3.png?raw=true)
-
+![[https://github.com/Nexenta/edge-dev/blob/master/images/EdgeVsS3.png?raw=true](https://github.com/Nexenta/edge-dev/blob/master/images/EdgeVsS3.png?raw=true)](3.jpg)
 
 
 APIの一覧は以下のサイトに公開されていました。

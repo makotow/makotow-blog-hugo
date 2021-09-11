@@ -14,8 +14,7 @@ tags:
 categories:
 -
 archives: ["2017/06"]
-images:
- - "./images/1.png"
+image: "1.png"
 
 
 aliases:
@@ -24,13 +23,6 @@ aliases:
 ---
 
 ## いまさらSSHの設定を見直してみた
-
-
-
-
-![image](./images/1.png#layoutTextWidth)
-
-
 
 Ansible の設定を行うついでにSSHの設定を見直して手順をクリアにしてみた。
 

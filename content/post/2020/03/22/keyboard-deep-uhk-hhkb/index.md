@@ -8,7 +8,6 @@ archives: ["2020/03"]
 slug: "keyboard-deep-uhk-hhkb"
 tags: ["keyboard", "happy-hacking-keyboard", "ultimate-hacking-keyboard", "gadgets"]
 categories: ["Gadget"]
-#image: /images/20200331/HHKB-hybrid-type-s-thum.jpg
 image: /images/20200331/hhkb.jpg
 ---
 
@@ -22,10 +21,6 @@ image: /images/20200331/hhkb.jpg
 * Happy Hacking Hybrid Type-S は至高
 * Ultimate Hacking Keybaord もいい感じ
 * 喰わずぎらいは良くない。キー配列などはすぐ慣れる。 
-
-<!--more-->
-
-<!-- toc -->
 
 ---
 
@@ -92,7 +87,7 @@ Happy Hacking Keyboard Hybrid Type-S の発売です。
 * https://pc.watch.impress.co.jp/docs/column/kaimono/1240554.html
 * https://happyhackingkb.com/jp/products/hybrid_types/
 
-![HappyHackingKeyboard-Hybrid-Type-S](https://lh3.googleusercontent.com/45q2PhwnoaQfPyEgylQ9WWqPETiuluj3KnybSBlaqGRLzFmB7Q6nQGfANFZLIUTLOIjnbi2KTIO8b8TiTms5XdacH5BqeMYAeXrNANad2-aaU6JMj-61NQn6QyswS-v81bgLsmrNjLsOj7jIVsDXhVLMLRESC5SMQ8s0zcFKIRNJkLA3zhlJrYNL8_3l962NlcHPbEALwvWE4PFkm--YJIih9ZlPXiBhJWTtclqrBYoJyMewBg-epxHiuulxrGI24eITXfkXxM_ttuXLN6pTSiuTb0OqClisQ5ielsquh4uITM9YwDun5bwlK0fhatxofjugWLwk94D5hGJiUzrnM-jarqib0YdPzZq51eDf2-CgTvyC3fpIYVMZgWT07T3KFJz8PQUetcBBCN5dyCLT1p8ulvwhLKXpdJ7hsm520dCpvWo_5LKhns7WrQAunFvwWFmNVGCsi4irNeoPMFPHxeGohIDobYWbbutAlD7ZtyZlvZ2H7WozRVs59r4qxyCHRy067P_-GT5LvkN9mSDXRQgfBI9MKgbthu1kjXcb_qpHTrK58fV4q7JK4LVdb-tjo6cGoWRJiNiN2mrG5jPxTIGQ6RBkoNIJVS1XxRkGfx4jOsmpO1h9NSnqm4Hd9N_snO0xCjEKv2de9o_1k53HVzxN02ZL_imGeY65dcCdo-j59iwPJKzPBLz1Jsi-Nw=w1905-h650-no)
+![HappyHackingKeyboard-Hybrid-Type-S](https://lh3.googleusercontent.com/pw/AM-JKLWZNlPVvA_kQmkFF0UG34ZIy5aAmh1vlOfZxwOAuWK_q77CeK-yfGBt06eaFbOXdN167s21rQMfvoHcyeaTNwTEj1aYTdCahXnt0ybL9TpZ9-gl59zBto_wbgjpU9ffkEHrrjOfnd7GsWPdWH3KkeJ8=w2466-h842-no?authuser=0)
 
 というわけで購入しました
 

@@ -40,11 +40,6 @@ Rookだらけの Advent Calendar 2019/12/19: Rook EdgeFS 今までの回で疑�
 
 ということで、本日は急遽予定を変更して今まで気になってきたことを調べてみた結果をアドベントカレンダーとします。
 
-<!--more-->
-
-<!-- toc -->
-
-
 ## 情報源
 
 なお、調べていくと公式ドキュメント類ではなく、Mediumの投稿が一番思想や仕組みがまとまっているということがわかりました。
@@ -93,10 +88,7 @@ rook-edgefs-target-2                       3/3     Running   0 5d8h
 参照した記事であったこの記事がイメージが湧きやすいです。
 
 
-![image](./images/1.png)
-
-[https://miro.medium.com/max/440/1*PH-sN1qujkNug-N7C56jyw.png](https://miro.medium.com/max/440/1*PH-sN1qujkNug-N7C56jyw.png)
-
+![[https://miro.medium.com/max/440/1*PH-sN1qujkNug-N7C56jyw.png](https://miro.medium.com/max/440/1*PH-sN1qujkNug-N7C56jyw.png)](1.png)
 
 
 EdgeFS ではバケットという概念でデータ保管をしています。
@@ -125,7 +117,9 @@ CCOW gateway library API を使った時点で実施されていることにな�
 EdgeFS起動後にefscliでクラスタ作成時の引数で設定します。
 
 *   ccow-ec-enabled で erasure coding を有効化
-*   ccow-ec-datamode でモードを設定``$ efscli cluster create demo -o ccow-ec-enabled=1,ccow-ec-datamode=4:2:rs``
+*   ccow-ec-datamode でモードを設定
+
+``$ efscli cluster create demo -o ccow-ec-enabled=1,ccow-ec-datamode=4:2:rs``
 
 ec-datamodeについては以下の通り。
 

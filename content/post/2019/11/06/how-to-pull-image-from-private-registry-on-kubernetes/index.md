@@ -29,11 +29,6 @@ CI/CD のパイプラインを作成時に、イメージ置き場をプライ�
 
 複数のログイン方法がありますが（詳細は「[Pull an Image from a Private Registry](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/)」を参考）ここではCI/CDパイプラインでイメージをビルドするときや、コンテナをデプロイするときにプライベートレジストリからイメージをダウンロードする際にログインしておらず、エラーで停止してしまうことを防ぐための方法を記載します。
 
-<!--more-->
-
-<!--toc-->
-
-
 
 ## やるべきこと
 

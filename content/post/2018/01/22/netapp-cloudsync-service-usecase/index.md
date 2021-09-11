@@ -17,36 +17,7 @@ series:
 -
 categories:
 -
-
-images:
- - "./images/1.png"
- - "./images/2.gif"
- - "./images/3.jpeg"
- - "./images/4.jpeg"
- - "./images/5.jpeg"
- - "./images/6.jpeg"
- - "./images/7.jpeg"
- - "./images/8.jpeg"
- - "./images/9.jpeg"
- - "./images/10.jpeg"
- - "./images/11.jpeg"
- - "./images/12.jpeg"
- - "./images/13.jpeg"
- - "./images/14.jpeg"
- - "./images/15.jpeg"
- - "./images/16.jpeg"
- - "./images/17.jpeg"
- - "./images/18.jpeg"
- - "./images/19.jpeg"
- - "./images/20.jpeg"
- - "./images/21.jpeg"
- - "./images/22.jpeg"
- - "./images/23.jpeg"
- - "./images/24.jpeg"
- - "./images/25.jpeg"
- - "./images/26.jpeg"
-
-
+image: "1.png"
 aliases:
     - "/ttps-medium-com-makotow-netapp-cloudsync-usecase-aed66d395d00"
 
@@ -66,7 +37,7 @@ aliases:
 
 
 
-![image](./images/1.png#layoutTextWidth)
+![](1.png)
 
 [http://live.netapp-insight.com/detail/videos/see-more-netapp-insight-2017-videos/video/5599211315001/netapp-insight-general-session-day-3?autoStart=true&amp;page=3](http://live.netapp-insight.com/detail/videos/see-more-netapp-insight-2017-videos/video/5599211315001/netapp-insight-general-session-day-3?autoStart=true&amp;page=3)
 
@@ -108,7 +79,7 @@ SnapMirrorを使った転送、転送元、転送先にONTAPが必要。バッ�
 NFS と S3 の間にデータを変換する 「Data broker 」が存在します。このデータブローカーにデータを送ることで宛先に適したフォーマットに変換しデータ転送を行います。
 
 
-![image](./images/2.gif#layoutTextWidth)
+![](2.gif)
 
 
 
@@ -120,14 +91,14 @@ NFS と S3 の間にデータを変換する 「Data broker 」が存在しま�
 
 *   [https://cloudsync.netapp.com](https://cloudsync.netapp.com)
 
-![Login画面](./images/3.jpeg#layoutTextWidth)
+![Login画面](3.jpeg)
 
 
 
 ログインするとリレーション（転送元、転送先）を選択する画面となります。
 
 
-![image](./images/4.jpeg#layoutTextWidth)
+![](4.jpeg)
 
 
 
@@ -140,7 +111,7 @@ NFS と S3 の間にデータを変換する 「Data broker 」が存在しま�
 *   CIFS Server
 *   S3 Bucket
 
-![image](./images/5.jpeg#layoutTextWidth)
+![](5.jpeg)
 
 
 
@@ -152,63 +123,63 @@ NFS と S3 の間にデータを変換する 「Data broker 」が存在しま�
 *   S3 Bucket
 *   Storage Grid
 
-![image](./images/6.jpeg#layoutTextWidth)
+![](6.jpeg)
 
 
 
 今回はオンプレミスのNFSとオンプレミスのStorageGridを選択しました。
 
 
-![image](./images/7.jpeg#layoutTextWidth)
+![](7.jpeg)
 
 
 
 仕組みの説明画面がでます。
 
 
-![image](./images/8.jpeg#layoutTextWidth)
+![](8.jpeg)
 
 
 
 転送元のIPを設定します。
 
 
-![image](./images/9.jpeg#layoutTextWidth)
+![](9.jpeg)
 
 
 
 ネットワークの疎通が取れると以下のような確認になります。
 
 
-![image](./images/10.jpeg#layoutTextWidth)
+![](10.jpeg)
 
 
 
 データブローカーのデプロイ先を選択します。
 
 
-![image](./images/11.jpeg#layoutTextWidth)
+![](11.jpeg)
 
 
 
 今回はオンプレミスを選択しました。
 
 
-![image](./images/12.jpeg#layoutTextWidth)
+![](12.jpeg)
 
 
 
 オンプレミスを選択するとデプロイメントの手順が表示されます。
 
 
-![image](./images/13.jpeg#layoutTextWidth)
+![](13.jpeg)
 
 
 
 最後まで手順を実行すると、以下のような画面となります。これでデータブローカーのインストール完了です。
 
 
-![image](./images/14.jpeg#layoutTextWidth)
+![](14.jpeg)
 
 
 
@@ -217,56 +188,56 @@ NFS と S3 の間にデータを変換する 「Data broker 」が存在しま�
 転送元のディレクトリ一覧を選択します。
 
 
-![image](./images/15.jpeg#layoutTextWidth)
+![](15.jpeg)
 
 
 
 転送先のIPを設定します。
 
 
-![image](./images/16.jpeg#layoutTextWidth)
+![](16.jpeg)
 
 
 
 ポート、アクセスキー、シークレットキーを設定します。
 
 
-![image](./images/17.jpeg#layoutTextWidth)
+![](17.jpeg)
 
 
 
 「Continue」をクリックすると以下のバケットを読み込む画面になります。
 
 
-![image](./images/18.jpeg#layoutTextWidth)
+![](18.jpeg)
 
 
 
 転送先のバケットを選択します。
 
 
-![image](./images/19.jpeg#layoutTextWidth)
+![](19.jpeg)
 
 
 
 確認画面が表示されます。
 
 
-![image](./images/20.jpeg#layoutTextWidth)
+![](20.jpeg)
 
 
 
 「Create Relationship」をクリックすると同期が始まります。
 
 
-![image](./images/21.jpeg#layoutTextWidth)
+![](21.jpeg)
 
 
 
 転送完了画面は画面下部に進捗％が表示されます。
 
 
-![image](./images/22.jpeg#layoutTextWidth)
+![](22.jpeg)
 
 
 
@@ -275,7 +246,7 @@ NFS と S3 の間にデータを変換する 「Data broker 」が存在しま�
 リレーション毎の管理画面は以下のように見えます。
 
 
-![image](./images/23.jpeg#layoutTextWidth)
+![](23.jpeg)
 
 
 
@@ -286,21 +257,21 @@ NFS と S3 の間にデータを変換する 「Data broker 」が存在しま�
 以下の画面の 「Sync Schedule」をクリック。
 
 
-![image](./images/24.jpeg#layoutTextWidth)
+![](24.jpeg)
 
 
 
 設定画面が表示されます。
 
 
-![image](./images/25.jpeg#layoutTextWidth)
+![](25.jpeg)
 
 
 
 スケジュールだけではなく、手動でオンデマンドに同期することもできます。
 
 
-![image](./images/26.jpeg#layoutTextWidth)
+![](26.jpeg)
 
 
 

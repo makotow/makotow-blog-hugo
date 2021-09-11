@@ -20,7 +20,7 @@ archives: ["2018/03"]
 categories:
 -
 images:
- - "./images/1.jpeg"
+ - "1.jpeg"
 
 
 aliases:
@@ -57,7 +57,7 @@ GCP上のVMからAWS上のNFSサーバへは疎通＋NFSマウントができて
  そこに k8s pod への戻りのルーティングを追記したことで解決。
 
 
-![クラウドルーター設定](.//images/1.jpeg#layoutTextWidth)
+![クラウドルーター設定](1.jpeg)
 
 クラウドルータにカスタムルート追加
 

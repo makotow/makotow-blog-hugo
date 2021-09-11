@@ -77,9 +77,8 @@ $ kubectl create -f cluster.yaml
 
 
 
-![image](./images/1.png#layoutTextWidth)
+![KVM の仮想マシンのディスク](1.png)
 
-KVM の仮想マシンのディスク
 
 
 
@@ -215,13 +214,13 @@ rook-edgefs   rook-edgefs-ui        ClusterIP   10.108.180.155   <none>        3
 
 サービスの中のrook-edgefs-ui が管理画面になっています。forwardして画面を確認しました。無事３ノード分のクラスタができていました。
 
-![image](./images/2.png#layoutTextWidth)
+![](2.png)
 
 ## ダッシュボード
 
 仮想マシンを1台電源オフにすると 以下のようになりました。
 
-![image](./images/3.png#layoutTextWidth)
+![](3.png)
 
 ## まとめ
 

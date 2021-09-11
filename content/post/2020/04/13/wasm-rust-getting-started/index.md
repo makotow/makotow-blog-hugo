@@ -25,7 +25,7 @@ categories: ["wasm-getting-started"]
 
 ## Rust でやってみる。
 
-Rust は以下を参照しながらインストール。
+Rust は以下を`参照しながらインストール。
 
 https://developer.mozilla.org/en-US/docs/WebAssembly/rust_to_wasm
 

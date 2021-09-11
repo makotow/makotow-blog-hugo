@@ -18,11 +18,7 @@ tags:
 archives: ["2017/12"]
 categories:
 -
-image: "./images/1.jpeg" 
-images:
- - "./images/1.jpeg"
-
-
+image: "1.jpeg"
 aliases:
     - "/https-medium-com-makotow-trident-getting-started-afd254262ba2"
 
@@ -54,22 +50,21 @@ aliases:
 *   OpenShift origin 3.6
 *   trident 17.10.1
 
-![image](./images/1.jpeg#layoutTextWidth)
-
-検証した環境
-
-
+![検証した環境](1.jpeg)
 
 ## ホストOS設定
 
 trident をデプロイするホストへ以下のパッケージをインストールし、サービスを有効化する。
-``$ sudo yum install -y nfs-utils jq  
+
+```
+$ sudo yum install -y nfs-utils jq  
 $ sudo yum install -y lsscsi iscsi-initiator-utils sg3_utils device-mapper-multipath   
 $ sudo mpathconf --enable --with_multipathd y  
 $ sudo systemctl enable iscsid multipathd  
 $ sudo systemctl start iscsid multipathd  
 $ sudo systemctl enable iscsi  
-$ sudo systemctl start iscsi``
+$ sudo systemctl start iscsi
+```
 
 ## ストレージ設定
 
@@ -175,6 +170,7 @@ round-trip min/avg/max = 0.267/1.380/2.494 ms
 
 trident デプロイ中にイメージがローカルになければダウンロードしますが、タイムアウトが発生し失敗することもあるため  
  事前にダウンロードします。
+
 ```bash 
 $ docker pull netapp/trident-launcher:17.10.1  
 $ docker pull netapp/trident:17.10.1  
@@ -189,10 +185,8 @@ $ docker pull quay.io/coreos/etcd:3.1.3
 
 例えば、 17.10.1 であれば以下のURLとなります。
 
-```bash 
+* [https://github.com/NetApp/trident/releases/download/v17.10.1/trident-installer-17.10.1.tar.gz](https://github.com/NetApp/trident/releases/download/v17.10.1/trident-installer-17.10.1.tar.gz)
 
-[https://github.com/NetApp/trident/releases/download/v17.10.1/trident-installer-17.10.1.tar.gz](https://github.com/NetApp/trident/releases/download/v17.10.1/trident-installer-17.10.1.tar.gz)
-```
 
 インストール後、解凍します。
 

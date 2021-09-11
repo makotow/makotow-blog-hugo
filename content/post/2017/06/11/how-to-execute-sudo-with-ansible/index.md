@@ -16,8 +16,7 @@ archives: ["2017/06"]
 categories:
 -
 
-images:
- - "./images/1.png"
+image: "1.png"
 
 
 aliases:
@@ -28,7 +27,7 @@ aliases:
 ## Ansibleの基礎的なところ
 
 
-![image](./images/1.png#layoutTextWidth)
+![](1.png)
 
 
 

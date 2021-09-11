@@ -33,7 +33,6 @@ Rookだらけの Advent Calendar 2019/12/24: EdgeFSの真髄
 * 非同期レプリケーションでデータ同期は実現
 * PoC Friendly ではない…
 
-<!--more-->
 
 ## EdgeFS Inter-Segment Gatewayの概要
 
@@ -47,7 +46,7 @@ EdgeFSの技術を使うことで利用者は簡単にグローバルネーム�
 
 本家の画像を借りると以下のようなイメージです。
 
-![image](./images/1.png)
+![image](1.png)
 
 [https://rook.io/docs/rook/master/media/edgefs-isgw.png](https://rook.io/docs/rook/master/media/edgefs-isgw.png)
 
@@ -90,36 +89,36 @@ Hawaiiクラスタのbk1がHawaii-rクラスタにレプリケーションされ
 
 1. EdgeFS の Services画面から「Add Service」をクリックします。
 
-![image](./images/2.png)
+![image](2.png)
 
 2. ISGWサービスを作成します。Name,Service Type を選択し「Add」をクリック。
 
-![image](./images/3.png)
+![image](3.png)
 
 
 ### 受信側のEdgeFSクラスタ作成
 
 3. レプリケーションの送信先を選択する画面になるため、「EdgeFS」を選択。
 
-![image](./images/4.png)
+![image](4.png)
 
 
 4.「Inter-Segment Endpoint」を選択。
 
 
-![image](./images/5.png)
+![image](5.png)
 
 5. Auth key を設定
 
-![image](./images/6.png)
+![image](6.png)
 
 6. ApplyをクリックするとISGWサービスが作成されます。
 
-![image](./images/7.png)
+![image](7.png)
 
 7. Disabled -&gt; Enableに変更します。
 
-![image](./images/8.png)
+![image](8.png)
 
 
 この時点でKubernetesのSVCが作成され、エンドポイントのIPが付与されます。
@@ -130,19 +129,19 @@ Hawaiiクラスタのbk1がHawaii-rクラスタにレプリケーションされ
 
 1.  同様にサービスを作成します。
 
-![image](./images/9.png)
+![image](9.png)
 
 2. EdgeFS を選択します。
 
-![image](./images/10.png)
+![image](10.png)
 
 3. 「Inter-Segment Gateway」 を選択
 
-![image](./images/11.png)
+![image](11.png)
 
 4. Replication typeをInitial and continuousで設定
 
-![image](./images/12.png)
+![image](12.png)
 
 ```bash
 ❯ kubectl get svc -n rook-edgefs | grep hawaii  
@@ -153,18 +152,18 @@ rook-edgefs-isgw-hawaii-r      ClusterIP   10.100.194.238   none 49000/TCP,14000
 
 5. 確認したIPを以下の画面で入力。
 
-![image](./images/13.png)
+![image](13.png)
 
 6. 確認画面になるので「Apply」後、サービスをenableに変更します。
 
-![image](./images/14.png)
+![image](14.png)
 
-![image](./images/15.png)
+![image](15.png)
 
 
 最後にレプリケーションするバケットを選択します。（下図は追加後のもの）
 
-![image](./images/16.png)
+![image](16.png)
 
 ここまででレプリケーション設定が完了しました。
 

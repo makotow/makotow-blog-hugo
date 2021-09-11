@@ -18,15 +18,8 @@ tags:
 archives: ["2017/03"]
 categories:
 -
-images:
- - "./images/1.png"
- - "./images/2.png"
- - "./images/3.png"
- - "./images/4.png"
- - "./images/5.png"
- - "./images/6.png"
- - "./images/7.png"
- - "./images/8.png"
+image: "1.png"
+
 
 
 aliases:
@@ -45,7 +38,7 @@ E-Series 単体のパフォーマンスメトリクスを取得するツール�
 ## 完成形の画面
 
 
-![image](./images/1.png#layoutTextWidth)
+![完成形](1.png)
 
 
 
@@ -114,18 +107,18 @@ admin のパスワード設定
 「SetUp」 タブから administrator パスワードの変更
 
 
-![image](./images/2.png#layoutTextWidth)
+![パスワード設定](2.png)
 
 Setup タブから Administratorのパスワード変更
 
 「Performance」タブから 性能情報取得用のカウンタ起動
 
 
-![image](./images/3.png#layoutTextWidth)
+![パフォーマンスカウント起動](3.png)
 
 SANTricity Managerの画面（性能情報）
 
-![image](./images/4.png#layoutTextWidth)
+![スタートをクリック](4.png)
 
 統計情報収集のモニタ起動
 
@@ -182,7 +175,7 @@ GitHub からダウンロードしたモジュールはそのままは使用で�
 
 一連のインストール方法は以下の通りです。
 ```bash
-`$ cd /opt/  
+$ cd /opt/  
 $ mkdir netapp  
 $ cd netapp/  
 $ git clone [https://github.com/plz/E-Series-Graphite-Grafana.git](https://github.com/plz/E-Series-Graphite-Grafana.git)
@@ -190,7 +183,7 @@ $ git clone [https://github.com/plz/E-Series-Graphite-Grafana.git](https://githu
 
 以下に変更したファイルのdiff を提示します。
 ```bash
-`$ git diff  
+$ git diff  
 diff --git a/graphite-collector/eseries-metrics-collector.pl b/graphite-collector/eseries-metrics-collector.pl  
 index ab53561..ab39313 100755  
 --- a/graphite-collector/eseries-metrics-collector.pl  
@@ -267,7 +260,7 @@ systemctl start eseries-metrics-collector
 Graphite 起動時のパラメータで指定した URL を指定します。
 
 
-![image](./images/5.png#layoutTextWidth)
+![Grafana設定](5.png)
 
 Grafana データソース登録画面
 
@@ -281,12 +274,12 @@ GrafanaにインポートするダッシュボードはGitHub上に公開され�
 
 ダッシュボードのインポート方法は Grafana ログイン後に「Home」をクリックするとダッシュボードのインポート機能があります。
 
-![image](./images/6.png#layoutTextWidth)
+![ダッシュボードのインポート](6.png)
 
 ダッシュボードインポート画面
 インポートボタンをクリックすると jsonファイルをアップロードできるのでこの機能を使ってGrafanaにダッシュボードを追加します。
 
-![image](./images/7.png#layoutTextWidth)
+![ダッシュボードのインポート(JSON)](7.png)
 
 ダッシュボードインポート画面
 
@@ -309,19 +302,19 @@ journalctl -xef -u eseries-metrics-collector
 E-Series collectorが動作している場合は以下のスクリーンショットのように Graphite にStatistics が登録されています。
 
 
-![image](./images/8.png#layoutTextWidth)
+![Graphite 設定](8.png)
 
 GraphiteにE-Series の Statistics が登録されていることを確認
 
 ## WebService Proxy に対象のE-Series を登録しているか
 
-## 確認方法
+### 確認方法
 
 ```bash
 $ curl -X GET --header "Accept: application/json" "http://10.128.221.213:8080/devmgr/v2/storage-systems" -u ro | jq .
 ```
 
-## 実行結果
+### 実行結果
 
 上記コマンドの結果を記載します。
 
@@ -404,7 +397,7 @@ Enter host password for user "ro":
 ]
 ```
 
-## WSP への追加方法
+### WSP への追加方法
 
 WebService ProxyからE-Seriesを管理するためには、WSP の管理対象として E-Series を追加する必要があります。
 ```bash

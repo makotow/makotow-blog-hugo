@@ -13,18 +13,13 @@ tags:
 
 categories:
 -
-images:
- - "./images/1.png"
+image: "1.png"
 archives: ["2017/05"]
 
 aliases:
     - "/medium%E3%83%A1%E3%83%B3%E3%83%90%E3%83%BC%E3%81%AB%E3%81%AA%E3%81%A3%E3%81%9F-7187db65cc63"
 
 ---
-
-![image](./images/1.png#layoutTextWidth)
-
-Medium member
 
 
 

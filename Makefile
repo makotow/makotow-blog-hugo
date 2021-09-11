@@ -34,4 +34,4 @@ deploy:
 
 .PHONY: update-theme
 update-theme:
-	git submodule update --rebase --remote
+	git submodule update --remote --merge

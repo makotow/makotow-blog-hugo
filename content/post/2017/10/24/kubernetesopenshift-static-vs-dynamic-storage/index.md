@@ -18,12 +18,7 @@ tags:
 archives: ["2017/10"]
 categories:
 -
-images:
- - "./images/1.png"
- - "./images/2.png"
- - "./images/3.png"
-
-
+image: "1.png"
 aliases:
     - "/kubernetes-static-vs-dynamic-storage-provisioning-1eaeddb8dbfb"
 
@@ -79,9 +74,8 @@ PVC は kubernetes よって以下の動きをします。
 
 
 
-![image](./images/1.png#layoutTextWidth)
+![k8s におけるStatic provisioning のストレージリソース割り当て](1.png)
 
-k8s におけるStatic provisioning のストレージリソース割り当て
 
 
 
@@ -104,9 +98,8 @@ StorageClassを使ったDynamic Provisioning は以下のようなイメージ�
 
 
 
-![image](./images/2.png#layoutTextWidth)
+![k8s の Dynamic Provisioning &amp; StorageClass](2.png)
 
-k8s の Dynamic Provisioning &amp; StorageClass
 
 
 
@@ -129,9 +122,8 @@ Trident は Storage Dynamic Provisioner として NetApp ストレージと Stor
 
 
 
-![image](./images/3.png#layoutTextWidth)
+![Tridentの概念図](3.png)
 
-Tridentの概念図
 
 
 
